@@ -88,7 +88,7 @@ export default function HeroSection() {
       <div className="relative z-10 flex-1 flex flex-col justify-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
 
-          <div>
+          <div className="min-w-0">
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -182,18 +182,20 @@ export default function HeroSection() {
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="hidden lg:flex justify-center items-center"
+            className="hidden lg:flex justify-center items-center min-w-0 overflow-hidden"
           >
-            <PhoneMockup />
+            <div className="scale-[0.8] xl:scale-[0.95] 2xl:scale-100 origin-center flex-shrink-0">
+              <PhoneMockup />
+            </div>
           </motion.div>
         </div>
       </div>
 
-      <div className="relative z-10 pb-12 pt-8">
+      <div className="relative z-10 pb-12 pt-8 overflow-hidden">
         <p className="text-center text-white/40 text-sm mb-6 font-medium uppercase tracking-wider">
           Des professionnels de ces entreprises nous font confiance
         </p>
-        <div className="overflow-hidden">
+        <div className="overflow-hidden w-full">
           <motion.div
             animate={{ x: ['0%', '-50%'] }}
             transition={{ duration: 22, repeat: Infinity, ease: 'linear' }}

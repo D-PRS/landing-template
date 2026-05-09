@@ -11,7 +11,7 @@ import CtaFinalSection from './components/landing/CtaFinalSection'
 
 export default function HomePage() {
   return (
-    <div className="relative">
+    <div className="relative overflow-x-hidden">
       <div className="fixed inset-0 bg-gradient-to-br from-primary via-[#001540] to-primary -z-10" />
       <div className="fixed inset-0 -z-10" style={{ background: 'linear-gradient(to right, rgba(5,221,225,0.10), rgba(5,251,225,0.05))' }} />
       <div className="fixed top-[10%] right-[8%] w-[600px] h-[600px] rounded-full blur-3xl -z-10 pointer-events-none" style={{ backgroundColor: 'rgba(5,221,225,0.08)' }} />
