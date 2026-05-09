@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450">
+  <defs>
+    <radialGradient id="bg-i" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#1e1000"/>
+      <stop offset="55%" stop-color="#0d0700"/>
+      <stop offset="100%" stop-color="#060400"/>
+    </radialGradient>
+    <linearGradient id="box-i" x1="15%" y1="0%" x2="85%" y2="100%">
+      <stop offset="0%" stop-color="#92430f"/>
+      <stop offset="45%" stop-color="#78350f"/>
+      <stop offset="100%" stop-color="#2d1005"/>
+    </linearGradient>
+    <linearGradient id="shine-i" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="white" stop-opacity="0.28"/>
+      <stop offset="18%" stop-color="white" stop-opacity="0.04"/>
+      <stop offset="100%" stop-color="white" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="letter-i" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fff3c0"/>
+      <stop offset="35%" stop-color="#fbbf24"/>
+      <stop offset="100%" stop-color="#b45309"/>
+    </linearGradient>
+    <filter id="bloom-i" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="28" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="glow-i" x="-25%" y="-25%" width="150%" height="150%">
+      <feGaussianBlur stdDeviation="10" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="soft-i" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur stdDeviation="5"/>
+    </filter>
+  </defs>
+
+  <rect width="800" height="450" fill="url(#bg-i)"/>
+  <rect x="190" y="65" width="420" height="320" rx="64" fill="#fbbf24" opacity="0.18" filter="url(#bloom-i)"/>
+  <rect x="185" y="62" width="430" height="328" rx="66" fill="#fbbf24" opacity="0.07"/>
+  <rect x="178" y="54" width="444" height="342" rx="62" fill="url(#box-i)"/>
+  <rect x="178" y="54" width="444" height="342" rx="62" fill="none" stroke="#fbbf24" stroke-width="1" stroke-opacity="0.35"/>
+  <rect x="178" y="54" width="444" height="342" rx="62" fill="url(#shine-i)"/>
+  <ellipse cx="400" cy="225" rx="160" ry="130" fill="#fbbf24" opacity="0.10" filter="url(#soft-i)"/>
+
+  <g filter="url(#glow-i)">
+    <text x="400" y="225"
+      font-family="'Arial Black','Arial Bold',Arial,sans-serif"
+      font-size="210" font-weight="900"
+      fill="url(#letter-i)"
+      text-anchor="middle"
+      dominant-baseline="central"
+      letter-spacing="-6">in</text>
+  </g>
+  <text x="400" y="225"
+    font-family="'Arial Black','Arial Bold',Arial,sans-serif"
+    font-size="210" font-weight="900"
+    fill="white" fill-opacity="0.12"
+    text-anchor="middle"
+    dominant-baseline="central"
+    letter-spacing="-6">in</text>
+
+  <circle cx="400" cy="225" r="54" fill="#fbbf24" opacity="0.15" filter="url(#soft-i)"/>
+  <circle cx="400" cy="225" r="50" fill="white" fill-opacity="0.12"/>
+  <circle cx="400" cy="225" r="46" fill="white" fill-opacity="0.88"/>
+  <ellipse cx="393" cy="213" rx="18" ry="10" fill="white" fill-opacity="0.35"/>
+  <polygon points="388,207 388,243 424,225" fill="#78350f"/>
+</svg>

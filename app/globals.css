@@ -1,26 +1,106 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+@font-face {
+  font-family: 'Droxen';
+  src: url('/fonts/DROXEN_Demo-BF6703f7358a2c6.ttf') format('truetype');
+  font-weight: 400 900;
+  font-display: swap;
+  unicode-range: U+0020-002F, U+003A-007E, U+00A0-FFFF;
+}
+
+@font-face {
+  font-family: 'Carlito';
+  src: url('/fonts/Carlito-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Carlito';
+  src: url('/fonts/Carlito-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-display: swap;
+}
+
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-primary: #002060;
+  --color-primary-50: #e6eaf4;
+  --color-primary-100: #ccd5e9;
+  --color-primary-200: #99abd3;
+  --color-primary-300: #6681bd;
+  --color-primary-400: #3357a7;
+  --color-primary-500: #002060;
+  --color-primary-600: #001a4d;
+  --color-primary-700: #00143a;
+  --color-primary-800: #000d26;
+  --color-primary-900: #000713;
+
+  --color-secondary: #05dde1;
+  --color-secondary-50: #e6fdfd;
+  --color-secondary-100: #ccfbfb;
+  --color-secondary-200: #99f7f7;
+  --color-secondary-300: #66f3f3;
+  --color-secondary-400: #33efef;
+  --color-secondary-500: #05dde1;
+  --color-secondary-600: #04b1b4;
+  --color-secondary-700: #038587;
+  --color-secondary-800: #02585a;
+  --color-secondary-900: #012c2d;
+
+  --color-tertiary: #05fbe1;
+
+  --font-sans: 'Carlito', 'Inter', system-ui, sans-serif;
+  --font-display: 'Droxen', 'Inter', system-ui, sans-serif;
+
+  --shadow-card: 0 2px 12px rgba(0,32,96,0.08);
+  --shadow-card-hover: 0 8px 30px rgba(0,32,96,0.15);
+  --shadow-glow: 0 0 20px rgba(5,221,225,0.3);
+  --shadow-glow-lg: 0 0 40px rgba(5,221,225,0.4);
+
+  --radius-2xl: 16px;
+  --radius-3xl: 24px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #f4f6f9; }
+::-webkit-scrollbar-thumb { background: #002060; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #05dde1; }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  color: #1a1a1a;
+  background: #ffffff;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.shadow-glow { box-shadow: 0 0 20px rgba(5,221,225,0.3); }
+.shadow-glow-lg { box-shadow: 0 0 40px rgba(5,221,225,0.4); }
+.shadow-card { box-shadow: 0 2px 12px rgba(0,32,96,0.08); }
+.shadow-card-xl { box-shadow: 0 4px 24px rgba(0,32,96,0.12); }
+
+.video-container {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
