@@ -2,8 +2,13 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Landing Template',
-  description: 'Landing page template',
+  title: 'Provisual | E-books LinkedIn — Guides pratiques pour performer',
+  description: 'Téléchargez nos e-books LinkedIn : prospection, contenu, copywriting, optimisation de profil et algorithme. Des guides clairs et actionnables pour booster vos résultats.',
+  openGraph: {
+    title: 'Provisual | E-books LinkedIn',
+    description: 'Des guides clairs, éprouvés, directement applicables pour performer sur LinkedIn.',
+    images: ['https://cdn.prod.website-files.com/68ab2d1a568ed1d53d774d32/68b81133a875173eed46a60b_Open%20graph.png'],
+  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

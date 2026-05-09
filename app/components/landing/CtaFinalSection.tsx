@@ -1,78 +1,94 @@
 'use client'
 
+import Image from 'next/image'
 import { motion } from 'framer-motion'
-import { ArrowRight, Shield, Clock, Zap } from 'lucide-react'
+import { ArrowRight, Calendar, BookOpen } from 'lucide-react'
+
+const CDN = 'https://cdn.prod.website-files.com/68ab2d1a568ed1d53d774d32'
+
+const AVATARS = [
+  `${CDN}/68b605c0f0599c67093cc3aa_Pierrick.png`,
+  `${CDN}/68b608ed49588bd5aca23903_Maylis.png`,
+  `${CDN}/68b5ff2ba9b3ff9512d8ba74_Gaetant.png`,
+  `${CDN}/68b608168ed5a22c8350a930_Nicolas.png`,
+  `${CDN}/68b6068d0a093a8838989158_Issam.png`,
+]
 
 export default function CtaFinalSection() {
   return (
     <section className="relative py-24 overflow-hidden">
+      {/* Background glow */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <div className="w-[600px] h-[600px] rounded-full blur-3xl opacity-20"
+          style={{ background: 'radial-gradient(circle, #05dde1 0%, #0848aa 50%, transparent 80%)' }} />
+      </div>
+
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <span className="inline-block bg-secondary/20 text-secondary text-sm font-semibold px-4 py-1.5 rounded-full mb-6">
-            Commencez maintenant
+          <span className="inline-block border border-secondary/30 text-secondary text-xs font-semibold px-4 py-1.5 rounded-full mb-8 uppercase tracking-widest"
+            style={{ backgroundColor: 'rgba(5,221,225,0.08)' }}>
+            Passez à l&apos;action
           </span>
 
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-6 leading-[1.1]">
-            Prêt à devenir une<br />
-            <span className="text-secondary">référence dans votre domaine</span> ?
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-6 leading-[1.05]">
+            Prêt à devenir une{' '}
+            <span className="gradient-text">référence</span>
+            <br />
+            sur LinkedIn ?
           </h2>
 
-          <p className="text-xl text-white/70 mb-10 max-w-2xl mx-auto leading-relaxed">
-            Rejoignez 340 professionnels qui ont transformé leur présence grâce à notre méthode.
-            Votre première formation est entièrement gratuite.
+          <p className="text-xl text-white/60 mb-12 max-w-2xl mx-auto leading-relaxed">
+            Téléchargez nos e-books ou réservez un appel gratuit de 30 minutes
+            avec notre équipe pour définir votre stratégie LinkedIn.
           </p>
 
-          <motion.button
-            whileHover={{ scale: 1.05, boxShadow: '0 0 40px rgba(5,221,225,0.5)' }}
-            whileTap={{ scale: 0.97 }}
-            className="inline-flex items-center gap-3 bg-secondary text-primary font-black text-xl px-10 py-5 rounded-2xl shadow-glow hover:bg-tertiary transition-all duration-200 mb-6"
-          >
-            Rejoindre l'Espace Pro maintenant
-            <ArrowRight className="w-6 h-6" />
-          </motion.button>
-
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-6 text-white/60 text-sm">
-            <div className="flex items-center gap-2">
-              <Shield className="w-4 h-4 text-secondary" />
-              Sans engagement
-            </div>
-            <div className="flex items-center gap-2">
-              <Clock className="w-4 h-4 text-secondary" />
-              Annulation à tout moment
-            </div>
-            <div className="flex items-center gap-2">
-              <Zap className="w-4 h-4 text-secondary" />
-              Accès immédiat
-            </div>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+            <motion.a
+              href="#ebooks"
+              whileHover={{ scale: 1.05, boxShadow: '0 0 40px rgba(5,221,225,0.5)' }}
+              whileTap={{ scale: 0.97 }}
+              className="inline-flex items-center justify-center gap-3 bg-secondary text-primary font-black text-lg px-10 py-5 rounded-2xl shadow-glow hover:bg-tertiary transition-all duration-200"
+            >
+              <BookOpen className="w-5 h-5" />
+              Voir les e-books
+            </motion.a>
+            <motion.a
+              href="https://calendly.com/pro-visual/30-min-de-call-100-gratuit"
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              className="inline-flex items-center justify-center gap-3 border border-white/25 text-white font-bold text-lg px-10 py-5 rounded-2xl hover:bg-white/8 transition-all duration-200"
+            >
+              <Calendar className="w-5 h-5 text-secondary" />
+              Appel gratuit 30 min
+              <ArrowRight className="w-5 h-5" />
+            </motion.a>
           </div>
 
+          {/* Social proof */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="mt-12 flex items-center justify-center gap-4"
+            className="flex items-center justify-center gap-4"
           >
             <div className="flex -space-x-3">
-              {[
-                'https://randomuser.me/api/portraits/women/44.jpg',
-                'https://randomuser.me/api/portraits/men/32.jpg',
-                'https://randomuser.me/api/portraits/women/17.jpg',
-                'https://randomuser.me/api/portraits/men/55.jpg',
-                'https://randomuser.me/api/portraits/women/68.jpg',
-              ].map((src, i) => (
-                <div key={i} className="w-10 h-10 rounded-full border-2 border-primary overflow-hidden">
-                  <img src={src} alt="" className="w-full h-full object-cover" />
+              {AVATARS.map((src, i) => (
+                <div key={i} className="w-10 h-10 rounded-full border-2 overflow-hidden flex-shrink-0"
+                  style={{ borderColor: '#0d0620' }}>
+                  <Image src={src} alt="" width={40} height={40} className="w-full h-full object-cover" unoptimized />
                 </div>
               ))}
             </div>
-            <p className="text-white/60 text-sm">
-              <span className="text-white font-semibold">+340 apprenants</span> nous font confiance
+            <p className="text-white/55 text-sm">
+              <span className="text-white font-semibold">20+ entreprises</span> nous font confiance
             </p>
           </motion.div>
         </motion.div>
