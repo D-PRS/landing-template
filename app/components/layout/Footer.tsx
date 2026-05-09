@@ -1,22 +1,26 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import { Link2, Mail, Phone } from 'lucide-react'
 
 const CDN = 'https://cdn.prod.website-files.com/68ab2d1a568ed1d53d774d32'
 const LOGO_URL = `${CDN}/68b5b4981ac3dc1f534fcdaa_Logo%20Provisual.png`
 
-const LINKS = {
+const INTERNAL_LINKS = {
   'E-books': [
-    { label: 'E-book Prospection', href: 'https://provisual.fr/e-books' },
-    { label: 'E-book Création de contenu', href: 'https://provisual.fr/e-books' },
-    { label: 'E-book Copywriting', href: 'https://provisual.fr/e-books' },
-    { label: 'E-book Algorithme', href: 'https://provisual.fr/e-books' },
+    { label: 'E-book Prospection', href: '/e-books' },
+    { label: 'E-book Création de contenu', href: '/e-books' },
+    { label: 'E-book Copywriting', href: '/e-books' },
+    { label: 'E-book Algorithme', href: '/e-books' },
   ],
   'Services': [
-    { label: 'Marketing LinkedIn', href: 'https://provisual.fr/service-marketing' },
-    { label: 'Data & Analytics', href: 'https://provisual.fr/service-data-analytics' },
-    { label: 'À propos', href: 'https://provisual.fr/a-propos' },
-    { label: 'Contact', href: 'https://provisual.fr/contact' },
+    { label: 'Marketing LinkedIn', href: '/service-marketing' },
+    { label: 'Data & Analytics', href: '/service-data-analytics' },
+    { label: 'À propos', href: '/a-propos' },
+    { label: 'Contact', href: '/contact' },
   ],
+}
+
+const EXTERNAL_LINKS = {
   'Légal': [
     { label: 'Mentions légales', href: 'https://provisual.fr/mentions-legales' },
     { label: "Conditions d'utilisation", href: 'https://provisual.fr/cgu' },
@@ -65,8 +69,24 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Links */}
-          {Object.entries(LINKS).map(([section, items]) => (
+          {/* Internal Links */}
+          {Object.entries(INTERNAL_LINKS).map(([section, items]) => (
+            <div key={section}>
+              <h4 className="font-bold text-xs uppercase tracking-widest text-secondary mb-4">{section}</h4>
+              <ul className="space-y-2.5">
+                {items.map(item => (
+                  <li key={item.label}>
+                    <Link href={item.href} className="text-white/50 hover:text-secondary text-sm transition-colors">
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+
+          {/* External Links */}
+          {Object.entries(EXTERNAL_LINKS).map(([section, items]) => (
             <div key={section}>
               <h4 className="font-bold text-xs uppercase tracking-widest text-secondary mb-4">{section}</h4>
               <ul className="space-y-2.5">
