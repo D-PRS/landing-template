@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
+// 4 sets — one per card position
 const NOTIF_SETS = [
   [
     { title: '+1 247 impressions', sub: 'sur votre dernier post' },
@@ -20,6 +21,11 @@ const NOTIF_SETS = [
     { title: 'Pierrick P. a accepté', sub: 'votre invitation' },
     { title: '+12 connexions', sub: 'qualifiées en 3 jours' },
   ],
+  [
+    { title: 'CDI décroché', sub: 'en 2 semaines' },
+    { title: '+25 ventes en 4 jours', sub: 'via social selling' },
+    { title: '×10 de visibilité', sub: 'en 30 jours' },
+  ],
 ]
 
 function LinkedInIcon({ size = 14 }: { size?: number }) {
@@ -32,6 +38,7 @@ function LinkedInIcon({ size = 14 }: { size?: number }) {
   )
 }
 
+// Live impressions — repositioned to lower-right
 function ImpressionsLive() {
   const [count, setCount] = useState(12_847)
   useEffect(() => {
@@ -40,14 +47,13 @@ function ImpressionsLive() {
   }, [])
   return (
     <motion.div
-      initial={{ opacity: 0, y: -15 }}
+      initial={{ opacity: 0, y: 15 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 1.2, duration: 0.5 }}
+      transition={{ delay: 1.8, duration: 0.5 }}
       className="absolute flex items-center gap-3 px-4 py-2.5 rounded-2xl"
       style={{
-        top: '50%', left: '50%',
-        transform: 'translate(-50%, -540%)',
-        zIndex: 22,
+        bottom: '6%', right: '2%',
+        zIndex: 20,
         backgroundColor: 'rgba(10,4,28,0.92)',
         backdropFilter: 'blur(16px)',
         border: '1px solid rgba(5,221,225,0.25)',
@@ -114,7 +120,7 @@ function NotifCard({
   )
 }
 
-// Cropped stat card — shows only the top ~38% of the image (numbers, no chart)
+// Stat card — cropped to show only numbers (top ~38% of image)
 function StatCard({
   src, label, delay, floatDy,
 }: { src: string; label: string; delay: number; floatDy: number }) {
@@ -138,7 +144,6 @@ function StatCard({
         boxShadow: '0 10px 50px rgba(0,0,0,0.6), 0 0 32px rgba(5,221,225,0.25)',
       }}
     >
-      {/* objectPosition: 'top' crops to show the stat numbers at the top of the image */}
       <Image src={src} alt={label} fill style={{ objectFit: 'cover', objectPosition: 'top' }} unoptimized />
     </motion.div>
   )
@@ -148,15 +153,24 @@ export default function HomepageHeroVisual() {
   return (
     <div className="relative w-full" style={{ height: 520 }}>
 
-      {/* Live impressions counter — floats above phone */}
+      {/* ── 4 notification cards positioned like the reference ── */}
+
+      {/* Upper-left — like "Certificat obtenu" */}
+      <NotifCard msgSet={0} animDir="right" style={{ top: '4%',  left: '2%'   }} />
+
+      {/* Upper-right — like "CDI décroché" */}
+      <NotifCard msgSet={3} animDir="left"  style={{ top: '3%',  right: '15%' }} />
+
+      {/* Right-center — like "+4 500% de reach" */}
+      <NotifCard msgSet={1} animDir="left"  style={{ top: '46%', right: '1%'  }} />
+
+      {/* Lower-left — like "3 RDV qualifiés" */}
+      <NotifCard msgSet={2} animDir="right" style={{ top: '67%', left: '1%'   }} />
+
+      {/* Lower-right — live counter */}
       <ImpressionsLive />
 
-      {/* LinkedIn notification popups */}
-      <NotifCard msgSet={0} animDir="right" style={{ top: '8%',    right: '2%'  }} />
-      <NotifCard msgSet={1} animDir="left"  style={{ top: '55%',   left: '1%'   }} />
-      <NotifCard msgSet={2} animDir="right" style={{ bottom: '8%', right: '2%'  }} />
-
-      {/* Phone mockup — centered with 3-D tilt */}
+      {/* ── Phone mockup — centered with 3-D tilt ── */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
@@ -183,15 +197,12 @@ export default function HomepageHeroVisual() {
           overflow: 'hidden',
           position: 'relative',
         }}>
-          {/* Shine */}
           <div style={{
             position: 'absolute', top: 0, left: '10%', right: '30%', height: '40%',
             background: 'linear-gradient(180deg, rgba(255,255,255,0.06) 0%, transparent 100%)',
             pointerEvents: 'none', borderRadius: '0 0 50% 50%',
           }} />
-          {/* Dynamic island */}
           <div style={{ width: 74, height: 24, borderRadius: 12, background: '#000', margin: '0 auto 8px', flexShrink: 0 }} />
-          {/* Screen */}
           <div style={{ flex: 1, borderRadius: 28, overflow: 'hidden', position: 'relative' }}>
             <Image
               src="/linkedin-profile.png"
@@ -201,32 +212,23 @@ export default function HomepageHeroVisual() {
               unoptimized
             />
           </div>
-          {/* Home bar */}
           <div style={{ width: 90, height: 4, borderRadius: 2, background: 'rgba(255,255,255,0.25)', margin: '8px auto 0', flexShrink: 0 }} />
         </div>
 
         {/* Reflection */}
         <div style={{
-          position: 'absolute',
-          top: '100%',
-          left: '10%', right: '10%',
-          height: 60,
+          position: 'absolute', top: '100%', left: '10%', right: '10%', height: 60,
           background: 'linear-gradient(180deg, rgba(5,221,225,0.06) 0%, transparent 100%)',
-          filter: 'blur(8px)',
-          transform: 'scaleY(-0.4)',
-          transformOrigin: 'top',
-          opacity: 0.5,
+          filter: 'blur(8px)', transform: 'scaleY(-0.4)', transformOrigin: 'top', opacity: 0.5,
         }} />
       </motion.div>
 
-      {/* Stat: abonnés (31.png) — lower-left of phone, z above phone */}
+      {/* ── Stat cards — lower area overlapping phone ── */}
       <div style={{ position: 'absolute', top: '63%', left: '22%', zIndex: 25 }}>
-        <StatCard src="/31.png" label="Abonnés" delay={1.3} floatDy={6} />
+        <StatCard src="/stat-abonnes.png" label="Abonnés" delay={1.3} floatDy={6} />
       </div>
-
-      {/* Stat: impressions (30.png) — lower-right of phone */}
       <div style={{ position: 'absolute', top: '71%', right: '21%', zIndex: 25 }}>
-        <StatCard src="/30.png" label="Impressions" delay={2.0} floatDy={8} />
+        <StatCard src="/stat-impressions.png" label="Impressions" delay={2.0} floatDy={8} />
       </div>
 
     </div>
