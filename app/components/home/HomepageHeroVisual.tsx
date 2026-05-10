@@ -3,124 +3,130 @@
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { GraduationCap, Award, TrendingUp, Briefcase, Trophy } from 'lucide-react'
 
-// 4 sets — one per card position
-const NOTIF_SETS = [
-  [
-    { title: '+1 247 impressions', sub: 'sur votre dernier post' },
-    { title: '+3 400 vues profil', sub: 'cette semaine' },
-    { title: '+500 impressions', sub: 'en 24 heures' },
-  ],
-  [
-    { title: '1 RDV confirmé', sub: 'via votre profil LinkedIn' },
-    { title: '5 messages prospects', sub: 'reçus cette semaine' },
-    { title: '3 propositions', sub: 'de collaboration' },
-  ],
-  [
-    { title: '+47 nouveaux abonnés', sub: 'cette semaine' },
-    { title: 'Pierrick P. a accepté', sub: 'votre invitation' },
-    { title: '+12 connexions', sub: 'qualifiées en 3 jours' },
-  ],
-  [
-    { title: 'CDI décroché', sub: 'en 2 semaines' },
-    { title: '+25 ventes en 4 jours', sub: 'via social selling' },
-    { title: '×10 de visibilité', sub: 'en 30 jours' },
-  ],
+// 5 achievement cards matching the reference layout
+// Each cycles through 3 related results at its position
+const CARDS = [
+  {
+    icon: GraduationCap,
+    iconBg: 'rgba(5,221,225,0.18)',
+    iconColor: '#05dde1',
+    messages: [
+      { title: 'Certificat obtenu !', sub: 'Algorithme LinkedIn' },
+      { title: 'Expert LinkedIn', sub: 'certifié officiellement' },
+      { title: 'Profil TOP 1%', sub: 'certifié par LinkedIn' },
+    ],
+    style: { top: '4%', left: '2%' } as React.CSSProperties,
+    animDir: 'right' as const,
+  },
+  {
+    icon: Award,
+    iconBg: 'rgba(5,221,225,0.18)',
+    iconColor: '#05dde1',
+    messages: [
+      { title: 'CDI décroché', sub: 'en 3 mois' },
+      { title: 'Poste signé', sub: 'via LinkedIn en 2 semaines' },
+      { title: 'Mission décrochée', sub: 'en 10 jours' },
+    ],
+    style: { top: '3%', right: '15%' } as React.CSSProperties,
+    animDir: 'left' as const,
+  },
+  {
+    icon: TrendingUp,
+    iconBg: 'rgba(139,92,246,0.22)',
+    iconColor: '#a78bfa',
+    messages: [
+      { title: '+4 500% de reach', sub: 'en 6 semaines' },
+      { title: '+170% impressions', sub: 'en 37 jours' },
+      { title: '×10 de visibilité', sub: 'en 30 jours' },
+    ],
+    style: { top: '46%', right: '1%' } as React.CSSProperties,
+    animDir: 'left' as const,
+  },
+  {
+    icon: Briefcase,
+    iconBg: 'rgba(139,92,246,0.22)',
+    iconColor: '#a78bfa',
+    messages: [
+      { title: '3 RDV qualifiés', sub: 'en une semaine' },
+      { title: '5 leads entrants', sub: 'en 5 jours' },
+      { title: '7 prospects', sub: 'contactés en 48h' },
+    ],
+    style: { top: '67%', left: '1%' } as React.CSSProperties,
+    animDir: 'right' as const,
+  },
+  {
+    icon: Trophy,
+    iconBg: 'rgba(5,221,225,0.18)',
+    iconColor: '#05dde1',
+    messages: [
+      { title: '+25 ventes en 4j', sub: 'social selling' },
+      { title: '3 ventes en 4 jours', sub: 'via LinkedIn' },
+      { title: '10 clients signés', sub: 'en 30 jours' },
+    ],
+    style: { bottom: '6%', right: '2%' } as React.CSSProperties,
+    animDir: 'left' as const,
+  },
 ]
 
-function LinkedInIcon({ size = 14 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
-      <rect x="2" y="9" width="4" height="13" fill="#05dde1" />
-      <circle cx="4" cy="4" r="2.5" fill="#05dde1" />
-      <path d="M13.5 9C11.6 9 10 10.6 10 12.5V22h4v-9a1.5 1.5 0 013 0v9h4v-9.5C21 10.6 19.4 9 17.5 9H13.5z" fill="#05dde1" />
-    </svg>
-  )
-}
-
-// Live impressions — repositioned to lower-right
-function ImpressionsLive() {
-  const [count, setCount] = useState(12_847)
-  useEffect(() => {
-    const t = setInterval(() => setCount(n => n + Math.floor(Math.random() * 4) + 1), 1500)
-    return () => clearInterval(t)
-  }, [])
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 15 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 1.8, duration: 0.5 }}
-      className="absolute flex items-center gap-3 px-4 py-2.5 rounded-2xl"
-      style={{
-        bottom: '6%', right: '2%',
-        zIndex: 20,
-        backgroundColor: 'rgba(10,4,28,0.92)',
-        backdropFilter: 'blur(16px)',
-        border: '1px solid rgba(5,221,225,0.25)',
-        boxShadow: '0 0 30px rgba(5,221,225,0.22), 0 8px 32px rgba(0,0,0,0.45)',
-        whiteSpace: 'nowrap',
-      }}
-    >
-      <div className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0"
-        style={{ background: 'rgba(5,221,225,0.12)', border: '1px solid rgba(5,221,225,0.3)' }}>
-        <LinkedInIcon size={13} />
-      </div>
-      <div>
-        <div className="text-secondary font-black text-sm leading-none">
-          {count.toLocaleString('fr-FR')}
-        </div>
-        <div className="text-white/40 text-xs mt-0.5">impressions en direct</div>
-      </div>
-      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse flex-shrink-0" />
-    </motion.div>
-  )
-}
-
-function NotifCard({
-  msgSet, style, animDir,
-}: { msgSet: number; style: React.CSSProperties; animDir: 'left' | 'right' }) {
+function AchievementCard({
+  card, delay,
+}: { card: typeof CARDS[0]; delay: number }) {
   const [idx, setIdx] = useState(0)
   useEffect(() => {
-    const t = setInterval(() => setIdx(i => (i + 1) % NOTIF_SETS[msgSet].length), 3000 + msgSet * 400)
+    const t = setInterval(() => setIdx(i => (i + 1) % card.messages.length), 3200 + delay * 200)
     return () => clearInterval(t)
-  }, [msgSet])
-  const msg = NOTIF_SETS[msgSet][idx]
+  }, [card.messages.length, delay])
+
+  const msg = card.messages[idx]
+  const Icon = card.icon
+
   return (
     <AnimatePresence mode="wait">
       <motion.div
         key={idx}
-        initial={{ opacity: 0, scale: 0.85, x: animDir === 'right' ? 20 : -20 }}
+        initial={{ opacity: 0, scale: 0.88, x: card.animDir === 'right' ? 18 : -18 }}
         animate={{ opacity: 1, scale: 1, x: 0 }}
-        exit={{ opacity: 0, scale: 0.85, x: animDir === 'right' ? 10 : -10 }}
+        exit={{ opacity: 0, scale: 0.88, x: card.animDir === 'right' ? 10 : -10 }}
         transition={{ type: 'spring', stiffness: 280, damping: 26 }}
-        className="absolute flex items-center gap-2.5 px-3.5 py-2.5 rounded-2xl"
+        className="absolute flex items-center gap-3 px-4 py-3 rounded-2xl"
         style={{
-          ...style,
+          ...card.style,
           zIndex: 20,
-          backgroundColor: 'rgba(10,4,28,0.92)',
-          backdropFilter: 'blur(16px)',
-          border: '1px solid rgba(255,255,255,0.07)',
-          boxShadow: '0 0 28px rgba(5,221,225,0.2), 0 8px 28px rgba(0,0,0,0.5)',
+          backgroundColor: 'rgba(8,6,32,0.88)',
+          backdropFilter: 'blur(18px)',
+          border: '1px solid rgba(255,255,255,0.09)',
+          boxShadow: '0 4px 32px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.04)',
           pointerEvents: 'none',
-          minWidth: 175,
-          maxWidth: 215,
+          minWidth: 190,
+          maxWidth: 240,
         }}
       >
-        <div className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0"
-          style={{ background: 'rgba(5,221,225,0.12)', border: '1px solid rgba(5,221,225,0.3)' }}>
-          <LinkedInIcon size={13} />
+        {/* Icon box */}
+        <div
+          className="flex items-center justify-center rounded-xl flex-shrink-0"
+          style={{
+            width: 38,
+            height: 38,
+            background: card.iconBg,
+            border: `1px solid ${card.iconColor}40`,
+          }}
+        >
+          <Icon size={18} color={card.iconColor} strokeWidth={2} />
         </div>
+
+        {/* Text */}
         <div className="min-w-0">
-          <div className="text-white font-bold text-xs leading-tight truncate">{msg.title}</div>
-          <div className="text-white/40 text-xs mt-0.5 truncate">{msg.sub}</div>
+          <div className="text-white font-bold text-sm leading-tight truncate">{msg.title}</div>
+          <div className="text-white/45 text-xs mt-0.5 truncate">{msg.sub}</div>
         </div>
-        <span className="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse flex-shrink-0 ml-auto" />
       </motion.div>
     </AnimatePresence>
   )
 }
 
-// Stat card — cropped to show only numbers (top ~38% of image)
+// Stat card — cropped to show only the numbers (top ~38% of image)
 function StatCard({
   src, label, delay, floatDy,
 }: { src: string; label: string; delay: number; floatDy: number }) {
@@ -153,22 +159,10 @@ export default function HomepageHeroVisual() {
   return (
     <div className="relative w-full" style={{ height: 520 }}>
 
-      {/* ── 4 notification cards positioned like the reference ── */}
-
-      {/* Upper-left — like "Certificat obtenu" */}
-      <NotifCard msgSet={0} animDir="right" style={{ top: '4%',  left: '2%'   }} />
-
-      {/* Upper-right — like "CDI décroché" */}
-      <NotifCard msgSet={3} animDir="left"  style={{ top: '3%',  right: '15%' }} />
-
-      {/* Right-center — like "+4 500% de reach" */}
-      <NotifCard msgSet={1} animDir="left"  style={{ top: '46%', right: '1%'  }} />
-
-      {/* Lower-left — like "3 RDV qualifiés" */}
-      <NotifCard msgSet={2} animDir="right" style={{ top: '67%', left: '1%'   }} />
-
-      {/* Lower-right — live counter */}
-      <ImpressionsLive />
+      {/* ── 5 achievement cards — positions matching reference ── */}
+      {CARDS.map((card, i) => (
+        <AchievementCard key={i} card={card} delay={i} />
+      ))}
 
       {/* ── Phone mockup — centered with 3-D tilt ── */}
       <motion.div
@@ -183,7 +177,6 @@ export default function HomepageHeroVisual() {
           zIndex: 15,
         }}
       >
-        {/* Phone shell */}
         <div style={{
           width: 204,
           height: 432,
@@ -215,7 +208,6 @@ export default function HomepageHeroVisual() {
           <div style={{ width: 90, height: 4, borderRadius: 2, background: 'rgba(255,255,255,0.25)', margin: '8px auto 0', flexShrink: 0 }} />
         </div>
 
-        {/* Reflection */}
         <div style={{
           position: 'absolute', top: '100%', left: '10%', right: '10%', height: 60,
           background: 'linear-gradient(180deg, rgba(5,221,225,0.06) 0%, transparent 100%)',
