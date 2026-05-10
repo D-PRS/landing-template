@@ -26,7 +26,7 @@ function buildTexture(): HTMLCanvasElement {
   c.height = 1024
   const ctx = c.getContext('2d')!
 
-  // Teal background — slightly darker than secondary for depth
+  // Teal gradient background
   const grad = ctx.createRadialGradient(512, 400, 100, 512, 512, 700)
   grad.addColorStop(0, '#06e8ec')
   grad.addColorStop(1, '#038a8d')
@@ -41,7 +41,6 @@ function buildTexture(): HTMLCanvasElement {
     ctx.beginPath(); ctx.moveTo(0, i * 128); ctx.lineTo(1024, i * 128); ctx.stroke()
   }
 
-  // Draw the LinkedIn "in" badge
   const badge = (x: number, y: number, size: number, alpha = 0.92) => {
     const r = size * 0.22
     ctx.fillStyle = `rgba(255,255,255,${alpha})`
@@ -65,14 +64,12 @@ function buildTexture(): HTMLCanvasElement {
     ctx.fillText('in', x, y + size * 0.04)
   }
 
-  // Place badges at equirectangular coordinates (will appear at different spots as globe rotates)
-  badge(512, 512, 210)        // front-center (primary)
-  badge(870, 390, 140, 0.85)  // right area
-  badge(170, 660, 130, 0.8)   // left-bottom
-  badge(760, 790, 110, 0.75)  // bottom-right
-  badge(130, 200, 110, 0.75)  // top-left
-  badge(50,  500, 90,  0.6)   // far left edge (joins with far right when rotating)
-  badge(970, 500, 90,  0.6)   // far right edge
+  // 2 large badges only — front (longitude 0°) and back (longitude 180°)
+  // Front: texture center
+  badge(512, 512, 240)
+  // Back: longitude 180° = texture edges (they wrap and join on the sphere)
+  badge(0,    512, 220, 0.88)
+  badge(1024, 512, 220, 0.88)
 
   return c
 }
@@ -108,7 +105,7 @@ export default function LinkedInGlobe() {
 
     const scene = new THREE.Scene()
     const camera = new THREE.PerspectiveCamera(40, w / h, 0.1, 100)
-    camera.position.z = 2.75
+    camera.position.z = 3.6
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
     renderer.setSize(w, h)
@@ -132,11 +129,6 @@ export default function LinkedInGlobe() {
     )
     scene.add(globe)
 
-    // Atmospheric glow ring
-    scene.add(new THREE.Mesh(
-      new THREE.SphereGeometry(1.13, 32, 32),
-      new THREE.MeshBasicMaterial({ color: 0x05dde1, transparent: true, opacity: 0.08, side: THREE.BackSide })
-    ))
 
     // Drag / touch interaction
     let dragging = false
@@ -194,7 +186,7 @@ export default function LinkedInGlobe() {
   }, [])
 
   return (
-    <div className="relative w-full" style={{ height: '420px' }}>
+    <div className="relative w-full" style={{ height: '480px' }}>
       {/* Three.js canvas mount */}
       <div ref={mountRef} className="absolute inset-0 cursor-grab active:cursor-grabbing" />
 
@@ -209,12 +201,13 @@ export default function LinkedInGlobe() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.75, y: -8 }}
               transition={{ duration: 0.4, type: 'spring', stiffness: 300, damping: 24 }}
-              className="absolute flex items-center gap-2.5 px-3.5 py-2.5 rounded-2xl text-xs font-bold text-white shadow-xl"
+              className="absolute flex items-center gap-2.5 px-3.5 py-2.5 rounded-2xl text-xs font-bold text-white"
               style={{
                 ...slot.style,
                 backgroundColor: 'rgba(13,6,32,0.88)',
                 backdropFilter: 'blur(14px)',
-                border: '1px solid rgba(5,221,225,0.2)',
+                border: '1px solid rgba(255,255,255,0.08)',
+                boxShadow: '0 0 28px rgba(5,221,225,0.22), 0 8px 32px rgba(0,0,0,0.45)',
                 zIndex: 20,
                 maxWidth: '185px',
                 pointerEvents: 'none',
