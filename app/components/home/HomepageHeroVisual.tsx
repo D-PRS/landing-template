@@ -3,9 +3,11 @@
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 
-const CLIENTS = Array.from({ length: 18 }, (_, i) => `/clients/${i + 1}.png`)
+// Shuffled order — mixes top/bottom clients across the layout
+const CLIENT_PHOTOS = [8, 14, 2, 17, 5, 11, 1, 16, 7, 3, 13, 6, 18, 9, 4, 15, 12, 10].map(
+  n => `/clients/${n}.png`
+)
 
-// Float params — varied per avatar for organic feel
 const FLOATS = [
   { dur: 3.2, delay: 0.0, dy: 11 },
   { dur: 2.7, delay: 0.5, dy: 9  },
@@ -27,64 +29,65 @@ const FLOATS = [
   { dur: 2.8, delay: 0.5, dy: 10 },
 ]
 
-// 18 positions spread homogeneously around the centered phone
-// Phone is 220×470px centered in a ~600×680 container
-// Safe zones: top<15%, bottom>85%, left<28%, right<28%
+// Organic positions — NOT aligned in rows/columns
+// Phone is 224×480 centered in ~600×740 container
+// Rule: each avatar must be outside the phone rectangle (x<27% | x>73% | y<14% | y>86%)
 const POSITIONS: React.CSSProperties[] = [
-  // Top row (5) — above phone top edge (~15%)
-  { top: '3%',    left: '2%'   },
-  { top: '2%',    left: '20%'  },
-  { top: '1%',    left: '42%'  },
-  { top: '2%',    left: '63%'  },
-  { top: '3%',    right: '2%'  },
-  // Left column (4) — left of phone left edge (~31%)
-  { top: '20%',   left: '2%'   },
-  { top: '38%',   left: '1%'   },
-  { top: '56%',   left: '2%'   },
-  { top: '74%',   left: '1%'   },
-  // Right column (4) — right of phone right edge (~69%)
-  { top: '18%',   right: '2%'  },
-  { top: '36%',   right: '1%'  },
-  { top: '54%',   right: '2%'  },
-  { top: '72%',   right: '1%'  },
-  // Bottom row (5) — below phone bottom edge (~85%)
-  { bottom: '3%', left: '2%'   },
-  { bottom: '2%', left: '20%'  },
-  { bottom: '1%', left: '42%'  },
-  { bottom: '2%', left: '63%'  },
-  { bottom: '3%', right: '2%'  },
+  { top: '3%',    left: '4%'   },  //  0 — top-left corner
+  { top: '7%',    left: '26%'  },  //  1 — upper-left (y=11% < 14% → above phone ✓)
+  { top: '2%',    left: '48%'  },  //  2 — top-center (above phone ✓)
+  { top: '6%',    right: '20%' },  //  3 — upper-right (y=10% < 14% ✓)
+  { top: '1%',    right: '3%'  },  //  4 — top-right corner
+  { top: '20%',   left: '5%'   },  //  5 — left, high (x=9% < 27% ✓)
+  { top: '36%',   left: '13%'  },  //  6 — left, varied x (x=17% < 27% ✓)
+  { top: '51%',   left: '3%'   },  //  7 — left, center
+  { top: '66%',   left: '11%'  },  //  8 — left, low (x=15% < 27% ✓)
+  { top: '80%',   left: '4%'   },  //  9 — left, bottom
+  { top: '16%',   right: '3%'  },  // 10 — right, high (x=93% > 73% ✓)
+  { top: '30%',   right: '11%' },  // 11 — right, varied x (x=85% > 73% ✓)
+  { top: '46%',   right: '3%'  },  // 12 — right, center
+  { top: '62%',   right: '10%' },  // 13 — right, low (x=86% > 73% ✓)
+  { top: '77%',   right: '4%'  },  // 14 — right, bottom
+  { bottom: '4%', left: '7%'   },  // 15 — bottom-left
+  { bottom: '2%', left: '44%'  },  // 16 — bottom-center (y=96% > 86% ✓)
+  { bottom: '4%', right: '6%'  },  // 17 — bottom-right
 ]
 
-function StatCard({ src, delay, floatDy }: { src: string; delay: number; floatDy: number }) {
+function StatCard({
+  src, label, delay, floatDy,
+}: { src: string; label: string; delay: number; floatDy: number }) {
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.75, y: 16 }}
+      initial={{ opacity: 0, scale: 0.72, y: 20 }}
       animate={{ opacity: 1, scale: 1, y: [0, -floatDy, 0] }}
       transition={{
         opacity: { delay, duration: 0.45 },
-        scale: { delay, duration: 0.45, type: 'spring', stiffness: 220, damping: 20 },
-        y: { delay: delay + 0.5, duration: 3.8, repeat: Infinity, ease: 'easeInOut', repeatType: 'loop' },
-      }}
-      style={{
-        width: 170,
-        height: 170,
-        borderRadius: 18,
-        overflow: 'hidden',
-        position: 'relative',
-        boxShadow: '0 12px 50px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.12), 0 0 30px rgba(5,221,225,0.12)',
+        scale:   { delay, duration: 0.45, type: 'spring', stiffness: 220, damping: 22 },
+        y:       { delay: delay + 0.55, duration: 4, repeat: Infinity, ease: 'easeInOut', repeatType: 'loop' },
       }}
     >
-      <Image src={src} alt="" fill className="object-cover object-top" unoptimized />
+      <div style={{
+        width: 172,
+        height: 172,
+        borderRadius: 18,
+        overflow: 'hidden',
+        background: '#ffffff',
+        border: '1.5px solid rgba(5,221,225,0.6)',
+        boxShadow: '0 20px 70px rgba(0,0,0,0.7), 0 0 40px rgba(5,221,225,0.3)',
+        position: 'relative',
+      }}>
+        <Image src={src} alt={label} fill className="object-contain" unoptimized />
+      </div>
     </motion.div>
   )
 }
 
 export default function HomepageHeroVisual() {
   return (
-    <div className="relative w-full" style={{ height: 680 }}>
+    <div className="relative w-full" style={{ height: 740 }}>
 
-      {/* Floating client avatars — 18 spread around phone */}
-      {CLIENTS.map((src, i) => {
+      {/* ── Floating client avatars ── */}
+      {CLIENT_PHOTOS.map((src, i) => {
         const f = FLOATS[i]
         return (
           <motion.div
@@ -100,7 +103,7 @@ export default function HomepageHeroVisual() {
             }}
           >
             <div
-              className="w-12 h-12 rounded-full overflow-hidden relative"
+              className="relative w-12 h-12 rounded-full overflow-hidden"
               style={{
                 border: '2.5px solid rgba(5,221,225,0.4)',
                 boxShadow: '0 4px 20px rgba(0,0,0,0.4), 0 0 12px rgba(5,221,225,0.15)',
@@ -113,7 +116,7 @@ export default function HomepageHeroVisual() {
         )
       })}
 
-      {/* Phone mockup — perfectly centered */}
+      {/* ── Phone + stat cards (positioned together so cards align with phone) ── */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
@@ -126,9 +129,10 @@ export default function HomepageHeroVisual() {
           zIndex: 15,
         }}
       >
+        {/* Phone shell */}
         <div style={{
-          width: 220,
-          height: 470,
+          width: 224,
+          height: 480,
           borderRadius: 44,
           background: 'linear-gradient(160deg, #1c1c2e 0%, #0d0620 100%)',
           border: '2px solid rgba(255,255,255,0.14)',
@@ -139,7 +143,7 @@ export default function HomepageHeroVisual() {
           overflow: 'hidden',
           position: 'relative',
         }}>
-          {/* Shine */}
+          {/* Shine overlay */}
           <div style={{
             position: 'absolute', top: 0, left: '10%', right: '30%', height: '40%',
             background: 'linear-gradient(180deg, rgba(255,255,255,0.06) 0%, transparent 100%)',
@@ -153,24 +157,25 @@ export default function HomepageHeroVisual() {
               src="/linkedin-profile.png"
               alt="Profil LinkedIn Dylan Parisi"
               fill
-              className="object-contain object-top"
+              className="object-cover object-top"
               unoptimized
             />
           </div>
           {/* Home bar */}
           <div style={{ width: 90, height: 4, borderRadius: 2, background: 'rgba(255,255,255,0.25)', margin: '10px auto 0', flexShrink: 0 }} />
         </div>
+
+        {/* Stat: abonnés — overlaps phone from the left */}
+        <div style={{ position: 'absolute', bottom: 55, left: -130, zIndex: 25 }}>
+          <StatCard src="/31.png" label="Abonnés" delay={1.3} floatDy={7} />
+        </div>
+
+        {/* Stat: impressions — overlaps phone from the right */}
+        <div style={{ position: 'absolute', bottom: 12, right: -130, zIndex: 25 }}>
+          <StatCard src="/30.png" label="Impressions" delay={2.0} floatDy={9} />
+        </div>
       </motion.div>
 
-      {/* Stat card — abonnés (31.png) — appears first, left-bottom of phone */}
-      <div style={{ position: 'absolute', top: '62%', left: '22%', zIndex: 25 }}>
-        <StatCard src="/31.png" delay={1.4} floatDy={7} />
-      </div>
-
-      {/* Stat card — impressions (30.png) — appears second, right-bottom of phone */}
-      <div style={{ position: 'absolute', top: '70%', right: '21%', zIndex: 25 }}>
-        <StatCard src="/30.png" delay={2.1} floatDy={9} />
-      </div>
     </div>
   )
 }
