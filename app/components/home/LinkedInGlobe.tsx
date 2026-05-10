@@ -64,12 +64,10 @@ function buildTexture(): HTMLCanvasElement {
     ctx.fillText('in', x, y + size * 0.04)
   }
 
-  // 2 large badges only — front (longitude 0°) and back (longitude 180°)
-  // Front: texture center
-  badge(512, 512, 240)
-  // Back: longitude 180° = texture edges (they wrap and join on the sphere)
-  badge(0,    512, 220, 0.88)
-  badge(1024, 512, 220, 0.88)
+  // 2 badges — front (longitude 0°) and back (longitude 180°)
+  badge(512, 512, 140)
+  badge(0,    512, 130, 0.88)
+  badge(1024, 512, 130, 0.88)
 
   return c
 }
@@ -164,7 +162,7 @@ export default function LinkedInGlobe() {
     const tick = () => {
       raf = requestAnimationFrame(tick)
       if (!dragging) {
-        globe.rotation.y += 0.004
+        globe.rotation.y += 0.014
         vel.x *= 0.92
         vel.y *= 0.92
         globe.rotation.x += vel.x
