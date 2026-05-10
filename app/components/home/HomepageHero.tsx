@@ -3,7 +3,8 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { ArrowRight, Calendar, TrendingUp, BarChart3 } from 'lucide-react'
+import { ArrowRight, Calendar } from 'lucide-react'
+import LinkedInGlobe from './LinkedInGlobe'
 
 const CDN = 'https://cdn.prod.website-files.com/68ab2d1a568ed1d53d774d32'
 
@@ -15,14 +16,6 @@ const AVATARS = [
   `${CDN}/68b6068d0a093a8838989158_Issam.png`,
 ]
 
-const METRICS = [
-  { label: 'CA généré', value: '100K€' },
-  { label: 'Satisfaction', value: '95%' },
-  { label: 'Projets', value: '50+' },
-  { label: 'E-books', value: '7' },
-]
-
-const TAGS = ['Optimisation profil', 'Création de contenu', 'Power BI', 'Prospection', 'Analytics']
 
 export default function HomepageHero() {
   return (
@@ -117,68 +110,14 @@ export default function HomepageHero() {
             </motion.div>
           </div>
 
-          {/* Right — Dashboard visual */}
+          {/* Right — LinkedIn 3D Globe */}
           <motion.div
             initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
             className="hidden lg:block relative min-w-0"
           >
-            <div className="relative rounded-3xl p-8 border border-white/10 overflow-hidden"
-              style={{ backgroundColor: 'rgba(255,255,255,0.05)', backdropFilter: 'blur(20px)' }}>
-              <div className="absolute top-0 right-0 w-64 h-64 rounded-full blur-3xl opacity-20 pointer-events-none"
-                style={{ background: 'radial-gradient(circle, #0848aa, transparent)' }} />
-
-              <div className="relative z-10">
-                <div className="flex items-center justify-between mb-8">
-                  <div>
-                    <p className="text-white/40 text-xs font-semibold uppercase tracking-widest mb-1">Vue globale</p>
-                    <p className="text-white font-black text-lg">Performance Provisual</p>
-                  </div>
-                  <div className="w-10 h-10 rounded-xl flex items-center justify-center"
-                    style={{ backgroundColor: 'rgba(5,221,225,0.15)' }}>
-                    <BarChart3 className="w-5 h-5 text-secondary" />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-2 gap-4 mb-8">
-                  {METRICS.map((m, i) => (
-                    <motion.div
-                      key={m.label}
-                      initial={{ opacity: 0, y: 15 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.5 + i * 0.1 }}
-                      className="rounded-2xl p-4 border border-white/8"
-                      style={{ backgroundColor: 'rgba(255,255,255,0.04)' }}
-                    >
-                      <p className="text-white/40 text-xs mb-2">{m.label}</p>
-                      <p className="text-2xl font-black gradient-text">{m.value}</p>
-                      <p className="text-emerald-400 text-xs mt-1 flex items-center gap-1">
-                        <TrendingUp className="w-3 h-3" /> En hausse
-                      </p>
-                    </motion.div>
-                  ))}
-                </div>
-
-                <div className="flex flex-wrap gap-2">
-                  {TAGS.map((tag) => (
-                    <span key={tag} className="text-xs font-medium px-3 py-1.5 rounded-full border border-secondary/20 text-secondary/80"
-                      style={{ backgroundColor: 'rgba(5,221,225,0.06)' }}>
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            <motion.div
-              initial={{ opacity: 0, scale: 0.7, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ delay: 1, type: 'spring', stiffness: 180 }}
-              className="absolute -bottom-5 -left-5 bg-secondary text-primary font-black text-sm px-5 py-3 rounded-2xl shadow-glow"
-            >
-              ⭐ 95% satisfaits
-            </motion.div>
+            <LinkedInGlobe />
           </motion.div>
         </div>
       </div>
