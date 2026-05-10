@@ -1,187 +1,141 @@
 'use client'
 
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 
-const CDN = 'https://cdn.prod.website-files.com/68ab2d1a568ed1d53d774d32'
+const CLIENTS = Array.from({ length: 18 }, (_, i) => `/clients/${i + 1}.png`)
 
-const AVATARS = [
-  { src: `${CDN}/68b605c0f0599c67093cc3aa_Pierrick.png`, name: 'Pierrick', top: '6%',    left: '4%',   dur: 3.2, delay: 0    },
-  { src: `${CDN}/68b608ed49588bd5aca23903_Maylis.png`,   name: 'Maylis',   top: '1%',    left: '43%',  dur: 2.7, delay: 0.5  },
-  { src: `${CDN}/68b5ff2ba9b3ff9512d8ba74_Gaetant.png`,  name: 'Gaëtan',  top: '6%',    right: '3%',  dur: 3.5, delay: 0.9  },
-  { src: `${CDN}/68b608168ed5a22c8350a930_Nicolas.png`,  name: 'Nicolas',  top: '42%',   right: '2%',  dur: 2.9, delay: 0.3  },
-  { src: `${CDN}/68b6068d0a093a8838989158_Issam.png`,    name: 'Issam',    bottom: '6%', right: '5%',  dur: 3.3, delay: 0.8  },
-  { src: `${CDN}/68b6047bcfb9e1572d172217_Adam.png`,     name: 'Adam',     bottom: '4%', left: '8%',   dur: 3.0, delay: 0.4  },
-  { src: `${CDN}/68b60782e4726f65ef3755b8_Theo.png`,     name: 'Théo',     top: '43%',   left: '3%',   dur: 3.4, delay: 0.7  },
+// Float params — varied per avatar for organic feel
+const FLOATS = [
+  { dur: 3.2, delay: 0.0, dy: 11 },
+  { dur: 2.7, delay: 0.5, dy: 9  },
+  { dur: 3.5, delay: 0.9, dy: 13 },
+  { dur: 2.9, delay: 0.3, dy: 10 },
+  { dur: 3.3, delay: 0.8, dy: 12 },
+  { dur: 3.0, delay: 0.4, dy: 10 },
+  { dur: 3.4, delay: 0.7, dy: 11 },
+  { dur: 2.8, delay: 0.2, dy: 9  },
+  { dur: 3.1, delay: 0.6, dy: 12 },
+  { dur: 2.6, delay: 0.1, dy: 9  },
+  { dur: 3.6, delay: 1.0, dy: 13 },
+  { dur: 2.9, delay: 0.4, dy: 10 },
+  { dur: 3.3, delay: 0.8, dy: 11 },
+  { dur: 3.0, delay: 0.3, dy: 10 },
+  { dur: 2.7, delay: 0.6, dy: 9  },
+  { dur: 3.4, delay: 0.2, dy: 12 },
+  { dur: 3.1, delay: 0.9, dy: 11 },
+  { dur: 2.8, delay: 0.5, dy: 10 },
 ]
 
-const NOTIF_SETS = [
-  [
-    { title: '+1 247 impressions', sub: 'sur votre dernier post' },
-    { title: '+3 400 vues profil', sub: 'cette semaine' },
-    { title: '+500 impressions', sub: 'en 24 heures' },
-  ],
-  [
-    { title: '1 RDV confirmé', sub: 'via votre profil LinkedIn' },
-    { title: '5 messages prospects', sub: 'reçus cette semaine' },
-    { title: '3 propositions', sub: 'de collaboration' },
-  ],
-  [
-    { title: '+47 nouveaux abonnés', sub: 'cette semaine' },
-    { title: 'Pierrick P. a accepté', sub: 'votre invitation' },
-    { title: '+12 connexions', sub: 'qualifiées en 3 jours' },
-  ],
+// 18 positions spread homogeneously around the centered phone
+// Phone is 220×470px centered in a ~600×680 container
+// Safe zones: top<15%, bottom>85%, left<28%, right<28%
+const POSITIONS: React.CSSProperties[] = [
+  // Top row (5) — above phone top edge (~15%)
+  { top: '3%',    left: '2%'   },
+  { top: '2%',    left: '20%'  },
+  { top: '1%',    left: '42%'  },
+  { top: '2%',    left: '63%'  },
+  { top: '3%',    right: '2%'  },
+  // Left column (4) — left of phone left edge (~31%)
+  { top: '20%',   left: '2%'   },
+  { top: '38%',   left: '1%'   },
+  { top: '56%',   left: '2%'   },
+  { top: '74%',   left: '1%'   },
+  // Right column (4) — right of phone right edge (~69%)
+  { top: '18%',   right: '2%'  },
+  { top: '36%',   right: '1%'  },
+  { top: '54%',   right: '2%'  },
+  { top: '72%',   right: '1%'  },
+  // Bottom row (5) — below phone bottom edge (~85%)
+  { bottom: '3%', left: '2%'   },
+  { bottom: '2%', left: '20%'  },
+  { bottom: '1%', left: '42%'  },
+  { bottom: '2%', left: '63%'  },
+  { bottom: '3%', right: '2%'  },
 ]
 
-function LinkedInIcon({ size = 14 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
-      <rect x="2" y="9" width="4" height="13" fill="#05dde1" />
-      <circle cx="4" cy="4" r="2.5" fill="#05dde1" />
-      <path d="M13.5 9C11.6 9 10 10.6 10 12.5V22h4v-9a1.5 1.5 0 013 0v9h4v-9.5C21 10.6 19.4 9 17.5 9H13.5z" fill="#05dde1" />
-    </svg>
-  )
-}
-
-function ImpressionsLive() {
-  const [count, setCount] = useState(12_847)
-  useEffect(() => {
-    const t = setInterval(() => setCount(n => n + Math.floor(Math.random() * 4) + 1), 1500)
-    return () => clearInterval(t)
-  }, [])
+function StatCard({ src, delay, floatDy }: { src: string; delay: number; floatDy: number }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: -15 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 1.2, duration: 0.5 }}
-      className="absolute flex items-center gap-3 px-4 py-2.5 rounded-2xl z-20"
+      initial={{ opacity: 0, scale: 0.75, y: 16 }}
+      animate={{ opacity: 1, scale: 1, y: [0, -floatDy, 0] }}
+      transition={{
+        opacity: { delay, duration: 0.45 },
+        scale: { delay, duration: 0.45, type: 'spring', stiffness: 220, damping: 20 },
+        y: { delay: delay + 0.5, duration: 3.8, repeat: Infinity, ease: 'easeInOut', repeatType: 'loop' },
+      }}
       style={{
-        top: '50%', left: '50%',
-        transform: 'translate(-50%, -540%)',
-        backgroundColor: 'rgba(10,4,28,0.92)',
-        backdropFilter: 'blur(16px)',
-        border: '1px solid rgba(5,221,225,0.25)',
-        boxShadow: '0 0 30px rgba(5,221,225,0.22), 0 8px 32px rgba(0,0,0,0.45)',
-        whiteSpace: 'nowrap',
+        width: 170,
+        height: 170,
+        borderRadius: 18,
+        overflow: 'hidden',
+        position: 'relative',
+        boxShadow: '0 12px 50px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.12), 0 0 30px rgba(5,221,225,0.12)',
       }}
     >
-      <div className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0"
-        style={{ background: 'rgba(5,221,225,0.12)', border: '1px solid rgba(5,221,225,0.3)' }}>
-        <LinkedInIcon size={13} />
-      </div>
-      <div>
-        <div className="text-secondary font-black text-sm leading-none">
-          {count.toLocaleString('fr-FR')}
-        </div>
-        <div className="text-white/40 text-xs mt-0.5">impressions en direct</div>
-      </div>
-      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse flex-shrink-0" />
+      <Image src={src} alt="" fill className="object-cover object-top" unoptimized />
     </motion.div>
-  )
-}
-
-function NotifCard({ msgSet, style, animDir }: { msgSet: number; style: React.CSSProperties; animDir: 'left' | 'right' }) {
-  const [idx, setIdx] = useState(0)
-  useEffect(() => {
-    const t = setInterval(() => setIdx(i => (i + 1) % NOTIF_SETS[msgSet].length), 3000 + msgSet * 400)
-    return () => clearInterval(t)
-  }, [msgSet])
-  const msg = NOTIF_SETS[msgSet][idx]
-  return (
-    <AnimatePresence mode="wait">
-      <motion.div
-        key={idx}
-        initial={{ opacity: 0, scale: 0.85, x: animDir === 'right' ? 20 : -20 }}
-        animate={{ opacity: 1, scale: 1, x: 0 }}
-        exit={{ opacity: 0, scale: 0.85, x: animDir === 'right' ? 10 : -10 }}
-        transition={{ type: 'spring', stiffness: 280, damping: 26 }}
-        className="absolute flex items-center gap-2.5 px-3.5 py-2.5 rounded-2xl z-20"
-        style={{
-          ...style,
-          backgroundColor: 'rgba(10,4,28,0.92)',
-          backdropFilter: 'blur(16px)',
-          border: '1px solid rgba(255,255,255,0.07)',
-          boxShadow: '0 0 28px rgba(5,221,225,0.2), 0 8px 28px rgba(0,0,0,0.5)',
-          pointerEvents: 'none',
-          minWidth: 175,
-          maxWidth: 215,
-        }}
-      >
-        <div className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0"
-          style={{ background: 'rgba(5,221,225,0.12)', border: '1px solid rgba(5,221,225,0.3)' }}>
-          <LinkedInIcon size={13} />
-        </div>
-        <div className="min-w-0">
-          <div className="text-white font-bold text-xs leading-tight truncate">{msg.title}</div>
-          <div className="text-white/40 text-xs mt-0.5 truncate">{msg.sub}</div>
-        </div>
-        <span className="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse flex-shrink-0 ml-auto" />
-      </motion.div>
-    </AnimatePresence>
   )
 }
 
 export default function HomepageHeroVisual() {
   return (
-    <div className="relative w-full" style={{ height: 520 }}>
+    <div className="relative w-full" style={{ height: 680 }}>
 
-      {/* Live impressions counter — above phone center */}
-      <ImpressionsLive />
-
-      {/* Notification cards */}
-      <NotifCard msgSet={0} animDir="right" style={{ top: '8%', right: '2%' }} />
-      <NotifCard msgSet={1} animDir="left"  style={{ top: '55%', left: '1%' }} />
-      <NotifCard msgSet={2} animDir="right" style={{ bottom: '8%', right: '2%' }} />
-
-      {/* Floating client avatars */}
-      {AVATARS.map((av, i) => (
-        <motion.div
-          key={av.name}
-          className="absolute z-10"
-          style={{ top: av.top, left: av.left, right: av.right, bottom: av.bottom } as React.CSSProperties}
-          initial={{ opacity: 0, scale: 0 }}
-          animate={{ opacity: 1, scale: 1, y: [0, -13, 0] }}
-          transition={{
-            opacity: { delay: 0.6 + i * 0.1, duration: 0.4 },
-            scale: { delay: 0.6 + i * 0.1, duration: 0.4, type: 'spring' },
-            y: { duration: av.dur, repeat: Infinity, ease: 'easeInOut', delay: av.delay, repeatType: 'loop' },
-          }}
-        >
-          <div className="relative">
-            <div className="w-12 h-12 rounded-full overflow-hidden shadow-xl"
-              style={{ border: '2.5px solid rgba(5,221,225,0.4)', boxShadow: '0 4px 20px rgba(0,0,0,0.4), 0 0 12px rgba(5,221,225,0.15)' }}>
-              <Image src={av.src} alt={av.name} width={48} height={48} className="w-full h-full object-cover" unoptimized />
+      {/* Floating client avatars — 18 spread around phone */}
+      {CLIENTS.map((src, i) => {
+        const f = FLOATS[i]
+        return (
+          <motion.div
+            key={i}
+            className="absolute"
+            style={{ ...POSITIONS[i], zIndex: 10 }}
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ opacity: 1, scale: 1, y: [0, -f.dy, 0] }}
+            transition={{
+              opacity: { delay: 0.4 + i * 0.07, duration: 0.4 },
+              scale:   { delay: 0.4 + i * 0.07, duration: 0.4, type: 'spring' },
+              y:       { duration: f.dur, repeat: Infinity, ease: 'easeInOut', delay: f.delay, repeatType: 'loop' },
+            }}
+          >
+            <div
+              className="w-12 h-12 rounded-full overflow-hidden relative"
+              style={{
+                border: '2.5px solid rgba(5,221,225,0.4)',
+                boxShadow: '0 4px 20px rgba(0,0,0,0.4), 0 0 12px rgba(5,221,225,0.15)',
+              }}
+            >
+              <Image src={src} alt="" fill className="object-cover" unoptimized />
             </div>
             <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-emerald-400 border-2 border-[#0d0620]" />
-          </div>
-        </motion.div>
-      ))}
+          </motion.div>
+        )
+      })}
 
-      {/* Phone mockup — centered */}
+      {/* Phone mockup — perfectly centered */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, delay: 0.3 }}
-        className="absolute z-15"
         style={{
+          position: 'absolute',
           top: '50%',
           left: '50%',
-          transform: 'translate(-50%, -50%) perspective(900px) rotateY(-7deg) rotateX(3deg)',
+          transform: 'translate(-50%, -50%)',
+          zIndex: 15,
         }}
       >
-        {/* Phone shell */}
         <div style={{
-          width: 204,
-          height: 432,
-          borderRadius: 40,
+          width: 220,
+          height: 470,
+          borderRadius: 44,
           background: 'linear-gradient(160deg, #1c1c2e 0%, #0d0620 100%)',
           border: '2px solid rgba(255,255,255,0.14)',
-          boxShadow: '0 40px 90px rgba(0,0,0,0.75), inset 0 1px 0 rgba(255,255,255,0.12), 0 0 0 1px rgba(0,0,0,0.5), 0 0 60px rgba(5,221,225,0.07)',
-          padding: '14px 6px 10px',
+          boxShadow: '0 40px 90px rgba(0,0,0,0.75), inset 0 1px 0 rgba(255,255,255,0.12), 0 0 0 1px rgba(0,0,0,0.5)',
+          padding: '14px 7px 12px',
           display: 'flex',
           flexDirection: 'column',
-          gap: 0,
           overflow: 'hidden',
           position: 'relative',
         }}>
@@ -192,35 +146,31 @@ export default function HomepageHeroVisual() {
             pointerEvents: 'none', borderRadius: '0 0 50% 50%',
           }} />
           {/* Dynamic island */}
-          <div style={{ width: 74, height: 24, borderRadius: 12, background: '#000', margin: '0 auto 8px', flexShrink: 0 }} />
+          <div style={{ width: 80, height: 26, borderRadius: 13, background: '#000', margin: '0 auto 10px', flexShrink: 0 }} />
           {/* Screen */}
-          <div style={{ flex: 1, borderRadius: 28, overflow: 'hidden', position: 'relative' }}>
+          <div style={{ flex: 1, borderRadius: 30, overflow: 'hidden', position: 'relative', backgroundColor: '#EEF3F8' }}>
             <Image
               src="/linkedin-profile.png"
               alt="Profil LinkedIn Dylan Parisi"
               fill
-              className="object-cover object-top"
+              className="object-contain object-top"
               unoptimized
             />
           </div>
           {/* Home bar */}
-          <div style={{ width: 90, height: 4, borderRadius: 2, background: 'rgba(255,255,255,0.25)', margin: '8px auto 0', flexShrink: 0 }} />
+          <div style={{ width: 90, height: 4, borderRadius: 2, background: 'rgba(255,255,255,0.25)', margin: '10px auto 0', flexShrink: 0 }} />
         </div>
-
-        {/* Reflection below phone */}
-        <div style={{
-          position: 'absolute',
-          top: '100%',
-          left: '10%',
-          right: '10%',
-          height: 60,
-          background: 'linear-gradient(180deg, rgba(5,221,225,0.06) 0%, transparent 100%)',
-          filter: 'blur(8px)',
-          transform: 'scaleY(-0.4)',
-          transformOrigin: 'top',
-          opacity: 0.5,
-        }} />
       </motion.div>
+
+      {/* Stat card — abonnés (31.png) — appears first, left-bottom of phone */}
+      <div style={{ position: 'absolute', top: '62%', left: '22%', zIndex: 25 }}>
+        <StatCard src="/31.png" delay={1.4} floatDy={7} />
+      </div>
+
+      {/* Stat card — impressions (30.png) — appears second, right-bottom of phone */}
+      <div style={{ position: 'absolute', top: '70%', right: '21%', zIndex: 25 }}>
+        <StatCard src="/30.png" delay={2.1} floatDy={9} />
+      </div>
     </div>
   )
 }
