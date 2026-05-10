@@ -4,7 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { ArrowRight, Calendar } from 'lucide-react'
-import LinkedInGlobe from './LinkedInGlobe'
+import HomepageHeroVisual from './HomepageHeroVisual'
 
 const CDN = 'https://cdn.prod.website-files.com/68ab2d1a568ed1d53d774d32'
 
@@ -117,7 +117,7 @@ export default function HomepageHero() {
             transition={{ duration: 0.8, delay: 0.3 }}
             className="hidden lg:block relative min-w-0"
           >
-            <LinkedInGlobe />
+            <HomepageHeroVisual />
           </motion.div>
         </div>
       </div>
