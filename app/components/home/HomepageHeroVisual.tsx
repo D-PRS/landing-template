@@ -52,7 +52,7 @@ function ImpressionsLive() {
       transition={{ delay: 1.8, duration: 0.5 }}
       className="absolute flex items-center gap-3 px-4 py-2.5 rounded-2xl"
       style={{
-        top: '52%', right: '0%',
+        top: '50%', right: 'calc(50% - 240px)',
         zIndex: 20,
         backgroundColor: 'rgba(0,10,32,0.92)',
         backdropFilter: 'blur(16px)',
@@ -155,17 +155,17 @@ export default function HomepageHeroVisual() {
 
       {/* ── 4 notification cards positioned like the reference ── */}
 
-      {/* Haut-gauche — près du haut du téléphone */}
-      <NotifCard msgSet={0} animDir="right" style={{ top: '3%',  left: '16%'  }} />
+      {/* Haut-gauche — au-dessus du téléphone côté gauche */}
+      <NotifCard msgSet={0} animDir="right" style={{ top: '2%',  left: 'calc(50% - 195px)' }} />
 
-      {/* Haut-droit — près du haut du téléphone */}
-      <NotifCard msgSet={3} animDir="left"  style={{ top: '2%',  right: '8%'  }} />
+      {/* Haut-droit — au-dessus du téléphone côté droit */}
+      <NotifCard msgSet={3} animDir="left"  style={{ top: '2%',  right: 'calc(50% - 195px)' }} />
 
-      {/* Droite-centre — flanc droit */}
-      <NotifCard msgSet={1} animDir="left"  style={{ top: '42%', right: '0%'  }} />
+      {/* Droite-centre — flanc droit du téléphone */}
+      <NotifCard msgSet={1} animDir="left"  style={{ top: '40%', right: 'calc(50% - 240px)' }} />
 
       {/* Gauche-centre isolée — flanc gauche, mi-hauteur */}
-      <NotifCard msgSet={2} animDir="right" style={{ top: '30%', left: '0%'   }} />
+      <NotifCard msgSet={2} animDir="right" style={{ top: '32%', left: 'calc(50% - 240px)' }} />
 
       {/* Lower-right — live counter */}
       <ImpressionsLive />
@@ -223,11 +223,11 @@ export default function HomepageHeroVisual() {
         }} />
       </motion.div>
 
-      {/* ── Stat cards — bas-gauche et bas-droit, bords du conteneur ── */}
-      <div style={{ position: 'absolute', top: '63%', left: '2%', zIndex: 25 }}>
+      {/* ── Stat cards — chevauchent les bords bas du téléphone ── */}
+      <div style={{ position: 'absolute', top: '63%', left: 'calc(50% - 215px)', zIndex: 25 }}>
         <StatCard src="/stat-abonnes.png" label="Abonnés" delay={1.3} floatDy={6} />
       </div>
-      <div style={{ position: 'absolute', top: '70%', right: '2%', zIndex: 25 }}>
+      <div style={{ position: 'absolute', top: '70%', right: 'calc(50% - 215px)', zIndex: 25 }}>
         <StatCard src="/stat-impressions.png" label="Impressions" delay={2.0} floatDy={8} />
       </div>
 
