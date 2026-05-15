@@ -2,241 +2,171 @@
 
 import Image from 'next/image'
 import { motion } from 'framer-motion'
-import { GraduationCap, Award, TrendingUp, Briefcase, Trophy } from 'lucide-react'
+import { GraduationCap, TrendingUp, Briefcase, Trophy, Award } from 'lucide-react'
 
-// Phone is 204px wide, centered at 50%.
-// Cards use calc(50% - 270px) for left / right edges so they always
-// overlap the phone by ~52px regardless of container width.
-// zIndex: cards(20) > phone(15) so cards appear in front.
+const SCREEN_W = 270
+const SCREEN_H = Math.round(SCREEN_W * 1920 / 1080)
 
-type Card = {
-  icon: React.ComponentType<{ className?: string; style?: React.CSSProperties }>
-  iconColor: string
-  iconBg: string
-  title: string
-  sub: string
-  pos: React.CSSProperties
-  delay: number
-  floatY: number
-}
-
-const CARDS: Card[] = [
+const POPUPS = [
   {
-    icon: GraduationCap,
-    iconColor: '#05dde1',
-    iconBg: 'rgba(5,221,225,0.18)',
-    title: 'Certificat obtenu !',
-    sub: 'Algorithme LinkedIn',
-    pos: { top: 24, left: 'calc(50% - 270px)' },
-    delay: 0.5,
-    floatY: 8,
+    Icon: GraduationCap,
+    iconColorClass: 'text-secondary',
+    iconBgClass: 'bg-secondary/20',
+    titre: 'Certificat obtenu !',
+    sous: 'Algorithme LinkedIn',
+    pos: 'top-[4%] left-[2%]',
+    delay: 0.8,
+    float: { y: [0, -10, 0] as number[], duration: 3.2 },
+    purple: false,
   },
   {
-    icon: Award,
-    iconColor: '#05dde1',
-    iconBg: 'rgba(5,221,225,0.18)',
-    title: 'CDI décroché',
-    sub: 'En 3 mois',
-    pos: { top: 14, right: 'calc(50% - 270px)' },
-    delay: 0.7,
-    floatY: 10,
-  },
-  {
-    icon: TrendingUp,
-    iconColor: '#a855f7',
-    iconBg: 'rgba(168,85,247,0.22)',
-    title: '+4 500% de reach',
-    sub: 'En 6 semaines',
-    pos: { top: 185, right: 'calc(50% - 270px)' },
-    delay: 0.9,
-    floatY: 6,
-  },
-  {
-    icon: Briefcase,
-    iconColor: '#05dde1',
-    iconBg: 'rgba(5,221,225,0.18)',
-    title: '3 RDV qualifiés',
-    sub: 'En une semaine',
-    pos: { top: 295, left: 'calc(50% - 270px)' },
+    Icon: TrendingUp,
+    iconColorClass: '',
+    iconBgClass: '',
+    iconColorStyle: { color: '#a855f7' },
+    iconBgStyle: { backgroundColor: 'rgba(168,85,247,0.22)' },
+    titre: '+4 500% de reach',
+    sous: 'En 6 semaines',
+    pos: 'top-[28%] right-0',
     delay: 1.1,
-    floatY: 7,
+    float: { y: [0, 9, 0] as number[], duration: 2.7 },
+    purple: true,
   },
   {
-    icon: Trophy,
-    iconColor: '#05dde1',
-    iconBg: 'rgba(5,221,225,0.18)',
-    title: '+25 ventes en 4j',
-    sub: 'Social selling',
-    pos: { top: 385, right: 'calc(50% - 270px)' },
-    delay: 1.3,
-    floatY: 9,
+    Icon: Briefcase,
+    iconColorClass: 'text-secondary',
+    iconBgClass: 'bg-secondary/20',
+    titre: '3 RDV qualifiés',
+    sous: 'En une semaine',
+    pos: 'top-[56%] left-0',
+    delay: 1.4,
+    float: { y: [0, -11, 0] as number[], duration: 4.0 },
+    purple: false,
+  },
+  {
+    Icon: Trophy,
+    iconColorClass: 'text-secondary',
+    iconBgClass: 'bg-secondary/20',
+    titre: '+25 ventes en 4j',
+    sous: 'Social selling',
+    pos: 'bottom-[6%] right-[4%]',
+    delay: 1.7,
+    float: { y: [0, 8, 0] as number[], duration: 3.6 },
+    purple: false,
+  },
+  {
+    Icon: Award,
+    iconColorClass: 'text-secondary',
+    iconBgClass: 'bg-secondary/20',
+    titre: 'CDI décroché',
+    sous: 'En 3 mois',
+    pos: 'top-0 left-[42%] -translate-x-1/2',
+    delay: 2.0,
+    float: { y: [0, -8, 0] as number[], duration: 2.5 },
+    purple: false,
   },
 ]
 
-function AchievementCard({
-  icon: Icon,
-  iconColor,
-  iconBg,
-  title,
-  sub,
-  pos,
-  delay,
-  floatY,
-}: Card) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.82 }}
-      animate={{
-        opacity: 1,
-        scale: 1,
-        y: [0, -floatY, 0],
-      }}
-      transition={{
-        opacity: { delay, duration: 0.45 },
-        scale: { delay, duration: 0.45, type: 'spring', stiffness: 210, damping: 22 },
-        y: {
-          delay: delay + 0.6,
-          duration: 3.5 + delay * 0.4,
-          repeat: Infinity,
-          ease: 'easeInOut',
-          repeatType: 'loop',
-        },
-      }}
-      className="absolute flex items-center gap-3 px-4 py-3 rounded-2xl"
-      style={{
-        ...pos,
-        zIndex: 20,
-        width: 220,
-        backgroundColor: '#0d1e47',
-        border: '1px solid rgba(255,255,255,0.10)',
-        boxShadow: '0 10px 40px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.04)',
-        pointerEvents: 'none',
-        whiteSpace: 'nowrap',
-      }}
-    >
-      <div
-        className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0"
-        style={{ backgroundColor: iconBg }}
-      >
-        <Icon className="w-5 h-5" style={{ color: iconColor }} />
-      </div>
-      <div>
-        <div className="text-white font-black text-sm leading-snug">{title}</div>
-        <div className="text-white/45 text-xs mt-0.5">{sub}</div>
-      </div>
-    </motion.div>
-  )
-}
-
 export default function HomepageHeroVisual() {
   return (
-    <div className="relative w-full" style={{ height: 520 }}>
-      {CARDS.map((card, i) => (
-        <AchievementCard key={i} {...card} />
-      ))}
+    <div className="flex justify-center items-center" style={{ minHeight: 640 }}>
+      <div className="relative" style={{ width: 580, height: 640 }}>
 
-      {/* Phone — centered at 50%/50% */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, delay: 0.3 }}
-        style={{
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%) perspective(900px) rotateY(-7deg) rotateX(3deg)',
-          zIndex: 15,
-        }}
-      >
-        {/* Shell */}
+        {/* Glow */}
         <div
+          className="absolute pointer-events-none rounded-full"
           style={{
-            width: 204,
-            height: 432,
-            borderRadius: 40,
-            background: 'linear-gradient(160deg, #001a4d 0%, #000d26 100%)',
-            border: '2px solid rgba(255,255,255,0.14)',
-            boxShadow:
-              '0 40px 90px rgba(0,0,0,0.75), inset 0 1px 0 rgba(255,255,255,0.12), 0 0 0 1px rgba(0,0,0,0.5), 0 0 60px rgba(5,221,225,0.07)',
-            padding: '14px 6px 10px',
-            display: 'flex',
-            flexDirection: 'column',
-            overflow: 'hidden',
-            position: 'relative',
-          }}
-        >
-          {/* Inner shine */}
-          <div
-            style={{
-              position: 'absolute',
-              top: 0,
-              left: '10%',
-              right: '30%',
-              height: '40%',
-              background:
-                'linear-gradient(180deg, rgba(255,255,255,0.06) 0%, transparent 100%)',
-              pointerEvents: 'none',
-              borderRadius: '0 0 50% 50%',
-            }}
-          />
-          {/* Notch */}
-          <div
-            style={{
-              width: 74,
-              height: 24,
-              borderRadius: 12,
-              background: '#000',
-              margin: '0 auto 8px',
-              flexShrink: 0,
-            }}
-          />
-          {/* Screen */}
-          <div
-            style={{
-              flex: 1,
-              borderRadius: 28,
-              overflow: 'hidden',
-              position: 'relative',
-            }}
-          >
-            <Image
-              src="/linkedin-profile.png"
-              alt="Profil LinkedIn"
-              fill
-              className="object-cover object-top"
-              unoptimized
-            />
-          </div>
-          {/* Home bar */}
-          <div
-            style={{
-              width: 90,
-              height: 4,
-              borderRadius: 2,
-              background: 'rgba(255,255,255,0.25)',
-              margin: '8px auto 0',
-              flexShrink: 0,
-            }}
-          />
-        </div>
-
-        {/* Floor glow */}
-        <div
-          style={{
-            position: 'absolute',
-            top: '100%',
-            left: '10%',
-            right: '10%',
-            height: 60,
-            background:
-              'linear-gradient(180deg, rgba(5,221,225,0.06) 0%, transparent 100%)',
-            filter: 'blur(8px)',
-            transform: 'scaleY(-0.4)',
-            transformOrigin: 'top',
-            opacity: 0.5,
+            width: 320, height: 560,
+            top: '50%', left: '50%',
+            transform: 'translate(-50%, -50%)',
+            background: 'radial-gradient(ellipse, rgba(5,221,225,0.18) 0%, transparent 70%)',
+            filter: 'blur(32px)',
           }}
         />
-      </motion.div>
+
+        {/* Phone centered */}
+        <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
+          <motion.div
+            animate={{ y: [0, -12, 0] }}
+            transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
+            style={{ rotate: '4deg' }}
+          >
+            <div
+              className="relative rounded-[42px] shadow-2xl border-[3px]"
+              style={{
+                padding: 11,
+                background: 'linear-gradient(160deg, #001a4d 0%, #000d26 100%)',
+                borderColor: 'rgba(255,255,255,0.14)',
+                boxShadow: '0 40px 90px rgba(0,0,0,0.7), 0 0 60px rgba(5,221,225,0.08)',
+              }}
+            >
+              {/* Notch */}
+              <div className="absolute top-3 left-1/2 -translate-x-1/2 w-16 h-5 rounded-full z-10"
+                style={{ background: '#000d26' }} />
+              {/* Side buttons */}
+              <div className="absolute -right-[3px] top-16 w-[3px] h-9 rounded-r-sm"
+                style={{ background: 'rgba(255,255,255,0.15)' }} />
+              <div className="absolute -left-[3px] top-12 w-[3px] h-7 rounded-l-sm"
+                style={{ background: 'rgba(255,255,255,0.15)' }} />
+              <div className="absolute -left-[3px] top-24 w-[3px] h-7 rounded-l-sm"
+                style={{ background: 'rgba(255,255,255,0.15)' }} />
+              {/* Screen */}
+              <div className="overflow-hidden rounded-[32px]"
+                style={{ width: SCREEN_W, height: SCREEN_H }}>
+                <Image
+                  src="/linkedin-profile.png"
+                  alt="Profil LinkedIn"
+                  width={SCREEN_W}
+                  height={SCREEN_H}
+                  className="w-full h-full object-cover object-top"
+                  unoptimized
+                  priority
+                />
+              </div>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Popups */}
+        {POPUPS.map((popup, i) => {
+          const { Icon } = popup
+          return (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, scale: 0.7 }}
+              animate={{ opacity: 1, scale: 1, y: popup.float.y }}
+              transition={{
+                opacity: { delay: popup.delay, duration: 0.4 },
+                scale: { delay: popup.delay, duration: 0.5, type: 'spring', stiffness: 180 },
+                y: { delay: popup.delay + 0.5, duration: popup.float.duration, repeat: Infinity, ease: 'easeInOut' },
+              }}
+              className={`absolute ${popup.pos} backdrop-blur-md border rounded-2xl px-4 py-3 flex items-center gap-3 z-20 whitespace-nowrap`}
+              style={{
+                backgroundColor: '#0d1e47',
+                borderColor: popup.purple ? 'rgba(168,85,247,0.25)' : 'rgba(255,255,255,0.10)',
+                boxShadow: popup.purple
+                  ? '0 0 30px rgba(168,85,247,0.25)'
+                  : '0 10px 40px rgba(0,0,0,0.5)',
+              }}
+            >
+              <div
+                className={`w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 ${popup.iconBgClass}`}
+                style={'iconBgStyle' in popup ? popup.iconBgStyle : undefined}
+              >
+                <Icon
+                  className={`w-5 h-5 ${popup.iconColorClass}`}
+                  style={'iconColorStyle' in popup ? popup.iconColorStyle : undefined}
+                />
+              </div>
+              <div>
+                <p className="text-white font-bold text-sm leading-tight">{popup.titre}</p>
+                <p className="text-white/55 text-xs mt-0.5">{popup.sous}</p>
+              </div>
+            </motion.div>
+          )
+        })}
+
+      </div>
     </div>
   )
 }
