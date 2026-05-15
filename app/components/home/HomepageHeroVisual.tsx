@@ -4,13 +4,18 @@ import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { GraduationCap, Award, TrendingUp, Briefcase, Trophy } from 'lucide-react'
 
+// Phone is 204px wide, centered at 50%.
+// Cards use calc(50% - 270px) for left / right edges so they always
+// overlap the phone by ~52px regardless of container width.
+// zIndex: cards(20) > phone(15) so cards appear in front.
+
 type Card = {
   icon: React.ComponentType<{ className?: string; style?: React.CSSProperties }>
   iconColor: string
   iconBg: string
   title: string
   sub: string
-  style: React.CSSProperties
+  pos: React.CSSProperties
   delay: number
   floatY: number
 }
@@ -22,7 +27,7 @@ const CARDS: Card[] = [
     iconBg: 'rgba(5,221,225,0.18)',
     title: 'Certificat obtenu !',
     sub: 'Algorithme LinkedIn',
-    style: { top: '10%', left: 'calc(50% - 258px)' },
+    pos: { top: 24, left: 'calc(50% - 270px)' },
     delay: 0.5,
     floatY: 8,
   },
@@ -32,7 +37,7 @@ const CARDS: Card[] = [
     iconBg: 'rgba(5,221,225,0.18)',
     title: 'CDI décroché',
     sub: 'En 3 mois',
-    style: { top: '6%', right: 'calc(50% - 258px)' },
+    pos: { top: 14, right: 'calc(50% - 270px)' },
     delay: 0.7,
     floatY: 10,
   },
@@ -42,7 +47,7 @@ const CARDS: Card[] = [
     iconBg: 'rgba(168,85,247,0.22)',
     title: '+4 500% de reach',
     sub: 'En 6 semaines',
-    style: { top: '40%', right: 'calc(50% - 272px)' },
+    pos: { top: 185, right: 'calc(50% - 270px)' },
     delay: 0.9,
     floatY: 6,
   },
@@ -52,7 +57,7 @@ const CARDS: Card[] = [
     iconBg: 'rgba(5,221,225,0.18)',
     title: '3 RDV qualifiés',
     sub: 'En une semaine',
-    style: { top: '61%', left: 'calc(50% - 268px)' },
+    pos: { top: 295, left: 'calc(50% - 270px)' },
     delay: 1.1,
     floatY: 7,
   },
@@ -62,13 +67,22 @@ const CARDS: Card[] = [
     iconBg: 'rgba(5,221,225,0.18)',
     title: '+25 ventes en 4j',
     sub: 'Social selling',
-    style: { top: '79%', right: 'calc(50% - 260px)' },
+    pos: { top: 385, right: 'calc(50% - 270px)' },
     delay: 1.3,
     floatY: 9,
   },
 ]
 
-function AchievementCard({ icon: Icon, iconColor, iconBg, title, sub, style, delay, floatY }: Card) {
+function AchievementCard({
+  icon: Icon,
+  iconColor,
+  iconBg,
+  title,
+  sub,
+  pos,
+  delay,
+  floatY,
+}: Card) {
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.82 }}
@@ -90,12 +104,12 @@ function AchievementCard({ icon: Icon, iconColor, iconBg, title, sub, style, del
       }}
       className="absolute flex items-center gap-3 px-4 py-3 rounded-2xl"
       style={{
-        ...style,
+        ...pos,
         zIndex: 20,
+        width: 220,
         backgroundColor: '#0d1e47',
-        border: '1px solid rgba(255,255,255,0.09)',
-        boxShadow: '0 10px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.04)',
-        minWidth: 235,
+        border: '1px solid rgba(255,255,255,0.10)',
+        boxShadow: '0 10px 40px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.04)',
         pointerEvents: 'none',
         whiteSpace: 'nowrap',
       }}
@@ -117,12 +131,11 @@ function AchievementCard({ icon: Icon, iconColor, iconBg, title, sub, style, del
 export default function HomepageHeroVisual() {
   return (
     <div className="relative w-full" style={{ height: 520 }}>
-
       {CARDS.map((card, i) => (
         <AchievementCard key={i} {...card} />
       ))}
 
-      {/* ── Téléphone centré avec perspective 3D ── */}
+      {/* Phone — centered at 50%/50% */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
@@ -135,50 +148,95 @@ export default function HomepageHeroVisual() {
           zIndex: 15,
         }}
       >
-        {/* Coque téléphone */}
-        <div style={{
-          width: 204,
-          height: 432,
-          borderRadius: 40,
-          background: 'linear-gradient(160deg, #001a4d 0%, #000d26 100%)',
-          border: '2px solid rgba(255,255,255,0.14)',
-          boxShadow: '0 40px 90px rgba(0,0,0,0.75), inset 0 1px 0 rgba(255,255,255,0.12), 0 0 0 1px rgba(0,0,0,0.5), 0 0 60px rgba(5,221,225,0.07)',
-          padding: '14px 6px 10px',
-          display: 'flex',
-          flexDirection: 'column',
-          overflow: 'hidden',
-          position: 'relative',
-        }}>
-          {/* Reflet interne */}
-          <div style={{
-            position: 'absolute', top: 0, left: '10%', right: '30%', height: '40%',
-            background: 'linear-gradient(180deg, rgba(255,255,255,0.06) 0%, transparent 100%)',
-            pointerEvents: 'none', borderRadius: '0 0 50% 50%',
-          }} />
+        {/* Shell */}
+        <div
+          style={{
+            width: 204,
+            height: 432,
+            borderRadius: 40,
+            background: 'linear-gradient(160deg, #001a4d 0%, #000d26 100%)',
+            border: '2px solid rgba(255,255,255,0.14)',
+            boxShadow:
+              '0 40px 90px rgba(0,0,0,0.75), inset 0 1px 0 rgba(255,255,255,0.12), 0 0 0 1px rgba(0,0,0,0.5), 0 0 60px rgba(5,221,225,0.07)',
+            padding: '14px 6px 10px',
+            display: 'flex',
+            flexDirection: 'column',
+            overflow: 'hidden',
+            position: 'relative',
+          }}
+        >
+          {/* Inner shine */}
+          <div
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: '10%',
+              right: '30%',
+              height: '40%',
+              background:
+                'linear-gradient(180deg, rgba(255,255,255,0.06) 0%, transparent 100%)',
+              pointerEvents: 'none',
+              borderRadius: '0 0 50% 50%',
+            }}
+          />
           {/* Notch */}
-          <div style={{ width: 74, height: 24, borderRadius: 12, background: '#000', margin: '0 auto 8px', flexShrink: 0 }} />
-          {/* Écran */}
-          <div style={{ flex: 1, borderRadius: 28, overflow: 'hidden', position: 'relative' }}>
+          <div
+            style={{
+              width: 74,
+              height: 24,
+              borderRadius: 12,
+              background: '#000',
+              margin: '0 auto 8px',
+              flexShrink: 0,
+            }}
+          />
+          {/* Screen */}
+          <div
+            style={{
+              flex: 1,
+              borderRadius: 28,
+              overflow: 'hidden',
+              position: 'relative',
+            }}
+          >
             <Image
               src="/linkedin-profile.png"
-              alt="Profil LinkedIn Dylan Parisi"
+              alt="Profil LinkedIn"
               fill
               className="object-cover object-top"
               unoptimized
             />
           </div>
-          {/* Barre de navigation */}
-          <div style={{ width: 90, height: 4, borderRadius: 2, background: 'rgba(255,255,255,0.25)', margin: '8px auto 0', flexShrink: 0 }} />
+          {/* Home bar */}
+          <div
+            style={{
+              width: 90,
+              height: 4,
+              borderRadius: 2,
+              background: 'rgba(255,255,255,0.25)',
+              margin: '8px auto 0',
+              flexShrink: 0,
+            }}
+          />
         </div>
 
-        {/* Reflet sol */}
-        <div style={{
-          position: 'absolute', top: '100%', left: '10%', right: '10%', height: 60,
-          background: 'linear-gradient(180deg, rgba(5,221,225,0.06) 0%, transparent 100%)',
-          filter: 'blur(8px)', transform: 'scaleY(-0.4)', transformOrigin: 'top', opacity: 0.5,
-        }} />
+        {/* Floor glow */}
+        <div
+          style={{
+            position: 'absolute',
+            top: '100%',
+            left: '10%',
+            right: '10%',
+            height: 60,
+            background:
+              'linear-gradient(180deg, rgba(5,221,225,0.06) 0%, transparent 100%)',
+            filter: 'blur(8px)',
+            transform: 'scaleY(-0.4)',
+            transformOrigin: 'top',
+            opacity: 0.5,
+          }}
+        />
       </motion.div>
-
     </div>
   )
 }
