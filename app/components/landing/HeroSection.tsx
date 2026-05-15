@@ -1,17 +1,7 @@
 'use client'
 
-import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { ArrowRight, BookOpen, Users, TrendingUp } from 'lucide-react'
-
-const CDN = 'https://cdn.prod.website-files.com/68ab2d1a568ed1d53d774d32'
-
-const EBOOK_COVERS = [
-  `${CDN}/68c312c07965f332a429837b_1.png`,
-  `${CDN}/68c31283c9c6ed064f402c66_2.png`,
-  `${CDN}/68c31290481cb19d6699624d_3.png`,
-  `${CDN}/68c07ab9939042c046999908_4.png`,
-]
 
 const BADGES = [
   { icon: BookOpen, text: '7 guides complets', color: 'text-secondary' },
@@ -113,67 +103,40 @@ export default function HeroSection() {
             </motion.div>
           </div>
 
-          {/* Right — Ebook stack preview */}
+          {/* Right — Video 9:16 */}
           <motion.div
             initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="hidden lg:flex justify-center items-center min-w-0 overflow-hidden"
+            className="hidden lg:flex justify-center items-center min-w-0"
           >
-            <div className="relative" style={{ width: '520px', height: '420px' }}>
-              {/* Glow */}
-              <div className="absolute inset-0 rounded-full blur-3xl opacity-30 pointer-events-none"
-                style={{ background: 'radial-gradient(ellipse, #05dde1 0%, #002060 50%, transparent 80%)' }} />
-
-              {/* Stacked ebook covers */}
-              {EBOOK_COVERS.slice().reverse().map((src, idx) => {
-                const realIdx = EBOOK_COVERS.length - 1 - idx
-                const offsets = [
-                  { x: 48, y: 36, rotate: 8, z: 1 },
-                  { x: 24, y: 18, rotate: 4, z: 2 },
-                  { x: 0, y: 0, rotate: -2, z: 3 },
-                  { x: -20, y: -16, rotate: -6, z: 4 },
-                ]
-                const o = offsets[realIdx]
-                return (
-                  <motion.div
-                    key={src}
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.4 + realIdx * 0.1 }}
-                    whileHover={{ y: -8, scale: 1.03 }}
-                    className="absolute"
-                    style={{
-                      width: '260px',
-                      top: '50%',
-                      left: '50%',
-                      transform: `translate(calc(-50% + ${o.x}px), calc(-50% + ${o.y}px)) rotate(${o.rotate}deg)`,
-                      zIndex: o.z,
-                    }}
-                  >
-                    <div className="rounded-2xl overflow-hidden shadow-2xl ring-1 ring-white/10">
-                      <Image
-                        src={src}
-                        alt="E-book Provisual"
-                        width={260}
-                        height={340}
-                        className="w-full object-cover"
-                        unoptimized
-                      />
-                    </div>
-                  </motion.div>
-                )
-              })}
-
-              {/* Count badge */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.7 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.9, type: 'spring', stiffness: 200 }}
-                className="absolute bottom-4 right-4 z-20 bg-secondary text-primary font-black text-sm px-4 py-2 rounded-full shadow-glow"
+            <div className="relative">
+              {/* Outer glow */}
+              <div className="absolute -inset-6 rounded-[3rem] blur-2xl pointer-events-none opacity-40"
+                style={{ background: 'radial-gradient(ellipse, rgba(5,221,225,0.5) 0%, transparent 70%)' }} />
+              {/* Border glow ring */}
+              <div className="absolute -inset-1 rounded-[2.5rem] blur-md pointer-events-none opacity-60"
+                style={{ background: 'linear-gradient(135deg, rgba(5,221,225,0.4), rgba(5,221,225,0.1))' }} />
+              {/* Video container — phone-like */}
+              <div
+                className="relative rounded-[2rem] overflow-hidden ring-2"
+                style={{
+                  width: 260,
+                  ringColor: 'rgba(5,221,225,0.5)',
+                  boxShadow: '0 0 0 2px rgba(5,221,225,0.4), 0 30px 80px rgba(0,0,0,0.6)',
+                  background: '#000',
+                }}
               >
-                7 guides
-              </motion.div>
+                <div style={{ position: 'relative', paddingBottom: '177.78%' }}>
+                  <iframe
+                    src="https://www.youtube.com/embed/RTr9QRcWynw?rel=0&modestbranding=1"
+                    title="ProVisual Academy"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 0 }}
+                  />
+                </div>
+              </div>
             </div>
           </motion.div>
         </div>
