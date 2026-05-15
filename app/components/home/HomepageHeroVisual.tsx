@@ -60,7 +60,7 @@ const POPUPS = [
     iconBgClass: 'bg-secondary/20',
     titre: 'CDI décroché',
     sous: 'En 3 mois',
-    pos: 'top-0 left-[42%] -translate-x-1/2',
+    pos: 'top-[2%] right-[2%]',
     delay: 2.0,
     float: { y: [0, -8, 0] as number[], duration: 2.5 },
     purple: false,
