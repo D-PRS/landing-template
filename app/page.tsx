@@ -3,7 +3,7 @@ import PageShell from './components/shared/PageShell'
 import HomepageHero from './components/home/HomepageHero'
 import HomepageStats from './components/home/HomepageStats'
 import HomepageServices from './components/home/HomepageServices'
-import HomepageEbooks from './components/home/HomepageEbooks'
+import HomepageFormations from './components/home/HomepageFormations'
 import TemoignagesSection from './components/landing/TemoignagesSection'
 import HomepageCta from './components/home/HomepageCta'
 
@@ -18,7 +18,7 @@ export default function HomePage() {
       <HomepageHero />
       <HomepageStats />
       <HomepageServices />
-      <HomepageEbooks />
+      <HomepageFormations />
       <TemoignagesSection />
       <HomepageCta />
     </PageShell>
