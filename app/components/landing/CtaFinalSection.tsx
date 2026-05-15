@@ -20,7 +20,7 @@ export default function CtaFinalSection() {
       {/* Background glow */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
         <div className="w-[600px] h-[600px] rounded-full blur-3xl opacity-20"
-          style={{ background: 'radial-gradient(circle, #05dde1 0%, #0848aa 50%, transparent 80%)' }} />
+          style={{ background: 'radial-gradient(circle, #05dde1 0%, #002060 50%, transparent 80%)' }} />
       </div>
 
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -82,7 +82,7 @@ export default function CtaFinalSection() {
             <div className="flex -space-x-3">
               {AVATARS.map((src, i) => (
                 <div key={i} className="w-10 h-10 rounded-full border-2 overflow-hidden flex-shrink-0"
-                  style={{ borderColor: '#0d0620' }}>
+                  style={{ borderColor: '#001a4d' }}>
                   <Image src={src} alt="" width={40} height={40} className="w-full h-full object-cover" unoptimized />
                 </div>
               ))}

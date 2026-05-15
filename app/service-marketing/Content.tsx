@@ -51,7 +51,7 @@ export default function ServiceMarketingContent() {
       {/* Hero */}
       <section className="relative min-h-[70vh] flex flex-col justify-center overflow-hidden pt-24 pb-16">
         <div className="absolute top-1/3 right-1/4 w-[400px] h-[400px] rounded-full blur-3xl pointer-events-none opacity-15"
-          style={{ background: 'radial-gradient(circle, #0848aa, transparent)' }} />
+          style={{ background: 'radial-gradient(circle, #002060, transparent)' }} />
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -214,7 +214,7 @@ export default function ServiceMarketingContent() {
       <section className="relative py-24 overflow-hidden">
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
           <div className="w-[500px] h-[500px] rounded-full blur-3xl opacity-20"
-            style={{ background: 'radial-gradient(circle, #05dde1 0%, #0848aa 50%, transparent 80%)' }} />
+            style={{ background: 'radial-gradient(circle, #05dde1 0%, #002060 50%, transparent 80%)' }} />
         </div>
         <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div

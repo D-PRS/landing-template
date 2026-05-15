@@ -192,7 +192,7 @@ export default function LinkedInGlobe() {
               className="absolute flex items-center gap-2.5 px-3 py-2.5 rounded-2xl text-xs font-bold text-white"
               style={{
                 ...slot.style,
-                backgroundColor: 'rgba(10,4,28,0.90)',
+                backgroundColor: 'rgba(0,10,32,0.90)',
                 backdropFilter: 'blur(14px)',
                 border: '1px solid rgba(255,255,255,0.07)',
                 boxShadow: '0 0 28px rgba(5,221,225,0.20), 0 8px 32px rgba(0,0,0,0.5)',

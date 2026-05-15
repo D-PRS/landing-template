@@ -21,7 +21,7 @@ export default function ContactContent() {
       {/* Hero */}
       <section className="relative pt-32 pb-16 overflow-hidden">
         <div className="absolute top-1/3 right-1/4 w-[400px] h-[400px] rounded-full blur-3xl pointer-events-none opacity-15"
-          style={{ background: 'radial-gradient(circle, #0848aa, transparent)' }} />
+          style={{ background: 'radial-gradient(circle, #002060, transparent)' }} />
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -155,7 +155,7 @@ export default function ContactContent() {
             >
               {/* Calendly CTA */}
               <div className="rounded-3xl p-8 border border-secondary/20 overflow-hidden relative"
-                style={{ background: 'linear-gradient(135deg, rgba(8,72,170,0.35) 0%, rgba(5,221,225,0.12) 100%)' }}>
+                style={{ background: 'linear-gradient(135deg, rgba(0,32,96,0.4) 0%, rgba(5,221,225,0.12) 100%)' }}>
                 <div className="absolute top-0 right-0 w-48 h-48 rounded-full blur-3xl opacity-20 pointer-events-none"
                   style={{ background: 'radial-gradient(circle, #05dde1, transparent)' }} />
                 <div className="relative z-10">

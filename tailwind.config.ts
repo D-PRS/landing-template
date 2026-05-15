@@ -36,7 +36,8 @@ const config: Config = {
         tertiary: '#05fbe1',
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        sans: ['Carlito', 'Inter', 'system-ui', 'sans-serif'],
+        display: ['Droxen', 'Inter', 'system-ui', 'sans-serif'],
       },
       borderRadius: {
         '2xl': '16px',

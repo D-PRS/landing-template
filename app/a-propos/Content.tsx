@@ -42,7 +42,7 @@ export default function AProposContent() {
       {/* Hero */}
       <section className="relative pt-32 pb-20 overflow-hidden">
         <div className="absolute top-1/3 right-1/4 w-[400px] h-[400px] rounded-full blur-3xl pointer-events-none opacity-15"
-          style={{ background: 'radial-gradient(circle, #0848aa, transparent)' }} />
+          style={{ background: 'radial-gradient(circle, #002060, transparent)' }} />
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -143,12 +143,12 @@ export default function AProposContent() {
                   <div className="flex -space-x-2 flex-wrap">
                     {CLIENTS.map((c) => (
                       <div key={c.prenom} className="w-10 h-10 rounded-full border-2 overflow-hidden flex-shrink-0"
-                        style={{ borderColor: '#0d0620' }}>
+                        style={{ borderColor: '#001a4d' }}>
                         <Image src={c.avatar} alt={c.prenom} width={40} height={40} className="w-full h-full object-cover" unoptimized />
                       </div>
                     ))}
                     <div className="w-10 h-10 rounded-full border-2 flex items-center justify-center text-white/60 text-xs font-bold flex-shrink-0"
-                      style={{ borderColor: '#0d0620', backgroundColor: 'rgba(5,221,225,0.15)' }}>
+                      style={{ borderColor: '#001a4d', backgroundColor: 'rgba(5,221,225,0.15)' }}>
                       +
                     </div>
                   </div>
@@ -257,7 +257,7 @@ export default function AProposContent() {
       <section className="relative py-24 overflow-hidden">
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
           <div className="w-[500px] h-[500px] rounded-full blur-3xl opacity-20"
-            style={{ background: 'radial-gradient(circle, #05dde1 0%, #0848aa 50%, transparent 80%)' }} />
+            style={{ background: 'radial-gradient(circle, #05dde1 0%, #002060 50%, transparent 80%)' }} />
         </div>
         <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div

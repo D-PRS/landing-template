@@ -93,7 +93,7 @@ export default function HomepageEbooks() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
           className="rounded-3xl p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-6 border border-secondary/20"
-          style={{ background: 'linear-gradient(135deg, rgba(8,72,170,0.3) 0%, rgba(5,221,225,0.1) 100%)' }}
+          style={{ background: 'linear-gradient(135deg, rgba(0,32,96,0.35) 0%, rgba(5,221,225,0.1) 100%)' }}
         >
           <div>
             <p className="text-secondary text-xs font-semibold uppercase tracking-widest mb-2">7 guides disponibles</p>

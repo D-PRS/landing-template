@@ -26,7 +26,7 @@ export default function HeroSection() {
       <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full blur-3xl pointer-events-none opacity-20"
         style={{ background: 'radial-gradient(circle, #05dde1, transparent)' }} />
       <div className="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full blur-3xl pointer-events-none opacity-15"
-        style={{ background: 'radial-gradient(circle, #0848aa, transparent)' }} />
+        style={{ background: 'radial-gradient(circle, #002060, transparent)' }} />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
@@ -123,7 +123,7 @@ export default function HeroSection() {
             <div className="relative" style={{ width: '520px', height: '420px' }}>
               {/* Glow */}
               <div className="absolute inset-0 rounded-full blur-3xl opacity-30 pointer-events-none"
-                style={{ background: 'radial-gradient(ellipse, #05dde1 0%, #0848aa 50%, transparent 80%)' }} />
+                style={{ background: 'radial-gradient(ellipse, #05dde1 0%, #002060 50%, transparent 80%)' }} />
 
               {/* Stacked ebook covers */}
               {EBOOK_COVERS.slice().reverse().map((src, idx) => {

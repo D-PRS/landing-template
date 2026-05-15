@@ -21,7 +21,7 @@ export default function HomepageHero() {
   return (
     <section className="relative min-h-screen flex flex-col justify-center overflow-hidden pt-20">
       <div className="absolute top-1/4 right-1/4 w-[500px] h-[500px] rounded-full blur-3xl pointer-events-none opacity-15"
-        style={{ background: 'radial-gradient(circle, #0848aa, transparent)' }} />
+        style={{ background: 'radial-gradient(circle, #002060, transparent)' }} />
       <div className="absolute bottom-1/3 left-1/4 w-80 h-80 rounded-full blur-3xl pointer-events-none opacity-10"
         style={{ background: 'radial-gradient(circle, #05dde1, transparent)' }} />
 
@@ -99,7 +99,7 @@ export default function HomepageHero() {
               <div className="flex -space-x-3">
                 {AVATARS.map((src, i) => (
                   <div key={i} className="w-9 h-9 rounded-full border-2 overflow-hidden flex-shrink-0"
-                    style={{ borderColor: '#0d0620' }}>
+                    style={{ borderColor: '#001a4d' }}>
                     <Image src={src} alt="" width={36} height={36} className="w-full h-full object-cover" unoptimized />
                   </div>
                 ))}

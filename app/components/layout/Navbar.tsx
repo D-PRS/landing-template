@@ -39,7 +39,7 @@ export default function Navbar() {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5, ease: 'easeOut' }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'backdrop-blur-lg border-b border-white/10' : 'bg-transparent'}`}
-      style={scrolled ? { backgroundColor: 'rgba(13,6,32,0.85)' } : undefined}
+      style={scrolled ? { backgroundColor: 'rgba(0,13,38,0.88)' } : undefined}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
@@ -68,7 +68,7 @@ export default function Navbar() {
                         exit={{ opacity: 0, y: 8 }}
                         transition={{ duration: 0.15 }}
                         className="absolute top-full left-0 mt-2 w-52 rounded-2xl border border-white/10 shadow-xl overflow-hidden"
-                        style={{ backgroundColor: 'rgba(13,6,32,0.95)', backdropFilter: 'blur(16px)' }}
+                        style={{ backgroundColor: 'rgba(0,13,38,0.95)', backdropFilter: 'blur(16px)' }}
                       >
                         {item.children.map((child) => (
                           <Link key={child.href} href={child.href}
@@ -116,7 +116,7 @@ export default function Navbar() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             className="md:hidden border-t border-white/10"
-            style={{ backgroundColor: 'rgba(13,6,32,0.97)' }}
+            style={{ backgroundColor: 'rgba(0,13,38,0.97)' }}
           >
             <div className="px-4 py-4 flex flex-col gap-1">
               {NAV.map((item) =>

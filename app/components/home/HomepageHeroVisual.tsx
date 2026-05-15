@@ -52,9 +52,9 @@ function ImpressionsLive() {
       transition={{ delay: 1.8, duration: 0.5 }}
       className="absolute flex items-center gap-3 px-4 py-2.5 rounded-2xl"
       style={{
-        bottom: '6%', right: '2%',
+        top: '52%', right: '0%',
         zIndex: 20,
-        backgroundColor: 'rgba(10,4,28,0.92)',
+        backgroundColor: 'rgba(0,10,32,0.92)',
         backdropFilter: 'blur(16px)',
         border: '1px solid rgba(5,221,225,0.25)',
         boxShadow: '0 0 30px rgba(5,221,225,0.22), 0 8px 32px rgba(0,0,0,0.45)',
@@ -97,7 +97,7 @@ function NotifCard({
         style={{
           ...style,
           zIndex: 20,
-          backgroundColor: 'rgba(10,4,28,0.92)',
+          backgroundColor: 'rgba(0,10,32,0.92)',
           backdropFilter: 'blur(16px)',
           border: '1px solid rgba(255,255,255,0.07)',
           boxShadow: '0 0 28px rgba(5,221,225,0.2), 0 8px 28px rgba(0,0,0,0.5)',
@@ -155,17 +155,17 @@ export default function HomepageHeroVisual() {
 
       {/* ── 4 notification cards positioned like the reference ── */}
 
-      {/* Upper-left — like "Certificat obtenu" */}
-      <NotifCard msgSet={0} animDir="right" style={{ top: '4%',  left: '2%'   }} />
+      {/* Haut-gauche — près du haut du téléphone */}
+      <NotifCard msgSet={0} animDir="right" style={{ top: '3%',  left: '16%'  }} />
 
-      {/* Upper-right — like "CDI décroché" */}
-      <NotifCard msgSet={3} animDir="left"  style={{ top: '3%',  right: '15%' }} />
+      {/* Haut-droit — près du haut du téléphone */}
+      <NotifCard msgSet={3} animDir="left"  style={{ top: '2%',  right: '8%'  }} />
 
-      {/* Right-center — like "+4 500% de reach" */}
-      <NotifCard msgSet={1} animDir="left"  style={{ top: '46%', right: '1%'  }} />
+      {/* Droite-centre — flanc droit */}
+      <NotifCard msgSet={1} animDir="left"  style={{ top: '42%', right: '0%'  }} />
 
-      {/* Lower-left — like "3 RDV qualifiés" */}
-      <NotifCard msgSet={2} animDir="right" style={{ top: '67%', left: '1%'   }} />
+      {/* Gauche-centre isolée — flanc gauche, mi-hauteur */}
+      <NotifCard msgSet={2} animDir="right" style={{ top: '30%', left: '0%'   }} />
 
       {/* Lower-right — live counter */}
       <ImpressionsLive />
@@ -188,7 +188,7 @@ export default function HomepageHeroVisual() {
           width: 204,
           height: 432,
           borderRadius: 40,
-          background: 'linear-gradient(160deg, #1c1c2e 0%, #0d0620 100%)',
+          background: 'linear-gradient(160deg, #001a4d 0%, #000d26 100%)',
           border: '2px solid rgba(255,255,255,0.14)',
           boxShadow: '0 40px 90px rgba(0,0,0,0.75), inset 0 1px 0 rgba(255,255,255,0.12), 0 0 0 1px rgba(0,0,0,0.5), 0 0 60px rgba(5,221,225,0.07)',
           padding: '14px 6px 10px',
@@ -223,11 +223,11 @@ export default function HomepageHeroVisual() {
         }} />
       </motion.div>
 
-      {/* ── Stat cards — lower area overlapping phone ── */}
-      <div style={{ position: 'absolute', top: '63%', left: '22%', zIndex: 25 }}>
+      {/* ── Stat cards — bas-gauche et bas-droit, bords du conteneur ── */}
+      <div style={{ position: 'absolute', top: '63%', left: '2%', zIndex: 25 }}>
         <StatCard src="/stat-abonnes.png" label="Abonnés" delay={1.3} floatDy={6} />
       </div>
-      <div style={{ position: 'absolute', top: '71%', right: '21%', zIndex: 25 }}>
+      <div style={{ position: 'absolute', top: '70%', right: '2%', zIndex: 25 }}>
         <StatCard src="/stat-impressions.png" label="Impressions" delay={2.0} floatDy={8} />
       </div>
 

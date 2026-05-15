@@ -66,7 +66,7 @@ export default function HomepageServices() {
                   style={{ backgroundColor: 'rgba(255,255,255,0.04)' }}
                 >
                   <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-3xl"
-                    style={{ background: 'linear-gradient(135deg, rgba(8,72,170,0.15) 0%, rgba(5,221,225,0.08) 100%)' }} />
+                    style={{ background: 'linear-gradient(135deg, rgba(0,32,96,0.18) 0%, rgba(5,221,225,0.08) 100%)' }} />
 
                   <div className="relative z-10">
                     {service.badge && (
