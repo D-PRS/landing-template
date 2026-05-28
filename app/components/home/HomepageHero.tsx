@@ -6,19 +6,20 @@ import { motion } from 'framer-motion'
 import { ArrowRight, Calendar } from 'lucide-react'
 import HomepageHeroVisual from './HomepageHeroVisual'
 
+// Photos issues du dossier "tete client" tel que configuré par Dylan
 const AVATARS = [
   '/tetes-clients/1.png',
-  '/tetes-clients/2.png',
-  '/tetes-clients/3.png',
-  '/tetes-clients/4.png',
-  '/tetes-clients/5.png',
-  '/tetes-clients/6.png',
   '/tetes-clients/7.png',
   '/tetes-clients/8.png',
   '/tetes-clients/9.png',
   '/tetes-clients/10.png',
   '/tetes-clients/11.png',
   '/tetes-clients/12.png',
+  '/tetes-clients/13.png',
+  '/tetes-clients/14.png',
+  '/tetes-clients/15.png',
+  '/tetes-clients/16.png',
+  '/tetes-clients/17.png',
 ]
 
 

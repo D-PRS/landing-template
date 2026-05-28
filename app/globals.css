@@ -118,21 +118,21 @@
 
 @keyframes marquee {
   from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-@keyframes marquee-reverse {
-  from { transform: translateX(-50%); }
-  to { transform: translateX(0); }
+  to { transform: translateX(calc(-100% / 3)); }
 }
 .animate-marquee {
-  animation: marquee 28s linear infinite;
+  animation: marquee 36s linear infinite;
 }
-.animate-marquee-reverse {
-  animation: marquee-reverse 32s linear infinite;
-}
-.animate-marquee:hover,
-.animate-marquee-reverse:hover {
+.animate-marquee:hover {
   animation-play-state: paused;
+}
+
+@keyframes marquee-slow {
+  from { transform: translateX(0); }
+  to { transform: translateX(calc(-100% / 3)); }
+}
+.animate-marquee-bannieres {
+  animation: marquee-slow 22s linear infinite;
 }
 
 @keyframes float-gentle {

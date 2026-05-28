@@ -4,10 +4,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Clock, BookOpen, Users, ChevronRight, Lock, Unlock, ArrowLeft, ArrowRight } from 'lucide-react'
-import { FORMATIONS, getNiveauLabel, getNiveauColor, formatApprenants } from '../../data/formations'
-
-const CARD_COLORS = ['#002060', '#003580', '#05dde1', '#05fbe1']
+import { BookOpen, ArrowLeft, ArrowRight, Tag } from 'lucide-react'
+import { EBOOKS } from '../../data/content'
 
 export default function HomepageFormations() {
   const [current, setCurrent] = useState(0)
@@ -15,13 +13,13 @@ export default function HomepageFormations() {
 
   const go = (next: number) => {
     setDirection(next > current ? 1 : -1)
-    setCurrent((next + FORMATIONS.length) % FORMATIONS.length)
+    setCurrent((next + EBOOKS.length) % EBOOKS.length)
   }
 
-  const formation = FORMATIONS[current]
+  const ebook = EBOOKS[current]
 
   return (
-    <section id="formations" className="py-24 overflow-hidden">
+    <section id="ebooks" className="py-24 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Header */}
@@ -36,32 +34,29 @@ export default function HomepageFormations() {
               className="inline-block border border-secondary/30 text-secondary text-xs font-semibold px-4 py-1.5 rounded-full mb-5 uppercase tracking-widest"
               style={{ backgroundColor: 'rgba(5,221,225,0.08)' }}
             >
-              4 formations
+              7 e-books
             </span>
             <h2 className="text-4xl md:text-5xl font-black text-white">
-              Nos <span className="gradient-text">formations</span> LinkedIn
+              Nos <span className="gradient-text">e-books</span> LinkedIn
             </h2>
             <p className="text-white/55 text-lg mt-4 max-w-lg">
-              Maîtrisez LinkedIn de A à Z avec des formations conçues pour donner des résultats concrets.
+              Des guides pratiques et actionnables pour maîtriser LinkedIn à votre rythme.
             </p>
           </motion.div>
 
-          {/* Navigation arrows */}
           <div className="flex items-center gap-3 flex-shrink-0">
             <button
               onClick={() => go(current - 1)}
               className="w-11 h-11 rounded-full border flex items-center justify-center transition-colors hover:bg-white/10"
               style={{ borderColor: 'rgba(255,255,255,0.15)' }}
-              aria-label="Précédent"
             >
               <ArrowLeft className="w-4 h-4 text-white/70" />
             </button>
-            <span className="text-white/40 text-sm tabular-nums">{current + 1} / {FORMATIONS.length}</span>
+            <span className="text-white/40 text-sm tabular-nums">{current + 1} / {EBOOKS.length}</span>
             <button
               onClick={() => go(current + 1)}
               className="w-11 h-11 rounded-full border flex items-center justify-center transition-colors hover:bg-white/10"
               style={{ borderColor: 'rgba(255,255,255,0.15)' }}
-              aria-label="Suivant"
             >
               <ArrowRight className="w-4 h-4 text-white/70" />
             </button>
@@ -69,7 +64,7 @@ export default function HomepageFormations() {
         </div>
 
         {/* Slider */}
-        <div className="relative overflow-hidden" style={{ minHeight: 440 }}>
+        <div className="relative overflow-hidden" style={{ minHeight: 400 }}>
           <AnimatePresence mode="wait" custom={direction}>
             <motion.div
               key={current}
@@ -85,39 +80,19 @@ export default function HomepageFormations() {
               }}
             >
               {/* Image */}
-              <div className="relative aspect-[16/9] lg:aspect-auto lg:min-h-[420px] overflow-hidden">
+              <div className="relative aspect-[16/9] lg:aspect-auto lg:min-h-[380px] overflow-hidden bg-primary-900">
                 <Image
-                  src={formation.image_cover_url}
-                  alt={formation.titre}
+                  src={ebook.image}
+                  alt={ebook.titre}
                   fill
-                  className="object-cover"
+                  className="object-contain p-8"
                   unoptimized
                   priority
                 />
-                <div
-                  className="absolute inset-0"
-                  style={{
-                    backgroundColor: CARD_COLORS[current],
-                    mixBlendMode: 'color',
-                    opacity: 0.6,
-                  }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent to-black/30 lg:block hidden" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent lg:hidden" />
-
-                {/* Badges on image */}
-                <div className="absolute top-4 left-4 flex items-center gap-2 z-10">
-                  {formation.est_gratuite ? (
-                    <span className="inline-flex items-center gap-1 bg-secondary text-primary text-xs font-bold px-2.5 py-1 rounded-full">
-                      <Unlock className="w-3 h-3" /> Gratuit
-                    </span>
-                  ) : (
-                    <span className="inline-flex items-center gap-1 bg-secondary text-primary text-xs font-bold px-2.5 py-1 rounded-full">
-                      <Lock className="w-3 h-3" /> ProVisual Academy
-                    </span>
-                  )}
-                  <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${getNiveauColor(formation.niveau)}`}>
-                    {getNiveauLabel(formation.niveau)}
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent to-black/20 lg:block hidden" />
+                <div className="absolute top-4 left-4 z-10">
+                  <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${ebook.tagColor}`}>
+                    {ebook.tag}
                   </span>
                 </div>
               </div>
@@ -125,38 +100,27 @@ export default function HomepageFormations() {
               {/* Content */}
               <div className="p-8 lg:p-10 flex flex-col justify-between">
                 <div>
-                  <h3 className="font-black text-white text-2xl lg:text-3xl mb-4 leading-tight">
-                    {formation.titre}
-                  </h3>
-                  <p className="text-white/60 text-base leading-relaxed mb-6">
-                    {formation.description}
-                  </p>
-
-                  <div className="flex flex-wrap items-center gap-5 text-sm text-white/45 mb-8">
-                    <div className="flex items-center gap-2">
-                      <BookOpen className="w-4 h-4 text-secondary" />
-                      <span>{formation.nombre_chapitres} chapitre{formation.nombre_chapitres > 1 ? 's' : ''}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Clock className="w-4 h-4 text-secondary" />
-                      <span>{formation.duree_estimee_heures}h de contenu</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Users className="w-4 h-4 text-secondary" />
-                      <span>{formatApprenants(formation.nombre_apprenants)} apprenants</span>
-                    </div>
+                  <div className="flex items-center gap-2 mb-4">
+                    <BookOpen className="w-4 h-4 text-secondary" />
+                    <span className="text-secondary text-xs font-semibold uppercase tracking-wider">E-book LinkedIn</span>
                   </div>
+                  <h3 className="font-black text-white text-2xl lg:text-3xl mb-4 leading-tight">
+                    {ebook.titre}
+                  </h3>
+                  <p className="text-white/60 text-base leading-relaxed mb-8">
+                    {ebook.description}
+                  </p>
                 </div>
 
-                <div className="flex flex-col sm:flex-row gap-3">
-                  <Link href={`/formations/${formation.slug}`}>
+                <div>
+                  <Link href="/e-books">
                     <motion.div
                       whileHover={{ scale: 1.03, boxShadow: '0 0 30px rgba(5,221,225,0.4)' }}
                       whileTap={{ scale: 0.97 }}
                       className="inline-flex items-center justify-center gap-2 bg-secondary text-primary font-black px-7 py-3.5 rounded-xl text-sm shadow-glow hover:bg-tertiary transition-colors cursor-pointer"
                     >
-                      {formation.est_gratuite ? 'Voir la formation' : 'Découvrir la formation'}
-                      <ChevronRight className="w-4 h-4" />
+                      Voir cet e-book
+                      <ArrowRight className="w-4 h-4" />
                     </motion.div>
                   </Link>
                 </div>
@@ -167,7 +131,7 @@ export default function HomepageFormations() {
 
         {/* Dots */}
         <div className="flex items-center justify-center gap-2 mt-6">
-          {FORMATIONS.map((_, i) => (
+          {EBOOKS.map((_, i) => (
             <button
               key={i}
               onClick={() => go(i)}
@@ -177,12 +141,11 @@ export default function HomepageFormations() {
                 height: 8,
                 backgroundColor: i === current ? '#05dde1' : 'rgba(255,255,255,0.2)',
               }}
-              aria-label={`Formation ${i + 1}`}
             />
           ))}
         </div>
 
-        {/* Banner */}
+        {/* CTA banner */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -193,24 +156,22 @@ export default function HomepageFormations() {
         >
           <div>
             <p className="text-secondary text-xs font-semibold uppercase tracking-widest mb-2">
-              ProVisual Academy
+              Bibliothèque LinkedIn
             </p>
             <h3 className="text-2xl font-black text-white mb-1">
-              Accédez aux 4 formations sur l&apos;Academy
+              Accédez aux 7 e-books LinkedIn
             </h3>
             <p className="text-white/60 text-sm">
-              Pour 9,99€/mois — communauté, mises à jour permanentes et certificats inclus.
+              Des méthodes testées sur le terrain, applicables immédiatement.
             </p>
           </div>
-          <a
-            href="https://calendly.com/pro-visual/30-min-de-call-100-gratuit"
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            href="/e-books"
             className="flex-shrink-0 inline-flex items-center gap-2 bg-secondary text-primary font-black px-7 py-3.5 rounded-xl text-sm shadow-glow hover:bg-tertiary transition-colors whitespace-nowrap"
           >
-            En savoir plus
+            Voir tous les e-books
             <ArrowRight className="w-4 h-4" />
-          </a>
+          </Link>
         </motion.div>
       </div>
     </section>
