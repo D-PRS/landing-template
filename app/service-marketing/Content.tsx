@@ -61,7 +61,7 @@ function BeforeAfterSlider() {
           className="grid md:grid-cols-2 gap-4"
         >
           {/* Avant */}
-          <div className="relative rounded-2xl overflow-hidden border border-white/10" style={{ backgroundColor: '#ffffff' }}>
+          <div className="relative rounded-2xl overflow-hidden border border-white/10">
             <div
               className="absolute top-3 left-3 z-10 text-white text-xs font-bold px-3 py-1 rounded-full"
               style={{ backgroundColor: 'rgba(0,13,38,0.88)', border: '1px solid rgba(255,255,255,0.15)' }}
@@ -81,7 +81,7 @@ function BeforeAfterSlider() {
           {/* Après */}
           <div
             className="relative rounded-2xl overflow-hidden border"
-            style={{ borderColor: 'rgba(5,221,225,0.3)', boxShadow: '0 0 20px rgba(5,221,225,0.08)', backgroundColor: '#ffffff' }}
+            style={{ borderColor: 'rgba(5,221,225,0.3)', boxShadow: '0 0 20px rgba(5,221,225,0.08)' }}
           >
             <div
               className="absolute top-3 left-3 z-10 text-primary text-xs font-bold px-3 py-1 rounded-full"
@@ -132,10 +132,6 @@ function BanniereScroll() {
   const triple = [...BANNIERES, ...BANNIERES, ...BANNIERES]
   return (
     <div className="overflow-hidden relative mt-8">
-      <div className="absolute left-0 top-0 bottom-0 w-16 z-10 pointer-events-none"
-        style={{ background: 'linear-gradient(to right, #000d26, transparent)' }} />
-      <div className="absolute right-0 top-0 bottom-0 w-16 z-10 pointer-events-none"
-        style={{ background: 'linear-gradient(to left, #000d26, transparent)' }} />
       <div className="animate-marquee-bannieres" style={{ display: 'flex', width: 'max-content', gap: '12px' }}>
         {triple.map((b, i) => (
           <div key={`${b}-${i}`} className="flex-shrink-0 rounded-xl overflow-hidden border border-white/8 w-80 h-28">
@@ -267,7 +263,7 @@ export default function ServiceMarketingContent() {
       </section>
 
       {/* ══ 1. OPTIMISATION PROFIL ══ */}
-      <section id="optimisation-profil" className="py-24 border-t border-white/8">
+      <section id="optimisation-profil" className="pt-24 pb-10 border-t border-white/8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             {/* Texte */}
@@ -334,7 +330,7 @@ export default function ServiceMarketingContent() {
 
             {/* Texte */}
             <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.15 }}
-              className="order-1 lg:order-2">
+              className="order-1 lg:order-2 flex flex-col justify-center self-center">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-12 h-12 rounded-2xl flex items-center justify-center border border-secondary/20"
                   style={{ backgroundColor: 'rgba(5,221,225,0.1)' }}>
