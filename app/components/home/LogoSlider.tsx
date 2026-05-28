@@ -53,15 +53,15 @@ export default function LogoSlider() {
           {triple.map((logo, i) => (
             <div
               key={`${logo}-${i}`}
-              className="flex-shrink-0 mx-3 w-36 h-16 flex items-center justify-center rounded-xl border border-white/10"
+              className="flex-shrink-0 mx-4 w-44 h-20 flex items-center justify-center rounded-xl border border-white/10"
               style={{ backgroundColor: 'rgba(255,255,255,0.06)' }}
             >
               <Image
                 src={`/logos-clients/${logo}.png`}
                 alt={`Client ${logo}`}
-                width={100}
-                height={44}
-                className="max-h-9 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity"
+                width={130}
+                height={56}
+                className="max-h-12 w-auto object-contain opacity-85 hover:opacity-100 transition-opacity"
                 unoptimized
               />
             </div>

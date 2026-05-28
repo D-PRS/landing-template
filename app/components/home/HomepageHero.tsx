@@ -102,11 +102,11 @@ export default function HomepageHero() {
               transition={{ duration: 0.6, delay: 0.45 }}
               className="flex items-center gap-4"
             >
-              <div className="flex -space-x-3">
+              <div className="flex -space-x-4">
                 {AVATARS.map((src, i) => (
-                  <div key={i} className="w-9 h-9 rounded-full border-2 overflow-hidden flex-shrink-0"
+                  <div key={i} className="w-8 h-8 rounded-full border-2 overflow-hidden flex-shrink-0"
                     style={{ borderColor: '#001a4d' }}>
-                    <Image src={src} alt="" width={36} height={36} className="w-full h-full object-cover" unoptimized />
+                    <Image src={src} alt="" width={32} height={32} className="w-full h-full object-cover" unoptimized />
                   </div>
                 ))}
               </div>
