@@ -61,7 +61,7 @@ function BeforeAfterSlider() {
           className="grid md:grid-cols-2 gap-4"
         >
           {/* Avant */}
-          <div className="relative rounded-2xl overflow-hidden border border-white/10">
+          <div className="relative rounded-2xl overflow-hidden border border-white/10" style={{ backgroundColor: '#ffffff' }}>
             <div
               className="absolute top-3 left-3 z-10 text-white text-xs font-bold px-3 py-1 rounded-full"
               style={{ backgroundColor: 'rgba(0,13,38,0.88)', border: '1px solid rgba(255,255,255,0.15)' }}
@@ -72,8 +72,8 @@ function BeforeAfterSlider() {
               src={pair.avant}
               alt="Profil avant optimisation"
               width={600}
-              height={420}
-              className="w-full h-80 object-cover object-top"
+              height={480}
+              className="w-full h-96 object-contain"
               unoptimized
             />
           </div>
@@ -81,7 +81,7 @@ function BeforeAfterSlider() {
           {/* Après */}
           <div
             className="relative rounded-2xl overflow-hidden border"
-            style={{ borderColor: 'rgba(5,221,225,0.3)', boxShadow: '0 0 20px rgba(5,221,225,0.08)' }}
+            style={{ borderColor: 'rgba(5,221,225,0.3)', boxShadow: '0 0 20px rgba(5,221,225,0.08)', backgroundColor: '#ffffff' }}
           >
             <div
               className="absolute top-3 left-3 z-10 text-primary text-xs font-bold px-3 py-1 rounded-full"
@@ -93,8 +93,8 @@ function BeforeAfterSlider() {
               src={pair.apres}
               alt="Profil après optimisation"
               width={600}
-              height={420}
-              className="w-full h-80 object-cover object-top"
+              height={480}
+              className="w-full h-96 object-contain"
               unoptimized
             />
           </div>
@@ -269,7 +269,7 @@ export default function ServiceMarketingContent() {
       {/* ══ 1. OPTIMISATION PROFIL ══ */}
       <section id="optimisation-profil" className="py-24 border-t border-white/8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-16 items-start">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
             {/* Texte */}
             <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
               <div className="flex items-center gap-3 mb-6">
@@ -312,19 +312,19 @@ export default function ServiceMarketingContent() {
             </motion.div>
           </div>
 
-          {/* Bannières */}
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.2 }} className="mt-16">
-            <p className="text-white/40 text-xs uppercase tracking-widest mb-1 text-center">Exemples de bannières réalisées</p>
-            <BanniereScroll />
-          </motion.div>
         </div>
+        {/* Bannières — pleine largeur viewport */}
+        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.2 }} className="mt-16">
+          <p className="text-white/40 text-xs uppercase tracking-widest mb-3 text-center">Exemples de bannières réalisées</p>
+          <BanniereScroll />
+        </motion.div>
       </section>
 
       {/* ══ 2. CRÉATION DE CONTENU ══ */}
       <section id="creation-contenu" className="py-24 border-t border-white/8"
         style={{ backgroundColor: 'rgba(5,221,225,0.02)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-16 items-start">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
             {/* Publications */}
             <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}
               className="order-2 lg:order-1">
