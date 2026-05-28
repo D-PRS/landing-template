@@ -159,22 +159,28 @@ function PublicationsGrid() {
       {PUBLICATIONS.map((p, i) => (
         <motion.div
           key={p}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.4, delay: (i % 3) * 0.07 }}
-          whileHover={{ scale: 1.02 }}
-          className="break-inside-avoid mb-3 rounded-2xl overflow-hidden border border-white/8 group"
-          style={{ backgroundColor: 'rgba(255,255,255,0.03)' }}
+          className="break-inside-avoid mb-3"
         >
-          <Image
-            src={`/publications/${p}.png`}
-            alt={`Publication LinkedIn ${p}`}
-            width={400}
-            height={500}
-            className={`w-full ${heights[i] || 'h-52'} object-cover object-top`}
-            unoptimized
-          />
+          <motion.div
+            animate={{ y: [0, -(2 + i % 4), 0] }}
+            transition={{ duration: 2.5 + i * 0.25, repeat: Infinity, ease: 'easeInOut', delay: i * 0.18 }}
+            whileHover={{ scale: 1.02 }}
+            className="rounded-2xl overflow-hidden border border-white/8 group"
+            style={{ backgroundColor: 'rgba(255,255,255,0.03)' }}
+          >
+            <Image
+              src={`/publications/${p}.png`}
+              alt={`Publication LinkedIn ${p}`}
+              width={400}
+              height={500}
+              className={`w-full ${heights[i] || 'h-52'} object-cover object-top`}
+              unoptimized
+            />
+          </motion.div>
         </motion.div>
       ))}
     </div>
@@ -317,7 +323,7 @@ export default function ServiceMarketingContent() {
       </section>
 
       {/* ══ 2. CRÉATION DE CONTENU ══ */}
-      <section id="creation-contenu" className="py-24 border-t border-white/8"
+      <section id="creation-contenu" className="pt-16 pb-6 border-t border-white/8"
         style={{ backgroundColor: 'rgba(5,221,225,0.02)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-16">
