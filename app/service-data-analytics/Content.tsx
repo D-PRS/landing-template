@@ -63,7 +63,7 @@ export default function ServiceDataContent() {
             style={{ backgroundColor: 'rgba(5,221,225,0.08)' }}
           >
             <BarChart3 className="w-3.5 h-3.5 text-secondary" />
-            <span className="text-secondary text-xs font-semibold uppercase tracking-widest">Data & Analytics</span>
+            <span className="text-secondary text-xs font-semibold uppercase tracking-widest">SAS Analytique LinkedIn</span>
           </motion.div>
 
           <motion.h1
@@ -72,7 +72,7 @@ export default function ServiceDataContent() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-5xl sm:text-6xl lg:text-7xl font-black text-white leading-[1.05] mb-6 max-w-3xl"
           >
-            Data &amp;{' '}
+            Hydra{' '}
             <span className="gradient-text">Analytics</span>
           </motion.h1>
 
@@ -82,8 +82,8 @@ export default function ServiceDataContent() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-xl text-white/65 leading-relaxed mb-10 max-w-2xl"
           >
-            Tableaux de bord Power BI, Looker Studio, automatisation Power Platform.
-            Nous transformons vos données brutes en décisions claires pour piloter votre croissance.
+            Analyse approfondie de vos performances LinkedIn. Tableaux de bord sur mesure,
+            KPIs clés et insights actionnables pour piloter votre stratégie avec la data.
           </motion.p>
 
           <motion.div

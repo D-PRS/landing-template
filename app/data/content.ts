@@ -149,9 +149,9 @@ export const SERVICES = [
     badge: 'Phare',
   },
   {
-    titre: 'Data & Analytics',
-    description: 'Tableaux de bord Power BI, Looker Studio, automatisation Power Platform. Vos données transformées en décisions claires pour les TPE/PME.',
-    cta: 'Voir nos services Data',
+    titre: 'Hydra Analytics',
+    description: 'Analyse approfondie de vos performances LinkedIn. Tableaux de bord, KPIs, insights actionnables pour piloter votre stratégie avec la data.',
+    cta: 'Voir Hydra Analytics',
     href: 'https://provisual.fr/service-data-analytics',
     color: 'from-accent/20 to-secondary/10',
     badge: '',

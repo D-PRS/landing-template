@@ -6,14 +6,19 @@ import { motion } from 'framer-motion'
 import { ArrowRight, Calendar } from 'lucide-react'
 import HomepageHeroVisual from './HomepageHeroVisual'
 
-const CDN = 'https://cdn.prod.website-files.com/68ab2d1a568ed1d53d774d32'
-
 const AVATARS = [
-  `${CDN}/68b605c0f0599c67093cc3aa_Pierrick.png`,
-  `${CDN}/68b608ed49588bd5aca23903_Maylis.png`,
-  `${CDN}/68b5ff2ba9b3ff9512d8ba74_Gaetant.png`,
-  `${CDN}/68b608168ed5a22c8350a930_Nicolas.png`,
-  `${CDN}/68b6068d0a093a8838989158_Issam.png`,
+  '/tetes-clients/1.png',
+  '/tetes-clients/2.png',
+  '/tetes-clients/3.png',
+  '/tetes-clients/4.png',
+  '/tetes-clients/5.png',
+  '/tetes-clients/6.png',
+  '/tetes-clients/7.png',
+  '/tetes-clients/8.png',
+  '/tetes-clients/9.png',
+  '/tetes-clients/10.png',
+  '/tetes-clients/11.png',
+  '/tetes-clients/12.png',
 ]
 
 
@@ -107,6 +112,7 @@ export default function HomepageHero() {
               <p className="text-white/55 text-sm">
                 <span className="text-white font-semibold">20+ entreprises</span> nous font confiance
               </p>
+              <div className="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse ml-1" />
             </motion.div>
           </div>
 

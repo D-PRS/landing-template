@@ -15,7 +15,7 @@ const NAV = [
     label: 'Services',
     children: [
       { label: 'Marketing LinkedIn', href: '/service-marketing' },
-      { label: 'Data & Analytics', href: '/service-data-analytics' },
+      { label: 'Hydra Analytics', href: '/service-data-analytics' },
     ],
   },
   { label: 'E-books', href: '/e-books' },
