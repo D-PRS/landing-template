@@ -58,10 +58,10 @@ function BeforeAfterSlider() {
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -20 }}
           transition={{ duration: 0.4 }}
-          className="grid md:grid-cols-2 gap-4"
+          className="flex flex-col gap-4"
         >
           {/* Avant */}
-          <div className="relative rounded-2xl overflow-hidden border border-white/10 aspect-[4/3]">
+          <div className="relative rounded-2xl overflow-hidden border border-white/10 aspect-[16/9]">
             <div
               className="absolute top-3 left-3 z-10 text-white text-xs font-bold px-3 py-1 rounded-full"
               style={{ backgroundColor: 'rgba(0,13,38,0.88)', border: '1px solid rgba(255,255,255,0.15)' }}
@@ -79,7 +79,7 @@ function BeforeAfterSlider() {
 
           {/* Après */}
           <div
-            className="relative rounded-2xl overflow-hidden border aspect-[4/3]"
+            className="relative rounded-2xl overflow-hidden border aspect-[16/9]"
             style={{ borderColor: 'rgba(5,221,225,0.3)', boxShadow: '0 0 20px rgba(5,221,225,0.08)' }}
           >
             <div
@@ -300,7 +300,7 @@ export default function ServiceMarketingContent() {
             </motion.div>
 
             {/* Avant/après */}
-            <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.15 }}>
+            <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.15 }} className="mt-8">
               <p className="text-white/40 text-xs uppercase tracking-widest mb-3">Résultats réels de mes clients</p>
               <BeforeAfterSlider />
             </motion.div>
@@ -328,7 +328,7 @@ export default function ServiceMarketingContent() {
 
             {/* Texte */}
             <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.15 }}
-              className="order-1 lg:order-2 flex flex-col justify-center self-center">
+              className="order-1 lg:order-2 flex flex-col justify-start pt-12 self-start">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-12 h-12 rounded-2xl flex items-center justify-center border border-secondary/20"
                   style={{ backgroundColor: 'rgba(5,221,225,0.1)' }}>
