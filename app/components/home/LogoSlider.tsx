@@ -16,7 +16,7 @@ export default function LogoSlider() {
       className="py-8 border-y border-white/8 overflow-hidden"
       style={{ backgroundColor: 'rgba(5,221,225,0.03)' }}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-5">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-3 -mt-1">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
