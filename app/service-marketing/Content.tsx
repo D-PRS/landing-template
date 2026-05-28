@@ -58,10 +58,10 @@ function BeforeAfterSlider() {
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -20 }}
           transition={{ duration: 0.4 }}
-          className="flex flex-col gap-4"
+          className="grid md:grid-cols-2 gap-4"
         >
           {/* Avant */}
-          <div className="relative rounded-2xl overflow-hidden border border-white/10 aspect-[16/9]">
+          <div className="relative rounded-2xl overflow-hidden border border-white/10">
             <div
               className="absolute top-3 left-3 z-10 text-white text-xs font-bold px-3 py-1 rounded-full"
               style={{ backgroundColor: 'rgba(0,13,38,0.88)', border: '1px solid rgba(255,255,255,0.15)' }}
@@ -71,15 +71,16 @@ function BeforeAfterSlider() {
             <Image
               src={pair.avant}
               alt="Profil avant optimisation"
-              fill
-              className="object-contain"
+              width={600}
+              height={400}
+              className="w-full h-auto"
               unoptimized
             />
           </div>
 
           {/* Après */}
           <div
-            className="relative rounded-2xl overflow-hidden border aspect-[16/9]"
+            className="relative rounded-2xl overflow-hidden border"
             style={{ borderColor: 'rgba(5,221,225,0.3)', boxShadow: '0 0 20px rgba(5,221,225,0.08)' }}
           >
             <div
@@ -91,8 +92,9 @@ function BeforeAfterSlider() {
             <Image
               src={pair.apres}
               alt="Profil après optimisation"
-              fill
-              className="object-contain"
+              width={600}
+              height={400}
+              className="w-full h-auto"
               unoptimized
             />
           </div>
