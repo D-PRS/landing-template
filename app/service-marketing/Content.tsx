@@ -323,7 +323,7 @@ export default function ServiceMarketingContent() {
       </section>
 
       {/* ══ 2. CRÉATION DE CONTENU ══ */}
-      <section id="creation-contenu" className="pt-16 pb-6 border-t border-white/8"
+      <section id="creation-contenu" className="pt-12 pb-0 border-t border-white/8"
         style={{ backgroundColor: 'rgba(5,221,225,0.02)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-16">
