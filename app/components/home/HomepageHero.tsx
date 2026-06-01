@@ -53,9 +53,9 @@ export default function HomepageHero() {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="text-5xl sm:text-6xl lg:text-7xl font-black text-white leading-[1.05] mb-6"
             >
-              <span className="gradient-text">Marketing</span>{' '}
-              LinkedIn<br />&amp;{' '}
-              <span className="gradient-text-reverse">Data</span> Analytics
+              Votre présence<br />
+              LinkedIn,{' '}
+              <span className="gradient-text">clé en main</span>
             </motion.h1>
 
             <motion.p
@@ -64,10 +64,10 @@ export default function HomepageHero() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="text-lg text-white/65 leading-relaxed mb-10 max-w-lg"
             >
-              Deux expertises, un seul objectif :{' '}
-              <strong className="text-white font-bold">votre croissance</strong>.
-              Provisual accompagne les TPE, PME et indépendants pour transformer
-              leur visibilité LinkedIn en opportunités business concrètes.
+              Une expertise complète, un seul objectif :{' '}
+              <strong className="text-white font-bold">votre réussite</strong>.
+              ProVisual accompagne dirigeants, commerciaux et chercheurs d&apos;emploi à transformer
+              leur présence LinkedIn en véritable levier d&apos;opportunités.
             </motion.p>
 
             <motion.div

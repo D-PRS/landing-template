@@ -36,7 +36,7 @@ export default function HomepageFormations() {
               className="inline-block border border-secondary/30 text-secondary text-xs font-semibold px-4 py-1.5 rounded-full mb-5 uppercase tracking-widest"
               style={{ backgroundColor: 'rgba(5,221,225,0.08)' }}
             >
-              7 e-books
+              4 e-books
             </span>
             <h2 className="text-4xl md:text-5xl font-black text-white">
               Nos <span className="gradient-text">e-books</span> LinkedIn

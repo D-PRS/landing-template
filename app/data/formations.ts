@@ -284,9 +284,9 @@ export function getNiveauLabel(niveau: NiveauFormation): string {
 
 export function getNiveauColor(niveau: NiveauFormation): string {
   return {
-    debutant: 'bg-emerald-500/20 text-emerald-400',
-    intermediaire: 'bg-amber-500/20 text-amber-400',
-    avance: 'bg-rose-500/20 text-rose-400',
+    debutant: 'bg-[#05dde1]/15 text-[#05dde1]',
+    intermediaire: 'bg-[#1a6fd4]/20 text-[#6ba5ec]',
+    avance: 'bg-[#6681bd]/25 text-[#aec4ee]',
   }[niveau]
 }
 

@@ -394,14 +394,14 @@ export default function HomepageServices() {
         >
           <span className="inline-block border border-secondary/30 text-secondary text-xs font-semibold px-4 py-1.5 rounded-full mb-5 uppercase tracking-widest"
             style={{ backgroundColor: 'rgba(5,221,225,0.08)' }}>
-            Mes offres
+            Nos offres
           </span>
           <h2 className="text-4xl md:text-5xl font-black text-white mb-4">
-            Une expertise,{' '}
-            <span className="gradient-text">3 offres LinkedIn</span>
+            Une expertise, plusieurs façons de{' '}
+            <span className="gradient-text">réussir sur LinkedIn</span>
           </h2>
           <p className="text-lg text-white/55 max-w-2xl mx-auto">
-            Du LinkedIn sous toutes ses formes — pour les indépendants, TPE et PME qui veulent vraiment performer.
+            De la stratégie de contenu à la formation en entreprise, on vous accompagne à chaque étape.
           </p>
         </motion.div>
       </div>
