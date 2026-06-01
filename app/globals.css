@@ -135,6 +135,14 @@
   animation: marquee-slow 22s linear infinite;
 }
 
+@keyframes marquee-vertical {
+  from { transform: translateY(0); }
+  to { transform: translateY(calc(-100% / 3)); }
+}
+.animate-marquee-vertical {
+  animation: marquee-vertical 25s linear infinite;
+}
+
 @keyframes float-gentle {
   0%, 100% { transform: translateY(0px); }
   50% { transform: translateY(-8px); }

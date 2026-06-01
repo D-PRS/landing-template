@@ -9,15 +9,21 @@ import {
 } from 'lucide-react'
 import LinkedInGlobe from './LinkedInGlobe'
 
+const PUBLICATIONS = ['33','34','35','37','38','39','40','41','42']
+const BANNIERES = ['1','2','3','4','5','6','7','8','9','10','11','12','13']
+const HEIGHTS = ['h-52','h-64','h-48','h-60','h-56','h-44','h-64','h-52','h-48']
+
 /* ═══════════════════════════════════════════════════════════════════════
    SECTION 1 — MARKETING LINKEDIN
-   Texte gauche / collage publications + bannières + notifications droit
+   Texte gauche / posts flottants + bannières verticales en fond droit
 ═══════════════════════════════════════════════════════════════════════ */
 function SectionMarketing() {
+  const tripleB = [...BANNIERES, ...BANNIERES, ...BANNIERES]
+
   return (
     <section className="py-20 border-t border-white/8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
 
           {/* Texte */}
           <motion.div
@@ -25,6 +31,7 @@ function SectionMarketing() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
+            className="lg:sticky lg:top-24"
           >
             <span className="inline-block border border-secondary/30 text-secondary text-xs font-semibold px-3 py-1 rounded-full mb-5 uppercase tracking-widest"
               style={{ backgroundColor: 'rgba(5,221,225,0.08)' }}>
@@ -71,57 +78,55 @@ function SectionMarketing() {
             </Link>
           </motion.div>
 
-          {/* Collage visuel */}
+          {/* Visuel droit : bannières fond + publications flottantes */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.15 }}
-            className="relative h-[480px]"
+            className="relative overflow-hidden rounded-3xl"
           >
-            {/* Bannière fond */}
-            <div className="absolute top-0 left-0 right-0 h-32 rounded-2xl overflow-hidden">
-              <Image src="/bannieres/3.png" alt="" fill className="object-cover opacity-60" unoptimized />
-              <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, transparent 40%, #000d26)' }} />
+            {/* Bannières défilant verticalement en fond */}
+            <div className="absolute inset-0 overflow-hidden rounded-3xl">
+              <div className="animate-marquee-vertical flex flex-col" style={{ width: '100%' }}>
+                {tripleB.map((b, i) => (
+                  <div key={`${b}-${i}`} className="flex-shrink-0 w-full h-36 overflow-hidden">
+                    <Image src={`/bannieres/${b}.png`} alt="" width={600} height={144} className="w-full h-full object-cover" unoptimized />
+                  </div>
+                ))}
+              </div>
+              {/* Overlay sombre pour lisibilité */}
+              <div className="absolute inset-0" style={{ background: 'rgba(0,13,38,0.72)' }} />
             </div>
 
-            {/* Publications flottantes */}
-            {[
-              { src: '/publications/33.png', style: { top: '80px', left: '0%', width: '42%', rotate: '-3deg', zIndex: 3 }, delay: 0 },
-              { src: '/publications/37.png', style: { top: '60px', left: '32%', width: '40%', rotate: '2deg', zIndex: 4 }, delay: 0.5 },
-              { src: '/publications/40.png', style: { top: '90px', right: '0%', width: '38%', rotate: '-1deg', zIndex: 3 }, delay: 0.9 },
-              { src: '/publications/42.png', style: { bottom: '20px', left: '5%', width: '36%', rotate: '3deg', zIndex: 2 }, delay: 0.3 },
-              { src: '/publications/38.png', style: { bottom: '10px', right: '5%', width: '38%', rotate: '-2deg', zIndex: 2 }, delay: 0.7 },
-            ].map((pub, i) => (
-              <motion.div
-                key={i}
-                animate={{ y: [0, -(4 + i * 2), 0] }}
-                transition={{ duration: 2.8 + i * 0.4, repeat: Infinity, ease: 'easeInOut', delay: pub.delay }}
-                className="absolute rounded-xl overflow-hidden border border-white/10 shadow-2xl"
-                style={{ ...pub.style as React.CSSProperties }}
-              >
-                <Image src={pub.src} alt="" width={200} height={250} className="w-full h-auto" unoptimized />
-              </motion.div>
-            ))}
-
-            {/* Notification flottante */}
-            <motion.div
-              animate={{ y: [0, -7, 0] }}
-              transition={{ duration: 3.2, repeat: Infinity, ease: 'easeInOut' }}
-              className="absolute top-4 right-4 z-10 flex items-center gap-2 rounded-2xl border border-secondary/30 px-3 py-2 text-xs font-semibold text-white"
-              style={{ backgroundColor: 'rgba(0,13,38,0.9)', backdropFilter: 'blur(12px)' }}>
-              <span className="w-2 h-2 rounded-full bg-secondary animate-pulse" />
-              +340 vues ce mois
-            </motion.div>
-
-            <motion.div
-              animate={{ y: [0, -5, 0] }}
-              transition={{ duration: 2.8, repeat: Infinity, ease: 'easeInOut', delay: 1.2 }}
-              className="absolute bottom-4 left-4 z-10 flex items-center gap-2 rounded-2xl border border-white/15 px-3 py-2 text-xs text-white/80"
-              style={{ backgroundColor: 'rgba(0,13,38,0.9)', backdropFilter: 'blur(12px)' }}>
-              <Star className="w-3.5 h-3.5 text-secondary fill-secondary" />
-              Top 5% des profils LinkedIn
-            </motion.div>
+            {/* Publications flottantes par-dessus */}
+            <div className="relative z-10 p-4 columns-2 gap-3">
+              {PUBLICATIONS.map((p, i) => (
+                <motion.div
+                  key={p}
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: (i % 3) * 0.07 }}
+                  className="break-inside-avoid mb-3"
+                >
+                  <motion.div
+                    animate={{ y: [0, -(2 + i % 4), 0] }}
+                    transition={{ duration: 2.5 + i * 0.25, repeat: Infinity, ease: 'easeInOut', delay: i * 0.18 }}
+                    className="rounded-2xl overflow-hidden border border-white/15 shadow-xl"
+                  >
+                    <Image
+                      src={`/publications/${p}.png`}
+                      alt=""
+                      width={300}
+                      height={380}
+                      className={`w-full ${HEIGHTS[i] || 'h-52'} object-cover object-top`}
+                      unoptimized
+                    />
+                  </motion.div>
+                </motion.div>
+              ))}
+            </div>
           </motion.div>
         </div>
       </div>
@@ -131,7 +136,7 @@ function SectionMarketing() {
 
 /* ═══════════════════════════════════════════════════════════════════════
    SECTION 2 — HYDRA ANALYTICS
-   Texte gauche / globe 3D droit (réutilise LinkedInGlobe)
+   Texte gauche / globe 3D droit + vidéo pleine largeur en dessous
 ═══════════════════════════════════════════════════════════════════════ */
 function SectionHydra() {
   return (
@@ -205,6 +210,25 @@ function SectionHydra() {
             <LinkedInGlobe />
           </motion.div>
         </div>
+
+        {/* Vidéo — pleine largeur sous le globe */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="mt-12 rounded-3xl overflow-hidden border border-white/10"
+          style={{ backgroundColor: 'rgba(0,13,38,0.5)' }}
+        >
+          <video
+            src="/videos/3.mov"
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="w-full h-auto block"
+          />
+        </motion.div>
       </div>
     </section>
   )
