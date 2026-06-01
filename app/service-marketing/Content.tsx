@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useState, useEffect } from 'react'
 import {
   ArrowRight, Calendar, ChevronLeft, ChevronRight,
-  Target, PenSquare, Users, GraduationCap,
+  Users, GraduationCap,
   Search, UserPlus, MessageSquare, TrendingUp,
   Lock, CheckCircle2, Zap, Award,
 } from 'lucide-react'
@@ -238,12 +238,6 @@ export default function ServiceMarketingContent() {
         <div className="absolute top-1/3 right-1/4 w-[400px] h-[400px] rounded-full blur-3xl pointer-events-none opacity-15"
           style={{ background: 'radial-gradient(circle, #002060, transparent)' }} />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 border border-secondary/30 rounded-full px-4 py-1.5 mb-8"
-            style={{ backgroundColor: 'rgba(5,221,225,0.08)' }}>
-            <span className="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse" />
-            <span className="text-secondary text-xs font-semibold uppercase tracking-widest">Service phare</span>
-          </motion.div>
           <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }}
             className="text-5xl sm:text-6xl lg:text-7xl font-black text-white leading-[1.05] mb-6 max-w-3xl">
             Marketing <span className="gradient-text">LinkedIn</span>
@@ -274,13 +268,6 @@ export default function ServiceMarketingContent() {
           <div className="grid lg:grid-cols-2 gap-16 items-start">
             {/* Texte */}
             <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 rounded-2xl flex items-center justify-center border border-secondary/20"
-                  style={{ backgroundColor: 'rgba(5,221,225,0.1)' }}>
-                  <Target className="w-6 h-6 text-secondary" />
-                </div>
-                <span className="text-secondary/70 text-xs font-bold uppercase tracking-widest">Prestation 01</span>
-              </div>
               <h2 className="text-4xl md:text-5xl font-black text-white mb-5 leading-tight">
                 Optimisation de <span className="gradient-text">profil</span>
               </h2>
@@ -337,13 +324,6 @@ export default function ServiceMarketingContent() {
             {/* Texte */}
             <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.15 }}
               className="order-1 lg:order-2 flex flex-col justify-start pt-12 self-start">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 rounded-2xl flex items-center justify-center border border-secondary/20"
-                  style={{ backgroundColor: 'rgba(5,221,225,0.1)' }}>
-                  <PenSquare className="w-6 h-6 text-secondary" />
-                </div>
-                <span className="text-secondary/70 text-xs font-bold uppercase tracking-widest">Prestation 02</span>
-              </div>
               <h2 className="text-4xl md:text-5xl font-black text-white mb-5 leading-tight">
                 Création de <span className="gradient-text">contenu</span>
               </h2>
@@ -372,13 +352,6 @@ export default function ServiceMarketingContent() {
       <section id="prospection" className="py-24 border-t border-white/8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="text-center mb-16">
-            <div className="flex items-center justify-center gap-3 mb-6">
-              <div className="w-12 h-12 rounded-2xl flex items-center justify-center border border-secondary/20"
-                style={{ backgroundColor: 'rgba(5,221,225,0.1)' }}>
-                <Users className="w-6 h-6 text-secondary" />
-              </div>
-              <span className="text-secondary/70 text-xs font-bold uppercase tracking-widest">Prestation 03</span>
-            </div>
             <h2 className="text-4xl md:text-5xl font-black text-white mb-5">
               Prospection <span className="gradient-text">LinkedIn</span>
             </h2>
@@ -518,13 +491,6 @@ export default function ServiceMarketingContent() {
 
             {/* Texte */}
             <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.15 }}>
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 rounded-2xl flex items-center justify-center border border-secondary/20"
-                  style={{ backgroundColor: 'rgba(5,221,225,0.1)' }}>
-                  <GraduationCap className="w-6 h-6 text-secondary" />
-                </div>
-                <span className="text-secondary/70 text-xs font-bold uppercase tracking-widest">Prestation 04</span>
-              </div>
               <h2 className="text-4xl md:text-5xl font-black text-white mb-5 leading-tight">
                 Formation LinkedIn <span className="gradient-text">en entreprise</span>
               </h2>
