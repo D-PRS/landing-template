@@ -387,30 +387,28 @@ export default function ServiceMarketingContent() {
             </p>
           </motion.div>
 
-          {/* Flow animé */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
+          {/* Flow animé avec images */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
             {[
-              { icon: Search, label: 'Ciblage', desc: 'Identification des prospects selon vos critères' },
-              { icon: UserPlus, label: 'Ajout réseau', desc: "Invitation avec taux d'acceptation élevé" },
-              { icon: MessageSquare, label: 'Message', desc: 'Messages 100% personnalisés, jamais copiés' },
-              { icon: TrendingUp, label: 'Conversion', desc: "Suivi et relances jusqu'au rendez-vous qualifié" },
-            ].map((step, i) => {
-              const Icon = step.icon
-              return (
-                <motion.div key={step.label} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: i * 0.1 }} className="relative text-center">
-                  {i < 3 && <div className="hidden md:block absolute top-8 left-[60%] w-[80%] h-px border-t border-dashed border-white/15 z-0" />}
-                  <motion.div
-                    animate={{ y: [0, -5, 0] }}
-                    transition={{ duration: 2.5 + i * 0.3, repeat: Infinity, ease: 'easeInOut' }}
-                    className="relative z-10 w-16 h-16 mx-auto rounded-2xl flex items-center justify-center border border-secondary/20 mb-4"
-                    style={{ backgroundColor: 'rgba(5,221,225,0.08)' }}>
-                    <Icon className="w-7 h-7 text-secondary" />
-                  </motion.div>
-                  <p className="text-white font-bold text-sm mb-1">{step.label}</p>
-                  <p className="text-white/45 text-xs leading-relaxed">{step.desc}</p>
+              { img: '/prospection/ciblage.png',      label: 'Ciblage',       desc: 'Identification des prospects selon vos critères' },
+              { img: '/prospection/ajout-reseau.png', label: 'Ajout réseau',  desc: "Invitation avec taux d'acceptation élevé" },
+              { img: '/prospection/message.png',      label: 'Message',        desc: 'Messages 100% personnalisés, jamais copiés' },
+              { img: '/prospection/conversion.png',   label: 'Conversion',    desc: "Suivi et relances jusqu'au rendez-vous qualifié" },
+            ].map((step, i) => (
+              <motion.div key={step.label} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: i * 0.1 }} className="relative text-center">
+                {i < 3 && <div className="hidden md:block absolute top-[40%] left-[65%] w-[70%] h-px border-t border-dashed border-white/15 z-0" />}
+                <motion.div
+                  animate={{ y: [0, -5, 0] }}
+                  transition={{ duration: 2.5 + i * 0.3, repeat: Infinity, ease: 'easeInOut' }}
+                  className="relative z-10 w-full max-w-[160px] mx-auto mb-4 rounded-2xl overflow-hidden border border-secondary/20"
+                  style={{ backgroundColor: 'rgba(5,221,225,0.04)' }}
+                >
+                  <Image src={step.img} alt={step.label} width={160} height={120} className="w-full h-auto" unoptimized />
                 </motion.div>
-              )
-            })}
+                <p className="text-white font-bold text-sm mb-1">{step.label}</p>
+                <p className="text-white/45 text-xs leading-relaxed">{step.desc}</p>
+              </motion.div>
+            ))}
           </div>
 
           {/* Manuelle + Automatisée + Calendly */}
