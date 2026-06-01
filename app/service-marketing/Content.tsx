@@ -400,10 +400,10 @@ export default function ServiceMarketingContent() {
                 <motion.div
                   animate={{ y: [0, -5, 0] }}
                   transition={{ duration: 2.5 + i * 0.3, repeat: Infinity, ease: 'easeInOut' }}
-                  className="relative z-10 w-full max-w-[160px] mx-auto mb-4 rounded-2xl overflow-hidden border border-secondary/20"
-                  style={{ backgroundColor: 'rgba(5,221,225,0.04)' }}
+                  className={`relative z-10 mx-auto mb-4 overflow-hidden border border-secondary/20 ${i === 3 ? 'w-28 h-28 rounded-full flex items-center justify-center' : 'w-full max-w-[160px] rounded-2xl'}`}
+                  style={{ backgroundColor: i === 3 ? 'white' : 'rgba(5,221,225,0.04)' }}
                 >
-                  <Image src={step.img} alt={step.label} width={160} height={120} className="w-full h-auto" unoptimized />
+                  <Image src={step.img} alt={step.label} width={160} height={i === 3 ? 160 : 120} className={i === 3 ? 'w-20 h-20 object-contain' : 'w-full h-auto'} unoptimized />
                 </motion.div>
                 <p className="text-white font-bold text-sm mb-1">{step.label}</p>
                 <p className="text-white/45 text-xs leading-relaxed">{step.desc}</p>
