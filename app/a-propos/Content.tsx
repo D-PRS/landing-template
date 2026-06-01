@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { ArrowRight, Calendar, Heart, Target, Zap } from 'lucide-react'
+import { ArrowRight, Calendar, Heart, Target, Zap, Award } from 'lucide-react'
 import { TEMOIGNAGES } from '../data/content'
 
 const VALUES = [
@@ -178,8 +178,86 @@ export default function AProposContent() {
         </div>
       </section>
 
-      {/* Testimonials highlight */}
+      {/* Certification */}
       <section className="py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+
+            {/* Texte */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <span className="inline-block border border-secondary/30 text-secondary text-xs font-semibold px-4 py-1.5 rounded-full mb-6 uppercase tracking-widest"
+                style={{ backgroundColor: 'rgba(5,221,225,0.08)' }}>
+                Certification officielle
+              </span>
+              <h2 className="text-3xl md:text-4xl font-black text-white mb-5 leading-tight">
+                Certifié par{' '}
+                <span className="gradient-text">LinkedIn Marketing Labs</span>
+              </h2>
+              <p className="text-white/65 leading-relaxed mb-6">
+                J&apos;ai obtenu la certification officielle <strong className="text-white">LinkedIn Marketing Strategy</strong>,
+                délivrée par les <strong className="text-white">LinkedIn Marketing Labs</strong>. Une reconnaissance directe
+                de la plateforme qui valide mon expertise en stratégie marketing sur LinkedIn.
+              </p>
+              <ul className="space-y-3 mb-8">
+                {[
+                  'Certification délivrée directement par LinkedIn',
+                  'Certified Professional — Marketing Strategy',
+                  'Valide de novembre 2025 à novembre 2027',
+                ].map((p) => (
+                  <li key={p} className="flex items-center gap-3 text-sm text-white/70">
+                    <Award className="w-4 h-4 text-secondary flex-shrink-0" />
+                    {p}
+                  </li>
+                ))}
+              </ul>
+              <a
+                href="https://verify.skilljar.com/c/s44t8cbtwan8"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-secondary font-bold text-sm hover:text-tertiary transition-colors"
+              >
+                Vérifier la certification
+                <ArrowRight className="w-4 h-4" />
+              </a>
+            </motion.div>
+
+            {/* Certificat */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: 0.15 }}
+              className="relative"
+            >
+              <div className="absolute -inset-4 rounded-3xl blur-2xl pointer-events-none opacity-25"
+                style={{ background: 'radial-gradient(circle, #05dde1, transparent 70%)' }} />
+              <motion.div
+                animate={{ y: [0, -8, 0] }}
+                transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+                className="relative rounded-2xl overflow-hidden border border-white/15"
+                style={{ boxShadow: '0 0 50px rgba(5,221,225,0.12), 0 20px 60px rgba(0,0,0,0.45)' }}
+              >
+                <Image
+                  src="/about/certificat.png"
+                  alt="Certification LinkedIn Marketing Strategy de Dylan Parisi"
+                  width={1188}
+                  height={918}
+                  className="w-full h-auto"
+                  unoptimized
+                />
+              </motion.div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials highlight */}
+      <section className="py-24 border-t border-white/8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
