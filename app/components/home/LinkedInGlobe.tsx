@@ -8,7 +8,7 @@ const TEX_DAY   = 'https://threejs.org/examples/textures/planets/earth_atmos_204
 const TEX_NORM  = 'https://threejs.org/examples/textures/planets/earth_normal_2048.jpg'
 const TEX_SPEC  = 'https://threejs.org/examples/textures/planets/earth_specular_2048.jpg'
 
-const MESSAGES = [
+const DEFAULT_MESSAGES = [
   'CDI décroché en 2 semaines',
   '3 ventes en 4 jours',
   '5 RDV qualifiés en 1 semaine',
@@ -47,7 +47,8 @@ function LinkedInIcon() {
   )
 }
 
-export default function LinkedInGlobe() {
+export default function LinkedInGlobe({ messages = DEFAULT_MESSAGES }: { messages?: string[] }) {
+  const MESSAGES = messages
   const mountRef = useRef<HTMLDivElement>(null)
   const [slotIdx, setSlotIdx] = useState([0, 0, 0])
   const [visible, setVisible] = useState(false)
@@ -83,7 +84,7 @@ export default function LinkedInGlobe() {
     container.appendChild(renderer.domElement)
 
     // --- Starfield ---
-    const starPositions = new Float32Array(3000 * 3)
+    const starPositions = new Float32Array(700 * 3)
     for (let i = 0; i < starPositions.length; i++) starPositions[i] = (Math.random() - 0.5) * 180
     const starGeo = new THREE.BufferGeometry()
     starGeo.setAttribute('position', new THREE.BufferAttribute(starPositions, 3))
@@ -180,7 +181,7 @@ export default function LinkedInGlobe() {
       <div ref={mountRef} className="absolute inset-0 cursor-grab active:cursor-grabbing" />
 
       {visible && SLOTS.map((slot, si) => {
-        const msg = MESSAGES[slotIdx[si]]
+        const msg = MESSAGES[slotIdx[si] % MESSAGES.length]
         return (
           <AnimatePresence key={si} mode="wait">
             <motion.div

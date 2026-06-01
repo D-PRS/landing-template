@@ -126,13 +126,21 @@ export default function ServiceDataContent() {
       <section className="py-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.3 }}>
-            <LinkedInGlobe />
+            <LinkedInGlobe messages={[
+              '15 likes à 11H02',
+              'Visite de profil à 10H55',
+              '+8 abonnés aujourd\'hui',
+              '3 commentaires à 14H30',
+              'Pic d\'audience à 9H00',
+              '+124 impressions ce post',
+              'Nouveau record de vues',
+            ]} />
           </motion.div>
         </div>
       </section>
 
       {/* ══ VIDÉO — petite, côté, coming soon ══ */}
-      <section className="py-20 border-t border-white/8" style={{ backgroundColor: 'rgba(5,221,225,0.02)' }}>
+      <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
 
@@ -190,7 +198,7 @@ export default function ServiceDataContent() {
       </section>
 
       {/* ══ FEATURES — sans images, bento-style ══ */}
-      <section className="py-24 border-t border-white/8">
+      <section className="py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}
             className="text-center mb-16">
