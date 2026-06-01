@@ -124,7 +124,7 @@ function SectionMarketing() {
             transition={{ duration: 0.6, delay: 0.15 }}
             className="lg:sticky lg:top-28 max-lg:text-center"
           >
-            <span className="inline-block border border-secondary/30 text-secondary text-xs font-semibold px-3 py-1 rounded-full mb-5 uppercase tracking-widest"
+            <span className="inline-block border border-secondary/30 text-secondary text-xs font-semibold px-3 py-1 rounded-full mb-5 uppercase tracking-widest max-lg:hidden"
               style={{ backgroundColor: 'rgba(5,221,225,0.08)' }}>
               Service phare
             </span>
@@ -133,7 +133,7 @@ function SectionMarketing() {
               <motion.div
                 animate={{ y: [0, -5, 0] }}
                 transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-                className="w-12 h-12 rounded-2xl flex items-center justify-center border border-secondary/20 flex-shrink-0"
+                className="w-12 h-12 rounded-2xl flex items-center justify-center border border-secondary/20 flex-shrink-0 max-lg:hidden"
                 style={{ backgroundColor: 'rgba(5,221,225,0.1)' }}>
                 <Network className="w-6 h-6 text-secondary" />
               </motion.div>
@@ -147,9 +147,9 @@ function SectionMarketing() {
             </p>
 
             {/* Anneau + avant/après — MOBILE uniquement (entre paragraphe et bullets) */}
-            <div className="lg:hidden mb-8">
-              <BannerRing radius={150} panelW={150} panelH={38} containerH={190} />
-              <div className="-mt-8">
+            <div className="lg:hidden mt-4 mb-10">
+              <BannerRing radius={140} panelW={96} panelH={26} containerH={175} />
+              <div className="mt-2">
                 <p className="text-white/35 text-[10px] uppercase tracking-widest mb-2 text-center">Résultats réels — avant / après optimisation</p>
                 <BeforeAfterMini />
               </div>
@@ -210,7 +210,7 @@ const SectionHydra = memo(function SectionHydra() {
               <motion.div
                 animate={{ y: [0, -5, 0] }}
                 transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
-                className="w-12 h-12 rounded-2xl flex items-center justify-center border flex-shrink-0"
+                className="w-12 h-12 rounded-2xl flex items-center justify-center border flex-shrink-0 max-lg:hidden"
                 style={{ backgroundColor: 'rgba(26,111,212,0.1)', borderColor: 'rgba(26,111,212,0.2)' }}>
                 <BarChart3 className="w-6 h-6" style={{ color: '#1a6fd4' }} />
               </motion.div>
@@ -227,8 +227,8 @@ const SectionHydra = memo(function SectionHydra() {
             </p>
 
             {/* Globe — MOBILE uniquement (entre paragraphe et bullets) */}
-            <div className="lg:hidden mb-6">
-              <LinkedInGlobe height={300} messages={[
+            <div className="lg:hidden mt-4 mb-10">
+              <LinkedInGlobe height={300} compact messages={[
                 '15 likes à 11H02',
                 'Visite de profil à 10H55',
                 '+8 abonnés aujourd\'hui',
@@ -352,7 +352,7 @@ function SectionFormation() {
               <motion.div
                 animate={{ y: [0, -5, 0] }}
                 transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-                className="w-12 h-12 rounded-2xl flex items-center justify-center border border-secondary/20 flex-shrink-0"
+                className="w-12 h-12 rounded-2xl flex items-center justify-center border border-secondary/20 flex-shrink-0 max-lg:hidden"
                 style={{ backgroundColor: 'rgba(5,221,225,0.1)' }}>
                 <GraduationCap className="w-6 h-6 text-secondary" />
               </motion.div>
@@ -369,7 +369,7 @@ function SectionFormation() {
             </p>
 
             {/* Photo + popup — MOBILE uniquement (entre la phrase grise et la timeline) */}
-            <div className="lg:hidden relative mb-10 mx-auto max-w-sm">
+            <div className="lg:hidden relative mt-4 mb-12 mx-auto max-w-[280px]">
               <div className="relative rounded-3xl overflow-hidden border border-secondary/20">
                 <Image
                   src="/formation-physique/formation.jpg"

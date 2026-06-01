@@ -70,6 +70,13 @@ export default function HomepageHero() {
               leur présence LinkedIn en véritable levier d&apos;opportunités.
             </motion.p>
 
+            {/* Animation téléphone — mobile uniquement (entre paragraphe et boutons) */}
+            <div className="lg:hidden flex justify-center overflow-hidden mt-2 mb-4" style={{ height: 360 }}>
+              <div style={{ transform: 'scale(0.5)', transformOrigin: 'top center' }}>
+                <HomepageHeroVisual />
+              </div>
+            </div>
+
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -95,13 +102,6 @@ export default function HomepageHero() {
                 <ArrowRight className="w-5 h-5" />
               </Link>
             </motion.div>
-
-            {/* Animation téléphone — mobile uniquement (entre boutons et avatars) */}
-            <div className="lg:hidden flex justify-center overflow-hidden mb-2" style={{ height: 360 }}>
-              <div style={{ transform: 'scale(0.5)', transformOrigin: 'top center' }}>
-                <HomepageHeroVisual />
-              </div>
-            </div>
 
             <motion.div
               initial={{ opacity: 0 }}

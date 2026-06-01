@@ -24,18 +24,19 @@ const SLOTS = [
   { style: { top: '42%', left: '2%' } as React.CSSProperties,    indices: [2, 5] },
 ]
 
-function LinkedInIcon() {
+function LinkedInIcon({ size = 30 }: { size?: number }) {
+  const svg = Math.round(size / 2)
   return (
     <div
       className="flex items-center justify-center flex-shrink-0 rounded-lg"
       style={{
-        width: 30,
-        height: 30,
+        width: size,
+        height: size,
         background: 'rgba(5,221,225,0.14)',
         border: '1px solid rgba(5,221,225,0.35)',
       }}
     >
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none">
+      <svg width={svg} height={svg} viewBox="0 0 24 24" fill="none">
         <rect x="2" y="9" width="4" height="13" fill="#05dde1" />
         <circle cx="4" cy="4" r="2.5" fill="#05dde1" />
         <path
@@ -47,7 +48,7 @@ function LinkedInIcon() {
   )
 }
 
-export default function LinkedInGlobe({ messages = DEFAULT_MESSAGES, height = 480 }: { messages?: string[]; height?: number }) {
+export default function LinkedInGlobe({ messages = DEFAULT_MESSAGES, height = 480, compact = false }: { messages?: string[]; height?: number; compact?: boolean }) {
   const MESSAGES = messages
   const mountRef = useRef<HTMLDivElement>(null)
   const [slotIdx, setSlotIdx] = useState([0, 0, 0])
@@ -241,7 +242,7 @@ export default function LinkedInGlobe({ messages = DEFAULT_MESSAGES, height = 48
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.75, y: -8 }}
               transition={{ duration: 0.4, type: 'spring', stiffness: 300, damping: 24 }}
-              className="absolute flex items-center gap-2.5 px-3 py-2.5 rounded-2xl text-xs font-bold text-white"
+              className={`absolute flex items-center font-bold text-white ${compact ? 'gap-1.5 px-2 py-1.5 rounded-xl text-[10px]' : 'gap-2.5 px-3 py-2.5 rounded-2xl text-xs'}`}
               style={{
                 ...slot.style,
                 backgroundColor: 'rgba(0,10,32,0.90)',
@@ -249,11 +250,11 @@ export default function LinkedInGlobe({ messages = DEFAULT_MESSAGES, height = 48
                 border: '1px solid rgba(255,255,255,0.07)',
                 boxShadow: '0 0 28px rgba(5,221,225,0.20), 0 8px 32px rgba(0,0,0,0.5)',
                 zIndex: 20,
-                maxWidth: '200px',
+                maxWidth: compact ? '150px' : '200px',
                 pointerEvents: 'none',
               }}
             >
-              <LinkedInIcon />
+              <LinkedInIcon size={compact ? 22 : 30} />
               <span className="leading-tight">{msg}</span>
               <span className="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse flex-shrink-0 ml-auto" />
             </motion.div>
