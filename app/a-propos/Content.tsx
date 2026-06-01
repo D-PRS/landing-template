@@ -194,7 +194,7 @@ export default function AProposContent() {
           </motion.div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {TEMOIGNAGES.slice(0, 6).map((t, i) => (
+            {TEMOIGNAGES.map((t, i) => (
               <motion.div
                 key={t.id}
                 initial={{ opacity: 0, y: 20 }}
