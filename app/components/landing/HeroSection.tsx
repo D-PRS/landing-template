@@ -56,14 +56,12 @@ export default function HeroSection() {
                 <ArrowRight className="w-5 h-5" />
               </motion.a>
               <motion.a
-                href="https://calendly.com/pro-visual/30-min-de-call-100-gratuit"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="/formations/algorithme-linkedin-2026"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.97 }}
                 className="inline-flex items-center justify-center gap-2 border border-white/20 text-white font-bold px-8 py-4 rounded-2xl text-base hover:bg-white/8 transition-all duration-200"
               >
-                Appel gratuit 30 min
+                Débloquer votre E-book gratuit
               </motion.a>
             </motion.div>
 

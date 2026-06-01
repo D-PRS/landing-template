@@ -24,10 +24,10 @@ export default function EbooksSection() {
             className="inline-block border border-secondary/30 text-secondary text-xs font-semibold px-4 py-1.5 rounded-full mb-5 uppercase tracking-widest"
             style={{ backgroundColor: 'rgba(5,221,225,0.08)' }}
           >
-            4 formations
+            4 E-books
           </span>
           <h2 className="text-4xl md:text-5xl font-black text-white mb-5">
-            Nos <span className="gradient-text">formations</span> LinkedIn
+            Nos <span className="gradient-text">E-books</span> LinkedIn
           </h2>
           <p className="text-lg text-white/55 max-w-2xl mx-auto">
             Des formations complètes, concrètes et actionnables pour performer sur LinkedIn,
@@ -76,7 +76,7 @@ export default function EbooksSection() {
                       </span>
                     ) : (
                       <span className="inline-flex items-center gap-1 bg-secondary text-primary text-xs font-bold px-2.5 py-1 rounded-full">
-                        <Lock className="w-3 h-3" /> ProVisual Academy
+                        <Lock className="w-3 h-3" /> 27€
                       </span>
                     )}
                   </div>

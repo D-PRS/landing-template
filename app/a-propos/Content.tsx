@@ -33,16 +33,6 @@ export default function AProposContent() {
           style={{ background: 'radial-gradient(circle, #002060, transparent)' }} />
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 border border-secondary/30 rounded-full px-4 py-1.5 mb-8"
-            style={{ backgroundColor: 'rgba(5,221,225,0.08)' }}
-          >
-            <span className="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse" />
-            <span className="text-secondary text-xs font-semibold uppercase tracking-widest">Notre histoire</span>
-          </motion.div>
 
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
