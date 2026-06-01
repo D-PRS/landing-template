@@ -10,97 +10,86 @@ import {
 import LinkedInGlobe from './LinkedInGlobe'
 
 const PUBLICATIONS = ['33','34','35','37','38','39','40','41','42']
-const BANNIERES = ['1','2','3','4','5','6','7','8','9','10','11','12','13']
+const BANNIERES_RING = ['1','2','3','4','5','6','7','8']
 const HEIGHTS = ['h-52','h-64','h-48','h-60','h-56','h-44','h-64','h-52','h-48']
+const RING_RADIUS = 230
 
 /* ═══════════════════════════════════════════════════════════════════════
    SECTION 1 — MARKETING LINKEDIN
-   Texte gauche / posts flottants + bannières verticales en fond droit
+   Titre + description (au-dessus) / publications gauche / ring droit
 ═══════════════════════════════════════════════════════════════════════ */
 function SectionMarketing() {
-  const tripleB = [...BANNIERES, ...BANNIERES, ...BANNIERES]
-
   return (
     <section className="py-20 border-t border-white/8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
 
-          {/* Texte */}
+        {/* Titre & description au-dessus */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mb-14"
+        >
+          <span className="inline-block border border-secondary/30 text-secondary text-xs font-semibold px-3 py-1 rounded-full mb-5 uppercase tracking-widest"
+            style={{ backgroundColor: 'rgba(5,221,225,0.08)' }}>
+            Service phare
+          </span>
+
+          <div className="flex items-center gap-3 mb-5">
+            <motion.div
+              animate={{ y: [0, -5, 0] }}
+              transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+              className="w-12 h-12 rounded-2xl flex items-center justify-center border border-secondary/20 flex-shrink-0"
+              style={{ backgroundColor: 'rgba(5,221,225,0.1)' }}>
+              <Network className="w-6 h-6 text-secondary" />
+            </motion.div>
+            <h2 className="text-3xl lg:text-4xl font-black text-white leading-tight">
+              Marketing <span className="gradient-text">LinkedIn</span>
+            </h2>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-8 items-start">
+            <p className="text-white/60 leading-relaxed text-base">
+              Gestion complète de votre présence LinkedIn : optimisation de profil, création de contenu percutant, prospection et ghostwriting. Je m&apos;occupe de tout pour que vous vous concentriez sur votre cœur de métier.
+            </p>
+            <div>
+              <ul className="grid grid-cols-2 gap-2 mb-6">
+                {[
+                  'Optimisation profil perso & entreprise',
+                  'Création & publication de contenu',
+                  'Prospection manuelle & automatisée',
+                  'Ghostwriting à votre voix',
+                ].map((p) => (
+                  <li key={p} className="flex items-center gap-2 text-sm text-white/70">
+                    <CheckCircle2 className="w-4 h-4 text-secondary flex-shrink-0" />
+                    {p}
+                  </li>
+                ))}
+              </ul>
+              <Link href="/service-marketing"
+                className="inline-flex items-center gap-2 text-secondary font-bold text-sm">
+                Découvrir la prestation
+                <motion.span animate={{ x: [0, 4, 0] }} transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}>
+                  <ArrowRight className="w-4 h-4" />
+                </motion.span>
+              </Link>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Publications gauche + Ring circulaire droit */}
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+
+          {/* Publications (identiques à la page marketing) */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="lg:sticky lg:top-24"
           >
-            <span className="inline-block border border-secondary/30 text-secondary text-xs font-semibold px-3 py-1 rounded-full mb-5 uppercase tracking-widest"
-              style={{ backgroundColor: 'rgba(5,221,225,0.08)' }}>
-              Service phare
-            </span>
-
-            <div className="flex items-center gap-3 mb-5">
-              <motion.div
-                animate={{ y: [0, -5, 0] }}
-                transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-                className="w-12 h-12 rounded-2xl flex items-center justify-center border border-secondary/20 flex-shrink-0"
-                style={{ backgroundColor: 'rgba(5,221,225,0.1)' }}>
-                <Network className="w-6 h-6 text-secondary" />
-              </motion.div>
-              <h2 className="text-3xl lg:text-4xl font-black text-white leading-tight">
-                Marketing <span className="gradient-text">LinkedIn</span>
-              </h2>
-            </div>
-
-            <p className="text-white/60 leading-relaxed mb-6 text-base">
-              Gestion complète de votre présence LinkedIn : optimisation de profil, création de contenu percutant, prospection et ghostwriting. Je m&apos;occupe de tout pour que vous vous concentriez sur votre cœur de métier.
-            </p>
-
-            <ul className="space-y-3 mb-8">
-              {[
-                'Optimisation profil perso & entreprise',
-                'Création & publication de contenu',
-                'Prospection manuelle & automatisée',
-                'Ghostwriting à votre voix',
-              ].map((p) => (
-                <li key={p} className="flex items-center gap-3 text-sm text-white/70">
-                  <CheckCircle2 className="w-4 h-4 text-secondary flex-shrink-0" />
-                  {p}
-                </li>
-              ))}
-            </ul>
-
-            <Link href="/service-marketing"
-              className="inline-flex items-center gap-2 text-secondary font-bold text-sm">
-              Découvrir la prestation
-              <motion.span animate={{ x: [0, 4, 0] }} transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}>
-                <ArrowRight className="w-4 h-4" />
-              </motion.span>
-            </Link>
-          </motion.div>
-
-          {/* Visuel droit : bannières fond + publications flottantes */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.15 }}
-            className="relative overflow-hidden rounded-3xl"
-          >
-            {/* Bannières défilant verticalement en fond */}
-            <div className="absolute inset-0 overflow-hidden rounded-3xl">
-              <div className="animate-marquee-vertical flex flex-col" style={{ width: '100%' }}>
-                {tripleB.map((b, i) => (
-                  <div key={`${b}-${i}`} className="flex-shrink-0 w-full h-36 overflow-hidden">
-                    <Image src={`/bannieres/${b}.png`} alt="" width={600} height={144} className="w-full h-full object-cover" unoptimized />
-                  </div>
-                ))}
-              </div>
-              {/* Overlay sombre pour lisibilité */}
-              <div className="absolute inset-0" style={{ background: 'rgba(0,13,38,0.72)' }} />
-            </div>
-
-            {/* Publications flottantes par-dessus */}
-            <div className="relative z-10 p-4 columns-2 gap-3">
+            <p className="text-white/40 text-xs uppercase tracking-widest mb-4">Publications publiées pour mes clients</p>
+            <div className="columns-2 md:columns-3 gap-3">
               {PUBLICATIONS.map((p, i) => (
                 <motion.div
                   key={p}
@@ -113,7 +102,9 @@ function SectionMarketing() {
                   <motion.div
                     animate={{ y: [0, -(2 + i % 4), 0] }}
                     transition={{ duration: 2.5 + i * 0.25, repeat: Infinity, ease: 'easeInOut', delay: i * 0.18 }}
-                    className="rounded-2xl overflow-hidden border border-white/15 shadow-xl"
+                    whileHover={{ scale: 1.02 }}
+                    className="rounded-2xl overflow-hidden border border-white/8"
+                    style={{ backgroundColor: 'rgba(255,255,255,0.03)' }}
                   >
                     <Image
                       src={`/publications/${p}.png`}
@@ -126,6 +117,44 @@ function SectionMarketing() {
                   </motion.div>
                 </motion.div>
               ))}
+            </div>
+          </motion.div>
+
+          {/* Carrousel circulaire de bannières */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.15 }}
+            className="flex items-center justify-center"
+            style={{ height: '520px', perspective: '900px' }}
+          >
+            <div
+              className="animate-spin-ring relative"
+              style={{ width: '160px', height: '90px' }}
+            >
+              {BANNIERES_RING.map((b, i) => {
+                const angle = (360 / BANNIERES_RING.length) * i
+                return (
+                  <div
+                    key={b}
+                    className="absolute inset-0 rounded-xl overflow-hidden border border-white/20 shadow-2xl"
+                    style={{
+                      transform: `rotateY(${angle}deg) translateZ(${RING_RADIUS}px)`,
+                      backfaceVisibility: 'hidden',
+                    }}
+                  >
+                    <Image
+                      src={`/bannieres/${b}.png`}
+                      alt={`Bannière ${b}`}
+                      width={320}
+                      height={180}
+                      className="w-full h-full object-cover"
+                      unoptimized
+                    />
+                  </div>
+                )
+              })}
             </div>
           </motion.div>
         </div>
@@ -211,24 +240,6 @@ function SectionHydra() {
           </motion.div>
         </div>
 
-        {/* Vidéo — pleine largeur sous le globe */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="mt-12 rounded-3xl overflow-hidden border border-white/10"
-          style={{ backgroundColor: 'rgba(0,13,38,0.5)' }}
-        >
-          <video
-            src="/videos/3.mov"
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="w-full h-auto block"
-          />
-        </motion.div>
       </div>
     </section>
   )

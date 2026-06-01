@@ -143,6 +143,15 @@
   animation: marquee-vertical 25s linear infinite;
 }
 
+@keyframes spin-ring {
+  from { transform: rotateX(18deg) rotateY(0deg); }
+  to   { transform: rotateX(18deg) rotateY(360deg); }
+}
+.animate-spin-ring {
+  animation: spin-ring 18s linear infinite;
+  transform-style: preserve-3d;
+}
+
 @keyframes float-gentle {
   0%, 100% { transform: translateY(0px); }
   50% { transform: translateY(-8px); }
