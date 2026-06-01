@@ -116,11 +116,11 @@ export default function ContactContent() {
                   </div>
                   <div>
                     <h4 className="font-black text-white mb-1">Email</h4>
-                    <a href="mailto:dylan@provisual.fr"
+                    <a href="mailto:contact@provisual.fr"
                       className="text-secondary text-sm hover:text-tertiary transition-colors">
-                      dylan@provisual.fr
+                      contact@provisual.fr
                     </a>
-                    <p className="text-white/40 text-xs mt-1">Réponse sous 24h en jours ouvrés</p>
+                    <p className="text-white/40 text-xs mt-1">Réponse sous 1H en jours ouvrés</p>
                   </div>
                 </div>
               </div>
@@ -133,7 +133,7 @@ export default function ContactContent() {
                   <span className="text-emerald-400 text-xs font-semibold">Disponible</span>
                 </div>
                 <p className="text-white/55 text-sm">
-                  Notre équipe répond généralement sous <strong className="text-white">24 heures</strong> en jours ouvrés.
+                  Notre équipe répond généralement sous <strong className="text-white">1 heure</strong> en jours ouvrés.
                 </p>
               </div>
             </motion.div>
