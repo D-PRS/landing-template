@@ -63,6 +63,32 @@ const BeforeAfterMini = memo(function BeforeAfterMini() {
   )
 })
 
+/* Anneau 3D de bannières — réutilisable (desktop / mobile à tailles différentes) */
+function BannerRing({ radius = 280, panelW = 200, panelH = 50, containerH = 300 }: { radius?: number; panelW?: number; panelH?: number; containerH?: number }) {
+  return (
+    <div className="flex items-center justify-center" style={{ height: `${containerH}px`, perspective: '1000px' }}>
+      <div className="animate-spin-ring relative" style={{ width: `${panelW}px`, height: `${panelH}px` }}>
+        {BANNIERES_RING.map((b, i) => {
+          const angle = (360 / BANNIERES_RING.length) * i
+          return (
+            <div
+              key={b}
+              className="absolute inset-0 rounded-lg overflow-hidden border border-white/25 shadow-2xl flex items-center justify-center p-[5px]"
+              style={{
+                transform: `rotateY(${angle}deg) translateZ(${radius}px)`,
+                backfaceVisibility: 'hidden',
+                backgroundColor: '#001340',
+              }}
+            >
+              <Image src={`/bannieres/${b}.png`} alt="" width={400} height={100} className="w-full h-full object-cover rounded-sm" unoptimized />
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
 /* ═══════════════════════════════════════════════════════════════════════
    SECTION 1 — MARKETING LINKEDIN
    Gauche : anneau 3D (haut) + avant/après (bas collé)
@@ -74,36 +100,15 @@ function SectionMarketing() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
 
-          {/* Gauche : anneau 3D + avant/après */}
+          {/* Gauche : anneau 3D + avant/après — DESKTOP uniquement */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="flex flex-col"
+            className="flex flex-col max-lg:hidden"
           >
-            {/* Anneau 3D de bannières */}
-            <div className="flex items-center justify-center" style={{ height: '300px', perspective: '1000px' }}>
-              <div className="animate-spin-ring relative" style={{ width: '200px', height: '50px' }}>
-                {BANNIERES_RING.map((b, i) => {
-                  const angle = (360 / BANNIERES_RING.length) * i
-                  return (
-                    <div
-                      key={b}
-                      className="absolute inset-0 rounded-lg overflow-hidden border border-white/25 shadow-2xl flex items-center justify-center p-[5px]"
-                      style={{
-                        transform: `rotateY(${angle}deg) translateZ(${RING_RADIUS}px)`,
-                        backfaceVisibility: 'hidden',
-                        backgroundColor: '#001340',
-                      }}
-                    >
-                      <Image src={`/bannieres/${b}.png`} alt="" width={400} height={100} className="w-full h-full object-cover rounded-sm" unoptimized />
-                    </div>
-                  )
-                })}
-              </div>
-            </div>
-
+            <BannerRing radius={280} panelW={200} panelH={50} containerH={300} />
             {/* Avant/après remonté, presque collé à l'anneau */}
             <div className="-mt-14">
               <p className="text-white/35 text-[10px] uppercase tracking-widest mb-2 text-center">Résultats réels — avant / après optimisation</p>
@@ -117,14 +122,14 @@ function SectionMarketing() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.15 }}
-            className="lg:sticky lg:top-28"
+            className="lg:sticky lg:top-28 max-lg:text-center"
           >
             <span className="inline-block border border-secondary/30 text-secondary text-xs font-semibold px-3 py-1 rounded-full mb-5 uppercase tracking-widest"
               style={{ backgroundColor: 'rgba(5,221,225,0.08)' }}>
               Service phare
             </span>
 
-            <div className="flex items-center gap-3 mb-5">
+            <div className="flex items-center gap-3 mb-5 max-lg:justify-center">
               <motion.div
                 animate={{ y: [0, -5, 0] }}
                 transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
@@ -141,7 +146,16 @@ function SectionMarketing() {
               Gestion complète de votre présence LinkedIn : optimisation de profil, création de contenu percutant, prospection et ghostwriting. Je m&apos;occupe de tout pour que vous vous concentriez sur votre cœur de métier.
             </p>
 
-            <ul className="space-y-3 mb-10">
+            {/* Anneau + avant/après — MOBILE uniquement (entre paragraphe et bullets) */}
+            <div className="lg:hidden mb-8">
+              <BannerRing radius={150} panelW={150} panelH={38} containerH={190} />
+              <div className="-mt-8">
+                <p className="text-white/35 text-[10px] uppercase tracking-widest mb-2 text-center">Résultats réels — avant / après optimisation</p>
+                <BeforeAfterMini />
+              </div>
+            </div>
+
+            <ul className="space-y-3 mb-10 max-lg:inline-block max-lg:text-left">
               {[
                 'Optimisation profil perso & entreprise',
                 'Création & publication de contenu',
@@ -185,13 +199,14 @@ const SectionHydra = memo(function SectionHydra() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
+            className="max-lg:text-center"
           >
             <span className="inline-block border text-xs font-semibold px-3 py-1 rounded-full mb-5 uppercase tracking-widest"
               style={{ backgroundColor: 'rgba(26,111,212,0.12)', color: '#1a6fd4', borderColor: 'rgba(26,111,212,0.3)' }}>
               SAS LinkedIn
             </span>
 
-            <div className="flex items-center gap-3 mb-5">
+            <div className="flex items-center gap-3 mb-5 max-lg:justify-center">
               <motion.div
                 animate={{ y: [0, -5, 0] }}
                 transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
@@ -211,7 +226,20 @@ const SectionHydra = memo(function SectionHydra() {
               Analyse approfondie de vos performances LinkedIn. Tableaux de bord sur mesure, KPIs clés et insights actionnables pour piloter votre stratégie avec la data.
             </p>
 
-            <ul className="space-y-3 mb-8">
+            {/* Globe — MOBILE uniquement (entre paragraphe et bullets) */}
+            <div className="lg:hidden mb-6">
+              <LinkedInGlobe height={300} messages={[
+                '15 likes à 11H02',
+                'Visite de profil à 10H55',
+                '+8 abonnés aujourd\'hui',
+                '3 commentaires à 14H30',
+                'Pic d\'audience à 9H00',
+                '+124 impressions ce post',
+                'Nouveau record de vues',
+              ]} />
+            </div>
+
+            <ul className="space-y-3 mb-8 max-lg:inline-block max-lg:text-left">
               {[
                 'Tableau de bord KPIs LinkedIn',
                 'Analyse concurrentielle',
@@ -235,12 +263,13 @@ const SectionHydra = memo(function SectionHydra() {
             </Link>
           </motion.div>
 
-          {/* Globe 3D */}
+          {/* Globe 3D — DESKTOP uniquement */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.1 }}
+            className="max-lg:hidden"
           >
             <LinkedInGlobe />
           </motion.div>
@@ -268,13 +297,13 @@ function SectionFormation() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
 
-          {/* Photo + popup */}
+          {/* Photo + popup — DESKTOP uniquement */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="relative"
+            className="relative max-lg:hidden"
           >
             <div className="relative rounded-3xl overflow-hidden border border-secondary/20">
               <Image
@@ -312,13 +341,14 @@ function SectionFormation() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.15 }}
+            className="max-lg:text-center"
           >
             <span className="inline-block border border-secondary/25 text-secondary text-xs font-semibold px-3 py-1 rounded-full mb-5 uppercase tracking-widest"
               style={{ backgroundColor: 'rgba(5,221,225,0.08)' }}>
               Présentiel
             </span>
 
-            <div className="flex items-center gap-3 mb-5">
+            <div className="flex items-center gap-3 mb-5 max-lg:justify-center">
               <motion.div
                 animate={{ y: [0, -5, 0] }}
                 transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
@@ -338,7 +368,37 @@ function SectionFormation() {
               ≠ Provisual Academy — indépendant de nos e-learnings en ligne.
             </p>
 
-            <div className="space-y-4 mb-8">
+            {/* Photo + popup — MOBILE uniquement (entre la phrase grise et la timeline) */}
+            <div className="lg:hidden relative mb-10 mx-auto max-w-sm">
+              <div className="relative rounded-3xl overflow-hidden border border-secondary/20">
+                <Image
+                  src="/formation-physique/formation.jpg"
+                  alt="Formation LinkedIn en entreprise"
+                  width={800} height={600}
+                  className="w-full object-cover"
+                  unoptimized
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none" />
+              </div>
+              <motion.div
+                animate={{ y: [0, -6, 0] }}
+                transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+                className="absolute -bottom-4 -right-2 rounded-2xl border border-secondary/30 p-3 shadow-xl text-left"
+                style={{ backgroundColor: 'rgba(0,13,38,0.95)', backdropFilter: 'blur(12px)', maxWidth: '180px' }}
+              >
+                <div className="flex items-center gap-2 mb-1">
+                  <Lock className="w-3.5 h-3.5 text-secondary" />
+                  <span className="text-secondary text-xs font-bold">Bientôt</span>
+                </div>
+                <p className="text-white text-xs font-semibold leading-snug">Finançable OPCO & CPF</p>
+                <div className="flex items-center gap-1 mt-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse" />
+                  <p className="text-white/50 text-[10px]">Certification Kaliopé en cours</p>
+                </div>
+              </motion.div>
+            </div>
+
+            <div className="space-y-4 mb-8 max-lg:inline-block max-lg:text-left">
               {timeline.map((step, i) => {
                 const Icon = step.icon
                 return (

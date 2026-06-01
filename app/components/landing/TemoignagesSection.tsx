@@ -109,14 +109,14 @@ export default function TemoignagesSection() {
           {/* Nav arrows */}
           <button
             onClick={() => go((current - 1 + TEMOIGNAGES.length) % TEMOIGNAGES.length)}
-            className="absolute -left-5 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex items-center justify-center border border-white/20 text-white hover:bg-secondary hover:text-primary hover:border-secondary transition-colors"
+            className="absolute left-1 lg:left-[-1.25rem] top-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex items-center justify-center border border-white/20 text-white hover:bg-secondary hover:text-primary hover:border-secondary transition-colors z-20"
             style={{ backgroundColor: 'rgba(0,10,32,0.8)' }}
           >
             <ChevronLeft className="w-5 h-5" />
           </button>
           <button
             onClick={() => go((current + 1) % TEMOIGNAGES.length)}
-            className="absolute -right-5 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex items-center justify-center border border-white/20 text-white hover:bg-secondary hover:text-primary hover:border-secondary transition-colors"
+            className="absolute right-1 lg:right-[-1.25rem] top-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex items-center justify-center border border-white/20 text-white hover:bg-secondary hover:text-primary hover:border-secondary transition-colors z-20"
             style={{ backgroundColor: 'rgba(0,10,32,0.8)' }}
           >
             <ChevronRight className="w-5 h-5" />

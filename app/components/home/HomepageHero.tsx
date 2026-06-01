@@ -35,7 +35,7 @@ export default function HomepageHero() {
         <div className="grid lg:grid-cols-2 gap-16 items-center">
 
           {/* Left — Text */}
-          <div className="min-w-0">
+          <div className="min-w-0 max-lg:text-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -62,7 +62,7 @@ export default function HomepageHero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-lg text-white/65 leading-relaxed mb-10 max-w-lg"
+              className="text-lg text-white/65 leading-relaxed mb-10 max-w-lg max-lg:mx-auto"
             >
               Une expertise complète, un seul objectif :{' '}
               <strong className="text-white font-bold">votre réussite</strong>.
@@ -74,7 +74,7 @@ export default function HomepageHero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="flex flex-col sm:flex-row gap-4 mb-12"
+              className="flex flex-col sm:flex-row gap-4 mb-12 max-lg:items-center"
             >
               <motion.a
                 href="https://calendly.com/pro-visual/30-min-de-call-100-gratuit"
@@ -96,15 +96,22 @@ export default function HomepageHero() {
               </Link>
             </motion.div>
 
+            {/* Animation téléphone — mobile uniquement (entre boutons et avatars) */}
+            <div className="lg:hidden flex justify-center overflow-hidden mb-2" style={{ height: 360 }}>
+              <div style={{ transform: 'scale(0.5)', transformOrigin: 'top center' }}>
+                <HomepageHeroVisual />
+              </div>
+            </div>
+
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.45 }}
-              className="flex items-center gap-4"
+              className="flex items-center gap-4 max-lg:flex-col max-lg:gap-2"
             >
-              <div className="flex -space-x-4">
+              <div className="flex -space-x-3 lg:-space-x-4 max-lg:justify-center">
                 {AVATARS.map((src, i) => (
-                  <div key={i} className="w-8 h-8 rounded-full border-2 overflow-hidden flex-shrink-0"
+                  <div key={i} className="w-6 h-6 lg:w-8 lg:h-8 rounded-full border-2 overflow-hidden flex-shrink-0"
                     style={{ borderColor: '#001a4d' }}>
                     <Image src={src} alt="" width={32} height={32} className="w-full h-full object-cover" unoptimized />
                   </div>
@@ -112,8 +119,8 @@ export default function HomepageHero() {
               </div>
               <p className="text-white/55 text-sm">
                 <span className="text-white font-semibold">20+ entreprises</span> nous font confiance
+                <span className="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse ml-1 inline-block align-middle" />
               </p>
-              <div className="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse ml-1" />
             </motion.div>
           </div>
 

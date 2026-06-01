@@ -47,7 +47,7 @@ function LinkedInIcon() {
   )
 }
 
-export default function LinkedInGlobe({ messages = DEFAULT_MESSAGES }: { messages?: string[] }) {
+export default function LinkedInGlobe({ messages = DEFAULT_MESSAGES, height = 480 }: { messages?: string[]; height?: number }) {
   const MESSAGES = messages
   const mountRef = useRef<HTMLDivElement>(null)
   const [slotIdx, setSlotIdx] = useState([0, 0, 0])
@@ -213,9 +213,9 @@ export default function LinkedInGlobe({ messages = DEFAULT_MESSAGES }: { message
   }, [])
 
   return (
-    <div className="relative w-full" style={{ height: '480px' }}>
+    <div className="relative w-full" style={{ height: `${height}px` }}>
       {/* Canvas WebGL (masqué si échec) */}
-      <div ref={mountRef} className={`absolute inset-0 cursor-grab active:cursor-grabbing ${failed ? 'hidden' : ''}`} />
+      <div ref={mountRef} className={`absolute inset-0 cursor-grab active:cursor-grabbing ${failed ? 'hidden' : ''}`} style={{ touchAction: 'pan-y' }} />
 
       {/* Fallback gracieux si WebGL indisponible / contexte perdu */}
       {failed && (
