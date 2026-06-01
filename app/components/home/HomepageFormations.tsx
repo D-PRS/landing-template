@@ -25,12 +25,13 @@ export default function HomepageFormations() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Header */}
-        <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-6 mb-14">
+        <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-6 mb-14 max-md:items-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
+            className="max-md:text-center"
           >
             <span
               className="inline-block border border-secondary/30 text-secondary text-xs font-semibold px-4 py-1.5 rounded-full mb-5 uppercase tracking-widest"
@@ -41,7 +42,7 @@ export default function HomepageFormations() {
             <h2 className="text-4xl md:text-5xl font-black text-white">
               Nos <span className="gradient-text">e-books</span> LinkedIn
             </h2>
-            <p className="text-white/55 text-lg mt-4 max-w-lg">
+            <p className="text-white/55 text-lg mt-4 max-w-lg max-md:mx-auto">
               Maîtrisez LinkedIn de A à Z avec des guides pratiques conçus pour donner des résultats concrets.
             </p>
           </motion.div>
@@ -97,11 +98,11 @@ export default function HomepageFormations() {
               </div>
 
               {/* Content */}
-              <div className="p-8 lg:p-10 flex flex-col justify-between">
+              <div className="p-8 lg:p-10 flex flex-col justify-between max-lg:text-center">
                 <div>
                   <h3 className="font-black text-white text-2xl lg:text-3xl mb-4 leading-tight">{formation.titre}</h3>
                   <p className="text-white/60 text-base leading-relaxed mb-6">{formation.description}</p>
-                  <div className="flex flex-wrap items-center gap-5 text-sm text-white/45 mb-8">
+                  <div className="flex flex-wrap items-center gap-5 text-sm text-white/45 mb-8 max-lg:justify-center">
                     <div className="flex items-center gap-2">
                       <BookOpen className="w-4 h-4 text-secondary" />
                       <span>{formation.nombre_chapitres} chapitre{formation.nombre_chapitres > 1 ? 's' : ''}</span>
@@ -116,7 +117,7 @@ export default function HomepageFormations() {
                     </div>
                   </div>
                 </div>
-                <Link href={`/formations/${formation.slug}`}>
+                <Link href={`/formations/${formation.slug}`} className="max-lg:text-center">
                   <motion.div
                     whileHover={{ scale: 1.03, boxShadow: '0 0 30px rgba(5,221,225,0.4)' }}
                     whileTap={{ scale: 0.97 }}
@@ -148,7 +149,7 @@ export default function HomepageFormations() {
           className="mt-10 rounded-3xl p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-6 border border-secondary/20"
           style={{ background: 'linear-gradient(135deg, rgba(0,32,96,0.35) 0%, rgba(5,221,225,0.1) 100%)' }}
         >
-          <div>
+          <div className="max-md:text-center">
             <p className="text-secondary text-xs font-semibold uppercase tracking-widest mb-2">ProVisual Academy</p>
             <h3 className="text-2xl font-black text-white mb-1">Accédez aux 4 formations sur l&apos;Academy</h3>
             <p className="text-white/60 text-sm">Pour 9,99€/mois — communauté, mises à jour permanentes et certificats inclus.</p>

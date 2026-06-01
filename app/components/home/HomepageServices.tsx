@@ -148,7 +148,7 @@ function SectionMarketing() {
 
             {/* Anneau + avant/après — MOBILE uniquement (entre paragraphe et bullets) */}
             <div className="lg:hidden mt-4 mb-10">
-              <BannerRing radius={140} panelW={96} panelH={26} containerH={175} />
+              <BannerRing radius={165} panelW={112} panelH={28} containerH={190} />
               <div className="mt-2">
                 <p className="text-white/35 text-[10px] uppercase tracking-widest mb-2 text-center">Résultats réels — avant / après optimisation</p>
                 <BeforeAfterMini />
@@ -254,7 +254,7 @@ const SectionHydra = memo(function SectionHydra() {
             </ul>
 
             <Link href="/service-data-analytics"
-              className="inline-flex items-center gap-2 font-bold text-sm"
+              className="inline-flex items-center gap-2 font-bold text-sm max-lg:flex max-lg:justify-center max-lg:mt-6"
               style={{ color: '#1a6fd4' }}>
               Découvrir Hydra
               <motion.span animate={{ x: [0, 4, 0] }} transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}>
@@ -369,7 +369,7 @@ function SectionFormation() {
             </p>
 
             {/* Photo + popup — MOBILE uniquement (entre la phrase grise et la timeline) */}
-            <div className="lg:hidden relative mt-4 mb-12 mx-auto max-w-[280px]">
+            <div className="lg:hidden relative mt-4 mb-12 mx-auto max-w-[330px]">
               <div className="relative rounded-3xl overflow-hidden border border-secondary/20">
                 <Image
                   src="/formation-physique/formation.jpg"
