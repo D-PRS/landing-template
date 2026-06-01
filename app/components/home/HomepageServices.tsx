@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { ArrowRight, Network, BarChart3, BookOpen, GraduationCap, CheckCircle2, TrendingUp, Users, Star } from 'lucide-react'
+import { ArrowRight, Network, BarChart3, GraduationCap, CheckCircle2, Users, Star } from 'lucide-react'
 
 const CDN = 'https://cdn.prod.website-files.com/68ab2d1a568ed1d53d774d32'
 
@@ -155,19 +155,6 @@ const SERVICES = [
     visualRight: false,
   },
   {
-    icon: BookOpen,
-    titre: 'Nos E-books LinkedIn',
-    badge: '7 guides',
-    badgeStyle: { backgroundColor: 'rgba(5,251,225,0.12)', color: '#05fbe1', borderColor: 'rgba(5,251,225,0.3)' },
-    description: "Des guides pratiques et actionnables pour maîtriser LinkedIn à votre rythme. Prospection, contenu, copywriting, algorithme — des méthodes testées sur le terrain, applicables dès la première lecture.",
-    points: ['De débutant à expert LinkedIn', 'Méthodes testées sur le terrain', 'Mises à jour régulières incluses'],
-    href: '/e-books',
-    accentColor: '#05fbe1',
-    accentRgb: '5,251,225',
-    Visual: VisualEbooks,
-    visualRight: true,
-  },
-  {
     icon: GraduationCap,
     titre: 'Formations en entreprise',
     badge: 'Présentiel',
@@ -205,7 +192,7 @@ export default function HomepageServices() {
           </span>
           <h2 className="text-4xl md:text-5xl font-black text-white mb-5">
             Une expertise,{' '}
-            <span className="gradient-text">4 offres LinkedIn</span>
+            <span className="gradient-text">3 offres LinkedIn</span>
           </h2>
           <p className="text-lg text-white/55 max-w-2xl mx-auto">
             Du LinkedIn sous toutes ses formes — pour les indépendants, TPE et PME qui veulent vraiment performer.
