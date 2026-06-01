@@ -32,7 +32,7 @@ function BeforeAfterMini() {
   const pair = AVANT_APRES[index]
   return (
     <AnimatePresence mode="wait">
-      <motion.div key={index} initial={{ opacity: 0, x: 12 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -12 }} transition={{ duration: 0.35 }}>
+      <motion.div key={index} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.4 }}>
         <div className="grid grid-cols-2 gap-3">
           <div className="relative rounded-xl overflow-hidden border border-white/10">
             <div className="absolute top-2 left-2 z-10 text-white text-[10px] font-bold px-2 py-0.5 rounded-full"
@@ -84,14 +84,14 @@ function SectionMarketing() {
                   return (
                     <div
                       key={b}
-                      className="absolute inset-0 rounded-lg overflow-hidden border border-white/25 shadow-2xl"
+                      className="absolute inset-0 rounded-lg overflow-hidden border border-white/25 shadow-2xl flex items-center justify-center p-[5px]"
                       style={{
                         transform: `rotateY(${angle}deg) translateZ(${RING_RADIUS}px)`,
                         backfaceVisibility: 'hidden',
                         backgroundColor: '#001340',
                       }}
                     >
-                      <Image src={`/bannieres/${b}.png`} alt="" width={400} height={100} className="w-full h-full object-cover" unoptimized />
+                      <Image src={`/bannieres/${b}.png`} alt="" width={400} height={100} className="w-full h-full object-cover rounded-sm" unoptimized />
                     </div>
                   )
                 })}
@@ -99,7 +99,7 @@ function SectionMarketing() {
             </div>
 
             {/* Avant/après remonté, presque collé à l'anneau */}
-            <div className="-mt-10">
+            <div className="-mt-14">
               <p className="text-white/35 text-[10px] uppercase tracking-widest mb-2 text-center">Résultats réels — avant / après optimisation</p>
               <BeforeAfterMini />
             </div>
