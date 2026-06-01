@@ -11,8 +11,8 @@ import {
 } from 'lucide-react'
 import LinkedInGlobe from './LinkedInGlobe'
 
-const BANNIERES_RING = ['1','2','3','4','5','6','7','8','9','10']
-const RING_RADIUS = 300
+const BANNIERES_RING = ['1','2','3','4','5','6','7','8']
+const RING_RADIUS = 280
 
 const AVANT_APRES = [
   { avant: '/avant-apres/15.png',  apres: '/avant-apres/15bis.png' },
@@ -77,25 +77,29 @@ function SectionMarketing() {
             className="flex flex-col"
           >
             {/* Anneau 3D de bannières */}
-            <div className="flex items-center justify-center" style={{ height: '440px', perspective: '1000px' }}>
-              <div className="animate-spin-ring relative" style={{ width: '220px', height: '124px' }}>
+            <div className="flex items-center justify-center" style={{ height: '300px', perspective: '1000px' }}>
+              <div className="animate-spin-ring relative" style={{ width: '200px', height: '50px' }}>
                 {BANNIERES_RING.map((b, i) => {
                   const angle = (360 / BANNIERES_RING.length) * i
                   return (
                     <div
                       key={b}
-                      className="absolute inset-0 rounded-2xl overflow-hidden border border-white/25 shadow-2xl"
-                      style={{ transform: `rotateY(${angle}deg) translateZ(${RING_RADIUS}px)`, backfaceVisibility: 'hidden' }}
+                      className="absolute inset-0 rounded-lg overflow-hidden border border-white/25 shadow-2xl"
+                      style={{
+                        transform: `rotateY(${angle}deg) translateZ(${RING_RADIUS}px)`,
+                        backfaceVisibility: 'hidden',
+                        backgroundColor: '#001340',
+                      }}
                     >
-                      <Image src={`/bannieres/${b}.png`} alt="" width={440} height={248} className="w-full h-full object-cover" unoptimized />
+                      <Image src={`/bannieres/${b}.png`} alt="" width={400} height={100} className="w-full h-full object-cover" unoptimized />
                     </div>
                   )
                 })}
               </div>
             </div>
 
-            {/* Avant/après collé juste en dessous */}
-            <div className="-mt-2">
+            {/* Avant/après remonté, presque collé à l'anneau */}
+            <div className="-mt-10">
               <p className="text-white/35 text-[10px] uppercase tracking-widest mb-2 text-center">Résultats réels — avant / après optimisation</p>
               <BeforeAfterMini />
             </div>
