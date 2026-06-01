@@ -3,11 +3,10 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { useState, useEffect } from 'react'
-import { AnimatePresence } from 'framer-motion'
+import { useState, useEffect, useRef, memo } from 'react'
 import {
   ArrowRight, Calendar, Lock, Network, BarChart3, GraduationCap,
-  CheckCircle2, Search, Users, Award, ChevronLeft, ChevronRight,
+  CheckCircle2, Search, Users, Award,
 } from 'lucide-react'
 import LinkedInGlobe from './LinkedInGlobe'
 
@@ -22,40 +21,47 @@ const AVANT_APRES = [
   { avant: '/avant-apres/27.png',  apres: '/avant-apres/27bis.png' },
 ]
 
-/* Mini slider avant/après (auto-cycle) */
-function BeforeAfterMini() {
+/* Mini slider avant/après — CSS opacity pur, sans AnimatePresence pour ne pas propager de re-render */
+const BeforeAfterMini = memo(function BeforeAfterMini() {
   const [index, setIndex] = useState(0)
+  const [visible, setVisible] = useState(true)
+
   useEffect(() => {
-    const t = setInterval(() => setIndex((i) => (i + 1) % AVANT_APRES.length), 3000)
+    const t = setInterval(() => {
+      setVisible(false)
+      setTimeout(() => {
+        setIndex((i) => (i + 1) % AVANT_APRES.length)
+        setVisible(true)
+      }, 350)
+    }, 3000)
     return () => clearInterval(t)
   }, [])
+
   const pair = AVANT_APRES[index]
+
   return (
-    <AnimatePresence mode="wait">
-      <motion.div key={index} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.4 }}>
-        <div className="grid grid-cols-2 gap-3">
-          <div className="relative rounded-xl overflow-hidden border border-white/10">
-            <div className="absolute top-2 left-2 z-10 text-white text-[10px] font-bold px-2 py-0.5 rounded-full"
-              style={{ backgroundColor: 'rgba(0,13,38,0.88)', border: '1px solid rgba(255,255,255,0.15)' }}>Avant</div>
-            <Image src={pair.avant} alt="Avant" width={400} height={260} className="w-full h-auto" unoptimized />
-          </div>
-          <div className="relative rounded-xl overflow-hidden border" style={{ borderColor: 'rgba(5,221,225,0.35)', boxShadow: '0 0 14px rgba(5,221,225,0.1)' }}>
-            <div className="absolute top-2 left-2 z-10 text-primary text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ backgroundColor: '#05dde1' }}>Après</div>
-            <Image src={pair.apres} alt="Après" width={400} height={260} className="w-full h-auto" unoptimized />
-          </div>
+    <div style={{ opacity: visible ? 1 : 0, transition: 'opacity 0.35s ease' }}>
+      <div className="grid grid-cols-2 gap-3">
+        <div className="relative rounded-xl overflow-hidden border border-white/10">
+          <div className="absolute top-2 left-2 z-10 text-white text-[10px] font-bold px-2 py-0.5 rounded-full"
+            style={{ backgroundColor: 'rgba(0,13,38,0.88)', border: '1px solid rgba(255,255,255,0.15)' }}>Avant</div>
+          <Image src={pair.avant} alt="Avant" width={400} height={260} className="w-full h-auto" unoptimized />
         </div>
-        {/* Dots */}
-        <div className="flex justify-center gap-1.5 mt-3">
-          {AVANT_APRES.map((_, i) => (
-            <button key={i} onClick={() => setIndex(i)}
-              className="rounded-full transition-all duration-300"
-              style={{ width: i === index ? 18 : 5, height: 5, backgroundColor: i === index ? '#05dde1' : 'rgba(255,255,255,0.2)' }} />
-          ))}
+        <div className="relative rounded-xl overflow-hidden border" style={{ borderColor: 'rgba(5,221,225,0.35)', boxShadow: '0 0 14px rgba(5,221,225,0.1)' }}>
+          <div className="absolute top-2 left-2 z-10 text-primary text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ backgroundColor: '#05dde1' }}>Après</div>
+          <Image src={pair.apres} alt="Après" width={400} height={260} className="w-full h-auto" unoptimized />
         </div>
-      </motion.div>
-    </AnimatePresence>
+      </div>
+      <div className="flex justify-center gap-1.5 mt-3">
+        {AVANT_APRES.map((_, i) => (
+          <button key={i} onClick={() => setIndex(i)}
+            className="rounded-full transition-all duration-300"
+            style={{ width: i === index ? 18 : 5, height: 5, backgroundColor: i === index ? '#05dde1' : 'rgba(255,255,255,0.2)' }} />
+        ))}
+      </div>
+    </div>
   )
-}
+})
 
 /* ═══════════════════════════════════════════════════════════════════════
    SECTION 1 — MARKETING LINKEDIN
@@ -167,7 +173,7 @@ function SectionMarketing() {
    SECTION 2 — HYDRA ANALYTICS
    Texte gauche / globe 3D droit + vidéo pleine largeur en dessous
 ═══════════════════════════════════════════════════════════════════════ */
-function SectionHydra() {
+const SectionHydra = memo(function SectionHydra() {
   return (
     <section className="py-20 border-t border-white/8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -243,7 +249,7 @@ function SectionHydra() {
       </div>
     </section>
   )
-}
+})
 
 /* ═══════════════════════════════════════════════════════════════════════
    SECTION 3 — FORMATIONS EN ENTREPRISE
