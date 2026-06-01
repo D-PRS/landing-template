@@ -52,6 +52,7 @@ export default function LinkedInGlobe({ messages = DEFAULT_MESSAGES }: { message
   const mountRef = useRef<HTMLDivElement>(null)
   const [slotIdx, setSlotIdx] = useState([0, 0, 0])
   const [visible, setVisible] = useState(false)
+  const [failed, setFailed] = useState(false)
 
   useEffect(() => {
     const t = setTimeout(() => setVisible(true), 1000)
@@ -69,19 +70,41 @@ export default function LinkedInGlobe({ messages = DEFAULT_MESSAGES }: { message
     const container = mountRef.current
     if (!container) return
 
+    // --- WebGL support check : si indisponible, fallback gracieux ---
+    try {
+      const test = document.createElement('canvas')
+      const gl = test.getContext('webgl') || test.getContext('experimental-webgl')
+      if (!gl) { setFailed(true); return }
+    } catch {
+      setFailed(true)
+      return
+    }
+
     const w = container.clientWidth
     const h = container.clientHeight
 
-    const scene = new THREE.Scene()
-    const camera = new THREE.PerspectiveCamera(40, w / h, 0.1, 300)
-    camera.position.z = 3.6
+    let renderer: THREE.WebGLRenderer
+    let scene: THREE.Scene
+    let camera: THREE.PerspectiveCamera
+    try {
+      scene = new THREE.Scene()
+      camera = new THREE.PerspectiveCamera(40, w / h, 0.1, 300)
+      camera.position.z = 3.6
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
-    renderer.setSize(w, h)
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-    renderer.toneMapping = THREE.ACESFilmicToneMapping
-    renderer.toneMappingExposure = 1.1
-    container.appendChild(renderer.domElement)
+      renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'low-power' })
+      renderer.setSize(w, h)
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5))
+      renderer.toneMapping = THREE.ACESFilmicToneMapping
+      renderer.toneMappingExposure = 1.1
+      container.appendChild(renderer.domElement)
+    } catch {
+      setFailed(true)
+      return
+    }
+
+    // Si le contexte WebGL est perdu (mémoire GPU), on évite le crash dur
+    const onContextLost = (e: Event) => { e.preventDefault() }
+    renderer.domElement.addEventListener('webglcontextlost', onContextLost)
 
     // --- Starfield ---
     const starPositions = new Float32Array(700 * 3)
@@ -151,9 +174,15 @@ export default function LinkedInGlobe({ messages = DEFAULT_MESSAGES }: { message
     window.addEventListener('mouseup', onUp)
     window.addEventListener('touchend', onUp)
 
+    // Ne rend que lorsque le globe est visible à l'écran (économie GPU/mémoire)
+    let onScreen = true
+    const io = new IntersectionObserver(([entry]) => { onScreen = entry.isIntersecting }, { threshold: 0.05 })
+    io.observe(container)
+
     let raf: number
     const tick = () => {
       raf = requestAnimationFrame(tick)
+      if (!onScreen) return
       if (!dragging) {
         earth.rotation.y += 0.014
         vel.x *= 0.92
@@ -161,12 +190,19 @@ export default function LinkedInGlobe({ messages = DEFAULT_MESSAGES }: { message
         earth.rotation.x += vel.x
         earth.rotation.y += vel.y
       }
-      renderer.render(scene, camera)
+      try {
+        renderer.render(scene, camera)
+      } catch {
+        cancelAnimationFrame(raf)
+        setFailed(true)
+      }
     }
     tick()
 
     return () => {
       cancelAnimationFrame(raf)
+      io.disconnect()
+      renderer.domElement.removeEventListener('webglcontextlost', onContextLost)
       renderer.dispose()
       if (container.contains(renderer.domElement)) container.removeChild(renderer.domElement)
       window.removeEventListener('mousemove', onMove)
@@ -178,7 +214,22 @@ export default function LinkedInGlobe({ messages = DEFAULT_MESSAGES }: { message
 
   return (
     <div className="relative w-full" style={{ height: '480px' }}>
-      <div ref={mountRef} className="absolute inset-0 cursor-grab active:cursor-grabbing" />
+      {/* Canvas WebGL (masqué si échec) */}
+      <div ref={mountRef} className={`absolute inset-0 cursor-grab active:cursor-grabbing ${failed ? 'hidden' : ''}`} />
+
+      {/* Fallback gracieux si WebGL indisponible / contexte perdu */}
+      {failed && (
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <div className="relative w-72 h-72 rounded-full"
+            style={{
+              background: 'radial-gradient(circle at 35% 30%, #1a6fd4, #002060 55%, #000d26 100%)',
+              boxShadow: '0 0 60px rgba(5,221,225,0.25), inset -20px -20px 60px rgba(0,0,0,0.6)',
+            }}>
+            <div className="absolute inset-0 rounded-full opacity-30"
+              style={{ background: 'radial-gradient(circle at 70% 70%, rgba(5,221,225,0.4), transparent 60%)' }} />
+          </div>
+        </div>
+      )}
 
       {visible && SLOTS.map((slot, si) => {
         const msg = MESSAGES[slotIdx[si] % MESSAGES.length]
