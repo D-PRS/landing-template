@@ -89,12 +89,6 @@ export default function ServiceDataContent() {
           style={{ background: 'radial-gradient(circle, #05dde1, transparent)' }} />
 
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mb-4">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 border border-secondary/30 rounded-full px-4 py-1.5 mb-8"
-            style={{ backgroundColor: 'rgba(5,221,225,0.08)' }}>
-            <BarChart3 className="w-3.5 h-3.5 text-secondary" />
-            <span className="text-secondary text-xs font-semibold uppercase tracking-widest">SAS LinkedIn</span>
-          </motion.div>
 
           <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }}
             className="text-5xl sm:text-6xl lg:text-7xl font-black text-white leading-[1.05] mb-6">

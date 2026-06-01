@@ -214,7 +214,7 @@ export default async function FormationPage({ params }: Props) {
                   alt={`${FORMATEUR.prenom} ${FORMATEUR.nom}`}
                   width={80}
                   height={80}
-                  className="rounded-2xl flex-shrink-0 object-cover w-20 h-20"
+                  className="flex-shrink-0 object-contain w-20 h-20"
                   unoptimized
                 />
                 <div className="min-w-0 flex-1">

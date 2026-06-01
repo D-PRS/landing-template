@@ -88,7 +88,7 @@ export const FORMATEUR = {
   apprenants: 2847,
   formations: 4,
   note: 4.9,
-  avatar: '/images/animation-linkedin.png',
+  avatar: '/about/dylan.png',
 }
 
 export const FORMATIONS: Formation[] = [

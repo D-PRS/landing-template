@@ -1,13 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { ArrowRight, BookOpen, Users, TrendingUp } from 'lucide-react'
-
-const BADGES = [
-  { icon: BookOpen, text: '7 guides complets', color: 'text-secondary' },
-  { icon: Users, text: '20+ entreprises accompagnées', color: 'text-secondary' },
-  { icon: TrendingUp, text: '100K€ générés pour nos clients', color: 'text-secondary' },
-]
+import { ArrowRight } from 'lucide-react'
 
 export default function HeroSection() {
   return (
@@ -23,17 +17,6 @@ export default function HeroSection() {
 
           {/* Left — Text */}
           <div className="min-w-0">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 border border-secondary/30 rounded-full px-4 py-1.5 mb-8"
-              style={{ backgroundColor: 'rgba(5,221,225,0.08)' }}
-            >
-              <span className="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse" />
-              <span className="text-secondary text-xs font-semibold uppercase tracking-widest">Nouvelle collection disponible</span>
-            </motion.div>
-
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -53,9 +36,8 @@ export default function HeroSection() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="text-lg text-white/65 leading-relaxed mb-10 max-w-lg"
             >
-              Prospection, contenu, copywriting, profil, algorithme…
-              Chaque guide a été conçu par l&apos;agence Provisual pour vous aider à
-              passer à l&apos;action et obtenir des résultats concrets.
+              Trouver un emploi, vendre, devenir influent, maîtriser l&apos;algorithme…
+              Chaque guide a été conçu pour vous faire passer à l&apos;action et obtenir des résultats concrets.
             </motion.p>
 
             <motion.div
@@ -85,22 +67,6 @@ export default function HeroSection() {
               </motion.a>
             </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.45 }}
-              className="flex flex-col gap-3"
-            >
-              {BADGES.map((badge, i) => {
-                const Icon = badge.icon
-                return (
-                  <div key={i} className="flex items-center gap-2.5 text-white/55">
-                    <Icon className={`w-4 h-4 ${badge.color} flex-shrink-0`} />
-                    <span className="text-sm">{badge.text}</span>
-                  </div>
-                )
-              })}
-            </motion.div>
           </div>
 
           {/* Right — Video 9:16 */}
