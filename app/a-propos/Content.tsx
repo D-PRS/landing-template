@@ -6,8 +6,6 @@ import { motion } from 'framer-motion'
 import { ArrowRight, Calendar, Heart, Target, Zap } from 'lucide-react'
 import { TEMOIGNAGES } from '../data/content'
 
-const CDN = 'https://cdn.prod.website-files.com/68ab2d1a568ed1d53d774d32'
-
 const VALUES = [
   {
     icon: Target,
@@ -24,16 +22,6 @@ const VALUES = [
     titre: 'Réactivité & Qualité',
     desc: 'Rapidité d\'exécution sans compromis sur la qualité. Nos clients le disent : nous répondons vite et nous livrons bien.',
   },
-]
-
-const CLIENTS = [
-  { prenom: 'Pierrick', entreprise: 'WallSwiss', avatar: `${CDN}/68b605c0f0599c67093cc3aa_Pierrick.png` },
-  { prenom: 'Maylis', entreprise: 'PNC Conseil', avatar: `${CDN}/68b608ed49588bd5aca23903_Maylis.png` },
-  { prenom: 'Gaëtan', entreprise: 'ALL-IN', avatar: `${CDN}/68b5ff2ba9b3ff9512d8ba74_Gaetant.png` },
-  { prenom: 'Nicolas', entreprise: 'BSK Immobilier', avatar: `${CDN}/68b608168ed5a22c8350a930_Nicolas.png` },
-  { prenom: 'Issam', entreprise: 'ERAC Human Services', avatar: `${CDN}/68b6068d0a093a8838989158_Issam.png` },
-  { prenom: 'Adam', entreprise: 'Infinity Views', avatar: `${CDN}/68b6047bcfb9e1572d172217_Adam.png` },
-  { prenom: 'Théo', entreprise: 'S.N CleanAuto', avatar: `${CDN}/68b60782e4726f65ef3755b8_Theo.png` },
 ]
 
 export default function AProposContent() {
@@ -120,41 +108,27 @@ export default function AProposContent() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7, delay: 0.2 }}
-              className="relative"
+              className="relative flex items-center justify-center"
             >
-              <div className="rounded-3xl overflow-hidden border border-white/10"
-                style={{ backgroundColor: 'rgba(255,255,255,0.04)' }}>
-                <div className="p-8">
-                  <div className="grid grid-cols-2 gap-4 mb-6">
-                    {[
-                      { value: '100K€', label: 'CA générés pour nos clients' },
-                      { value: '95%', label: 'Clients satisfaits' },
-                      { value: '50+', label: 'Projets finalisés' },
-                      { value: '20+', label: 'Entreprises accompagnées' },
-                    ].map((stat) => (
-                      <div key={stat.label} className="rounded-2xl p-4 border border-white/8 text-center"
-                        style={{ backgroundColor: 'rgba(255,255,255,0.04)' }}>
-                        <div className="text-2xl font-black gradient-text mb-1">{stat.value}</div>
-                        <div className="text-white/45 text-xs">{stat.label}</div>
-                      </div>
-                    ))}
-                  </div>
+              {/* Halo derrière la photo */}
+              <div className="absolute w-[420px] h-[420px] rounded-full blur-3xl pointer-events-none opacity-25"
+                style={{ background: 'radial-gradient(circle, #05dde1, transparent 70%)' }} />
 
-                  <div className="flex -space-x-2 flex-wrap">
-                    {CLIENTS.map((c) => (
-                      <div key={c.prenom} className="w-10 h-10 rounded-full border-2 overflow-hidden flex-shrink-0"
-                        style={{ borderColor: '#001a4d' }}>
-                        <Image src={c.avatar} alt={c.prenom} width={40} height={40} className="w-full h-full object-cover" unoptimized />
-                      </div>
-                    ))}
-                    <div className="w-10 h-10 rounded-full border-2 flex items-center justify-center text-white/60 text-xs font-bold flex-shrink-0"
-                      style={{ borderColor: '#001a4d', backgroundColor: 'rgba(5,221,225,0.15)' }}>
-                      +
-                    </div>
-                  </div>
-                  <p className="text-white/40 text-xs mt-3">et bien d&apos;autres clients nous font confiance</p>
-                </div>
-              </div>
+              <motion.div
+                animate={{ y: [0, -10, 0] }}
+                transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+                className="relative z-10 w-full max-w-md"
+              >
+                <Image
+                  src="/about/dylan.png"
+                  alt="Dylan Parisi, fondateur de Provisual"
+                  width={500}
+                  height={500}
+                  className="w-full h-auto"
+                  priority
+                  unoptimized
+                />
+              </motion.div>
             </motion.div>
           </div>
         </div>
