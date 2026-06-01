@@ -1,21 +1,9 @@
 'use client'
 
-import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Calendar, Mail, MessageSquare, Send, CheckCircle2 } from 'lucide-react'
+import { Calendar, Mail, MessageSquare } from 'lucide-react'
 
 export default function ContactContent() {
-  const [sent, setSent] = useState(false)
-  const [form, setForm] = useState({ nom: '', email: '', sujet: '', message: '' })
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    // Opens mailto as a simple contact method
-    const mailto = `mailto:dylan@provisual.fr?subject=${encodeURIComponent(form.sujet || 'Contact depuis provisual')}&body=${encodeURIComponent(`Nom: ${form.nom}\nEmail: ${form.email}\n\n${form.message}`)}`
-    window.location.href = mailto
-    setSent(true)
-  }
-
   return (
     <>
       {/* Hero */}
@@ -62,87 +50,26 @@ export default function ContactContent() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12">
 
-            {/* Form */}
+            {/* Calendly — prise de rendez-vous */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
-              <div className="rounded-3xl p-8 border border-white/10"
+              <div className="rounded-3xl p-4 sm:p-6 border border-white/10"
                 style={{ backgroundColor: 'rgba(255,255,255,0.04)' }}>
-                <h2 className="text-2xl font-black text-white mb-6">Envoyez-nous un message</h2>
-
-                {sent ? (
-                  <div className="flex flex-col items-center justify-center py-12 text-center">
-                    <CheckCircle2 className="w-16 h-16 text-secondary mb-4" />
-                    <h3 className="text-xl font-black text-white mb-2">Message envoyé !</h3>
-                    <p className="text-white/55">Votre client mail devrait s&apos;ouvrir. On vous répond très vite.</p>
-                  </div>
-                ) : (
-                  <form onSubmit={handleSubmit} className="space-y-5">
-                    <div className="grid sm:grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-xs font-semibold text-white/50 uppercase tracking-wider mb-2">Nom *</label>
-                        <input
-                          type="text"
-                          required
-                          value={form.nom}
-                          onChange={(e) => setForm({ ...form, nom: e.target.value })}
-                          className="w-full px-4 py-3 rounded-xl border border-white/10 text-white placeholder-white/25 text-sm focus:outline-none focus:border-secondary/50 transition-colors"
-                          style={{ backgroundColor: 'rgba(255,255,255,0.06)' }}
-                          placeholder="Votre nom"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-xs font-semibold text-white/50 uppercase tracking-wider mb-2">Email *</label>
-                        <input
-                          type="email"
-                          required
-                          value={form.email}
-                          onChange={(e) => setForm({ ...form, email: e.target.value })}
-                          className="w-full px-4 py-3 rounded-xl border border-white/10 text-white placeholder-white/25 text-sm focus:outline-none focus:border-secondary/50 transition-colors"
-                          style={{ backgroundColor: 'rgba(255,255,255,0.06)' }}
-                          placeholder="votre@email.com"
-                        />
-                      </div>
-                    </div>
-
-                    <div>
-                      <label className="block text-xs font-semibold text-white/50 uppercase tracking-wider mb-2">Sujet</label>
-                      <input
-                        type="text"
-                        value={form.sujet}
-                        onChange={(e) => setForm({ ...form, sujet: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl border border-white/10 text-white placeholder-white/25 text-sm focus:outline-none focus:border-secondary/50 transition-colors"
-                        style={{ backgroundColor: 'rgba(255,255,255,0.06)' }}
-                        placeholder="En quoi pouvons-nous vous aider ?"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-xs font-semibold text-white/50 uppercase tracking-wider mb-2">Message *</label>
-                      <textarea
-                        required
-                        rows={5}
-                        value={form.message}
-                        onChange={(e) => setForm({ ...form, message: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl border border-white/10 text-white placeholder-white/25 text-sm focus:outline-none focus:border-secondary/50 transition-colors resize-none"
-                        style={{ backgroundColor: 'rgba(255,255,255,0.06)' }}
-                        placeholder="Décrivez votre projet ou votre question…"
-                      />
-                    </div>
-
-                    <motion.button
-                      type="submit"
-                      whileHover={{ scale: 1.02, boxShadow: '0 0 30px rgba(5,221,225,0.4)' }}
-                      whileTap={{ scale: 0.98 }}
-                      className="w-full inline-flex items-center justify-center gap-2 bg-secondary text-primary font-black px-8 py-4 rounded-xl text-base shadow-glow hover:bg-tertiary transition-all duration-200"
-                    >
-                      <Send className="w-5 h-5" />
-                      Envoyer le message
-                    </motion.button>
-                  </form>
-                )}
+                <h2 className="text-2xl font-black text-white mb-2 px-2">Réservez un appel</h2>
+                <p className="text-white/55 text-sm mb-5 px-2">
+                  Choisissez le créneau qui vous convient — 30 minutes, sans engagement.
+                </p>
+                <div className="rounded-2xl overflow-hidden bg-white">
+                  <iframe
+                    src="https://calendly.com/contact-provisual/30min?hide_gdpr_banner=1&background_color=ffffff&primary_color=05dde1"
+                    title="Réserver un appel avec Provisual"
+                    className="w-full"
+                    style={{ height: 700, border: 0 }}
+                  />
+                </div>
               </div>
             </motion.div>
 
@@ -166,7 +93,7 @@ export default function ContactContent() {
                     Aucun engagement — juste une conversation pour voir si on peut vous aider.
                   </p>
                   <motion.a
-                    href="https://calendly.com/pro-visual/30-min-de-call-100-gratuit"
+                    href="https://calendly.com/contact-provisual/30min"
                     target="_blank"
                     rel="noopener noreferrer"
                     whileHover={{ scale: 1.03 }}
