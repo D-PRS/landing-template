@@ -397,14 +397,17 @@ export default function ServiceMarketingContent() {
             ].map((step, i) => (
               <motion.div key={step.label} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: i * 0.1 }} className="relative text-center">
                 {i < 3 && <div className="hidden md:block absolute top-[40%] left-[65%] w-[70%] h-px border-t border-dashed border-white/15 z-0" />}
-                <motion.div
-                  animate={{ y: [0, -5, 0] }}
-                  transition={{ duration: 2.5 + i * 0.3, repeat: Infinity, ease: 'easeInOut' }}
-                  className={`relative z-10 mx-auto mb-4 overflow-hidden border border-secondary/20 ${i === 3 ? 'w-28 h-28 rounded-full flex items-center justify-center' : 'w-full max-w-[160px] rounded-2xl'}`}
-                  style={{ backgroundColor: i === 3 ? 'white' : 'rgba(5,221,225,0.04)' }}
-                >
-                  <Image src={step.img} alt={step.label} width={160} height={i === 3 ? 160 : 120} className={i === 3 ? 'w-20 h-20 object-contain' : 'w-full h-auto'} unoptimized />
-                </motion.div>
+                {/* Hauteur fixe pour aligner tous les items sur la même ligne */}
+                <div className="h-40 flex items-center justify-center mb-4">
+                  <motion.div
+                    animate={{ y: [0, -5, 0] }}
+                    transition={{ duration: 2.5 + i * 0.3, repeat: Infinity, ease: 'easeInOut' }}
+                    className={`relative z-10 overflow-hidden border border-secondary/20 ${i === 3 ? 'w-28 h-28 rounded-full' : 'w-full max-w-[160px] rounded-2xl'}`}
+                    style={{ backgroundColor: i === 3 ? 'white' : 'rgba(5,221,225,0.04)' }}
+                  >
+                    <Image src={step.img} alt={step.label} width={160} height={i === 3 ? 160 : 120} className={i === 3 ? 'w-full h-full object-contain scale-125' : 'w-full h-auto'} unoptimized />
+                  </motion.div>
+                </div>
                 <p className="text-white font-bold text-sm mb-1">{step.label}</p>
                 <p className="text-white/45 text-xs leading-relaxed">{step.desc}</p>
               </motion.div>
