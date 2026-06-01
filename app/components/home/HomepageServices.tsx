@@ -3,159 +3,155 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
+import { useState, useEffect } from 'react'
+import { AnimatePresence } from 'framer-motion'
 import {
   ArrowRight, Calendar, Lock, Network, BarChart3, GraduationCap,
-  CheckCircle2, Search, Users, Award, Star, TrendingUp,
+  CheckCircle2, Search, Users, Award, ChevronLeft, ChevronRight,
 } from 'lucide-react'
 import LinkedInGlobe from './LinkedInGlobe'
 
-const PUBLICATIONS = ['33','34','35','37','38','39','40','41','42']
-const BANNIERES_RING = ['1','2','3','4','5','6','7','8']
-const HEIGHTS = ['h-52','h-64','h-48','h-60','h-56','h-44','h-64','h-52','h-48']
-const RING_RADIUS = 230
+const BANNIERES_RING = ['1','2','3','4','5','6','7','8','9','10']
+const RING_RADIUS = 300
+
+const AVANT_APRES = [
+  { avant: '/avant-apres/15.png',  apres: '/avant-apres/15bis.png' },
+  { avant: '/avant-apres/18.png',  apres: '/avant-apres/18bis.png' },
+  { avant: '/avant-apres/21.png',  apres: '/avant-apres/21bis.png' },
+  { avant: '/avant-apres/24.png',  apres: '/avant-apres/24bis.png' },
+  { avant: '/avant-apres/27.png',  apres: '/avant-apres/27bis.png' },
+]
+
+/* Mini slider avant/après (auto-cycle) */
+function BeforeAfterMini() {
+  const [index, setIndex] = useState(0)
+  useEffect(() => {
+    const t = setInterval(() => setIndex((i) => (i + 1) % AVANT_APRES.length), 3000)
+    return () => clearInterval(t)
+  }, [])
+  const pair = AVANT_APRES[index]
+  return (
+    <AnimatePresence mode="wait">
+      <motion.div key={index} initial={{ opacity: 0, x: 12 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -12 }} transition={{ duration: 0.35 }}>
+        <div className="grid grid-cols-2 gap-3">
+          <div className="relative rounded-xl overflow-hidden border border-white/10">
+            <div className="absolute top-2 left-2 z-10 text-white text-[10px] font-bold px-2 py-0.5 rounded-full"
+              style={{ backgroundColor: 'rgba(0,13,38,0.88)', border: '1px solid rgba(255,255,255,0.15)' }}>Avant</div>
+            <Image src={pair.avant} alt="Avant" width={400} height={260} className="w-full h-auto" unoptimized />
+          </div>
+          <div className="relative rounded-xl overflow-hidden border" style={{ borderColor: 'rgba(5,221,225,0.35)', boxShadow: '0 0 14px rgba(5,221,225,0.1)' }}>
+            <div className="absolute top-2 left-2 z-10 text-primary text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ backgroundColor: '#05dde1' }}>Après</div>
+            <Image src={pair.apres} alt="Après" width={400} height={260} className="w-full h-auto" unoptimized />
+          </div>
+        </div>
+        {/* Dots */}
+        <div className="flex justify-center gap-1.5 mt-3">
+          {AVANT_APRES.map((_, i) => (
+            <button key={i} onClick={() => setIndex(i)}
+              className="rounded-full transition-all duration-300"
+              style={{ width: i === index ? 18 : 5, height: 5, backgroundColor: i === index ? '#05dde1' : 'rgba(255,255,255,0.2)' }} />
+          ))}
+        </div>
+      </motion.div>
+    </AnimatePresence>
+  )
+}
 
 /* ═══════════════════════════════════════════════════════════════════════
    SECTION 1 — MARKETING LINKEDIN
-   Titre + description (au-dessus) / publications gauche / ring droit
+   Gauche : anneau 3D (haut) + avant/après (bas collé)
+   Droite : texte, description, bullet points, CTA
 ═══════════════════════════════════════════════════════════════════════ */
 function SectionMarketing() {
   return (
     <section className="py-20 border-t border-white/8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
 
-        {/* Titre & description au-dessus */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mb-14"
-        >
-          <span className="inline-block border border-secondary/30 text-secondary text-xs font-semibold px-3 py-1 rounded-full mb-5 uppercase tracking-widest"
-            style={{ backgroundColor: 'rgba(5,221,225,0.08)' }}>
-            Service phare
-          </span>
-
-          <div className="flex items-center gap-3 mb-5">
-            <motion.div
-              animate={{ y: [0, -5, 0] }}
-              transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-              className="w-12 h-12 rounded-2xl flex items-center justify-center border border-secondary/20 flex-shrink-0"
-              style={{ backgroundColor: 'rgba(5,221,225,0.1)' }}>
-              <Network className="w-6 h-6 text-secondary" />
-            </motion.div>
-            <h2 className="text-3xl lg:text-4xl font-black text-white leading-tight">
-              Marketing <span className="gradient-text">LinkedIn</span>
-            </h2>
-          </div>
-
-          <div className="grid lg:grid-cols-2 gap-8 items-start">
-            <p className="text-white/60 leading-relaxed text-base">
-              Gestion complète de votre présence LinkedIn : optimisation de profil, création de contenu percutant, prospection et ghostwriting. Je m&apos;occupe de tout pour que vous vous concentriez sur votre cœur de métier.
-            </p>
-            <div>
-              <ul className="grid grid-cols-2 gap-2 mb-6">
-                {[
-                  'Optimisation profil perso & entreprise',
-                  'Création & publication de contenu',
-                  'Prospection manuelle & automatisée',
-                  'Ghostwriting à votre voix',
-                ].map((p) => (
-                  <li key={p} className="flex items-center gap-2 text-sm text-white/70">
-                    <CheckCircle2 className="w-4 h-4 text-secondary flex-shrink-0" />
-                    {p}
-                  </li>
-                ))}
-              </ul>
-              <Link href="/service-marketing"
-                className="inline-flex items-center gap-2 text-secondary font-bold text-sm">
-                Découvrir la prestation
-                <motion.span animate={{ x: [0, 4, 0] }} transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}>
-                  <ArrowRight className="w-4 h-4" />
-                </motion.span>
-              </Link>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* Publications gauche + Ring circulaire droit */}
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-
-          {/* Publications (identiques à la page marketing) */}
+          {/* Gauche : anneau 3D + avant/après */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
+            className="flex flex-col"
           >
-            <p className="text-white/40 text-xs uppercase tracking-widest mb-4">Publications publiées pour mes clients</p>
-            <div className="columns-2 md:columns-3 gap-3">
-              {PUBLICATIONS.map((p, i) => (
-                <motion.div
-                  key={p}
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: (i % 3) * 0.07 }}
-                  className="break-inside-avoid mb-3"
-                >
-                  <motion.div
-                    animate={{ y: [0, -(2 + i % 4), 0] }}
-                    transition={{ duration: 2.5 + i * 0.25, repeat: Infinity, ease: 'easeInOut', delay: i * 0.18 }}
-                    whileHover={{ scale: 1.02 }}
-                    className="rounded-2xl overflow-hidden border border-white/8"
-                    style={{ backgroundColor: 'rgba(255,255,255,0.03)' }}
-                  >
-                    <Image
-                      src={`/publications/${p}.png`}
-                      alt=""
-                      width={300}
-                      height={380}
-                      className={`w-full ${HEIGHTS[i] || 'h-52'} object-cover object-top`}
-                      unoptimized
-                    />
-                  </motion.div>
-                </motion.div>
-              ))}
+            {/* Anneau 3D de bannières */}
+            <div className="flex items-center justify-center" style={{ height: '440px', perspective: '1000px' }}>
+              <div className="animate-spin-ring relative" style={{ width: '220px', height: '124px' }}>
+                {BANNIERES_RING.map((b, i) => {
+                  const angle = (360 / BANNIERES_RING.length) * i
+                  return (
+                    <div
+                      key={b}
+                      className="absolute inset-0 rounded-2xl overflow-hidden border border-white/25 shadow-2xl"
+                      style={{ transform: `rotateY(${angle}deg) translateZ(${RING_RADIUS}px)`, backfaceVisibility: 'hidden' }}
+                    >
+                      <Image src={`/bannieres/${b}.png`} alt="" width={440} height={248} className="w-full h-full object-cover" unoptimized />
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+
+            {/* Avant/après collé juste en dessous */}
+            <div className="-mt-2">
+              <p className="text-white/35 text-[10px] uppercase tracking-widest mb-2 text-center">Résultats réels — avant / après optimisation</p>
+              <BeforeAfterMini />
             </div>
           </motion.div>
 
-          {/* Carrousel circulaire de bannières */}
+          {/* Droite : texte */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.15 }}
-            className="flex items-center justify-center"
-            style={{ height: '520px', perspective: '900px' }}
+            className="lg:sticky lg:top-28"
           >
-            <div
-              className="animate-spin-ring relative"
-              style={{ width: '160px', height: '90px' }}
-            >
-              {BANNIERES_RING.map((b, i) => {
-                const angle = (360 / BANNIERES_RING.length) * i
-                return (
-                  <div
-                    key={b}
-                    className="absolute inset-0 rounded-xl overflow-hidden border border-white/20 shadow-2xl"
-                    style={{
-                      transform: `rotateY(${angle}deg) translateZ(${RING_RADIUS}px)`,
-                      backfaceVisibility: 'hidden',
-                    }}
-                  >
-                    <Image
-                      src={`/bannieres/${b}.png`}
-                      alt={`Bannière ${b}`}
-                      width={320}
-                      height={180}
-                      className="w-full h-full object-cover"
-                      unoptimized
-                    />
-                  </div>
-                )
-              })}
+            <span className="inline-block border border-secondary/30 text-secondary text-xs font-semibold px-3 py-1 rounded-full mb-5 uppercase tracking-widest"
+              style={{ backgroundColor: 'rgba(5,221,225,0.08)' }}>
+              Service phare
+            </span>
+
+            <div className="flex items-center gap-3 mb-5">
+              <motion.div
+                animate={{ y: [0, -5, 0] }}
+                transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+                className="w-12 h-12 rounded-2xl flex items-center justify-center border border-secondary/20 flex-shrink-0"
+                style={{ backgroundColor: 'rgba(5,221,225,0.1)' }}>
+                <Network className="w-6 h-6 text-secondary" />
+              </motion.div>
+              <h2 className="text-3xl lg:text-4xl font-black text-white leading-tight">
+                Marketing <span className="gradient-text">LinkedIn</span>
+              </h2>
             </div>
+
+            <p className="text-white/60 leading-relaxed mb-8 text-base">
+              Gestion complète de votre présence LinkedIn : optimisation de profil, création de contenu percutant, prospection et ghostwriting. Je m&apos;occupe de tout pour que vous vous concentriez sur votre cœur de métier.
+            </p>
+
+            <ul className="space-y-3 mb-10">
+              {[
+                'Optimisation profil perso & entreprise',
+                'Création & publication de contenu',
+                'Prospection manuelle & automatisée',
+                'Ghostwriting à votre voix',
+              ].map((p) => (
+                <li key={p} className="flex items-center gap-3 text-sm text-white/70">
+                  <CheckCircle2 className="w-4 h-4 text-secondary flex-shrink-0" />
+                  {p}
+                </li>
+              ))}
+            </ul>
+
+            <Link href="/service-marketing"
+              className="inline-flex items-center gap-2 text-secondary font-bold text-sm">
+              Découvrir la prestation
+              <motion.span animate={{ x: [0, 4, 0] }} transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}>
+                <ArrowRight className="w-4 h-4" />
+              </motion.span>
+            </Link>
           </motion.div>
         </div>
       </div>
