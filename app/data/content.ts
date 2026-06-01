@@ -60,10 +60,10 @@ export const EBOOKS = [
 ]
 
 export const STATS = [
-  { value: '100K€', label: 'CA générés pour nos clients' },
-  { value: '95%', label: 'Clients satisfaits en 2024' },
-  { value: '50+', label: 'Projets finalisés avec succès' },
-  { value: '7', label: 'E-books LinkedIn opérationnels' },
+  { value: '340',   label: 'Apprenants accompagnés' },
+  { value: '4',     label: 'E-books & formations LinkedIn' },
+  { value: '4.9★',  label: 'Note moyenne des apprenants' },
+  { value: '100%',  label: 'Méthodes testées sur le terrain' },
 ]
 
 export const TEMOIGNAGES = [

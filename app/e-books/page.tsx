@@ -3,7 +3,6 @@ import PageShell from '../components/shared/PageShell'
 import HeroSection from '../components/landing/HeroSection'
 import StatsSection from '../components/landing/VideoSection'
 import EbooksSection from '../components/landing/CardsSection'
-import ServicesSection from '../components/landing/FeaturesSection'
 import TemoignagesSection from '../components/landing/TemoignagesSection'
 import FaqSection from '../components/landing/FaqSection'
 import CtaFinalSection from '../components/landing/CtaFinalSection'
@@ -19,7 +18,6 @@ export default function EbooksPage() {
       <HeroSection />
       <StatsSection />
       <EbooksSection />
-      <ServicesSection />
       <TemoignagesSection />
       <FaqSection />
       <CtaFinalSection />

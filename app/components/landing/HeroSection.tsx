@@ -121,7 +121,7 @@ export default function HeroSection() {
               <div
                 className="relative rounded-[2rem] overflow-hidden ring-2"
                 style={{
-                  width: 260,
+                  width: 340,
                   boxShadow: '0 0 0 2px rgba(5,221,225,0.4), 0 30px 80px rgba(0,0,0,0.6)',
                   background: '#000',
                 }}

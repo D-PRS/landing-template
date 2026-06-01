@@ -39,7 +39,7 @@ export default async function FormationPage({ params }: Props) {
   const apprendres = CE_QUE_VOUS_APPRENDREZ[slug] ?? CE_QUE_VOUS_APPRENDREZ['algorithme-linkedin-2026']
 
   return (
-    <div className="min-h-screen overflow-x-hidden" style={{ backgroundColor: '#000d26' }}>
+    <div className="min-h-screen overflow-x-hidden" style={{ backgroundColor: '#001340' }}>
 
       {/* ── Hero ── */}
       <div className="relative pt-24 pb-14" style={{ background: 'linear-gradient(135deg, #000d26 0%, #001a4d 60%, #002060 100%)' }}>
