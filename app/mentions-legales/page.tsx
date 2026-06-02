@@ -20,13 +20,14 @@ export default function MentionsLegalesPage() {
             <div>
               <h2 className="text-xl font-black text-white mb-3">1. Éditeur du site</h2>
               <p>
-                Le présent site <strong className="text-white">provisual.fr</strong> est édité par <strong className="text-white">ProVisual</strong>, représentée par Dylan Parisi.
+                Le présent site <strong className="text-white">provisual.fr</strong> est édité par <strong className="text-white">Provisual</strong>, micro-entreprise représentée par Dylan Parisi.
               </p>
               <ul className="mt-3 space-y-1.5 text-sm">
-                <li>Statut juridique : <span className="text-white/50">[à compléter — ex. micro-entreprise / EI]</span></li>
-                <li>SIRET : <span className="text-white/50">[à compléter]</span></li>
-                <li>Siège : <span className="text-white/50">[à compléter]</span></li>
-                <li>N° TVA intracommunautaire : <span className="text-white/50">[à compléter ou « non assujetti à la TVA, art. 293 B du CGI »]</span></li>
+                <li>Statut juridique : micro-entreprise</li>
+                <li>Immatriculation : RCS de Grenoble — n° 984&nbsp;629&nbsp;634</li>
+                <li>Siège social : 5 bis Rue des Allobroges</li>
+                <li>TVA : non applicable, article 293 B du CGI</li>
+                <li>Téléphone : <a href="tel:+33632301115" className="text-secondary hover:text-tertiary transition-colors">06 32 30 11 15</a></li>
                 <li>E-mail : <a href="mailto:contact@provisual.fr" className="text-secondary hover:text-tertiary transition-colors">contact@provisual.fr</a></li>
               </ul>
             </div>
