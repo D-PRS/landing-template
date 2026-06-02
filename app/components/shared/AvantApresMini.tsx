@@ -1,6 +1,5 @@
 'use client'
 
-import Image from 'next/image'
 import { useState, useEffect, memo } from 'react'
 
 const AVANT_APRES = [
@@ -11,9 +10,7 @@ const AVANT_APRES = [
   { avant: '/avant-apres/27.png', apres: '/avant-apres/27bis.png' },
 ]
 
-const CELL_H = 150 // hauteur fixe d'une carte (px)
-
-/* Avant/après — conteneur à hauteur fixe, paires en crossfade absolu (taille garantie, sans clignotement) */
+/* Avant/après — version simple : <img> standard, une paire à la fois (affichage garanti) */
 const AvantApresMini = memo(function AvantApresMini() {
   const [index, setIndex] = useState(0)
 
@@ -22,37 +19,24 @@ const AvantApresMini = memo(function AvantApresMini() {
     return () => clearInterval(t)
   }, [])
 
+  const pair = AVANT_APRES[index]
+  const cell: React.CSSProperties = { position: 'relative', borderRadius: 12, overflow: 'hidden' }
+  const img: React.CSSProperties = { width: '100%', height: 150, objectFit: 'cover', display: 'block' }
+  const badge: React.CSSProperties = { position: 'absolute', top: 8, left: 8, zIndex: 2, fontSize: 10, fontWeight: 700, padding: '2px 8px', borderRadius: 999 }
+
   return (
     <div style={{ maxWidth: 460, margin: '0 auto' }}>
-      <div style={{ position: 'relative', height: CELL_H }}>
-        {AVANT_APRES.map((pair, i) => (
-          <div
-            key={i}
-            style={{
-              position: 'absolute',
-              inset: 0,
-              display: 'grid',
-              gridTemplateColumns: '1fr 1fr',
-              gap: 10,
-              opacity: i === index ? 1 : 0,
-              transition: 'opacity 0.7s ease-in-out',
-              pointerEvents: i === index ? 'auto' : 'none',
-            }}
-          >
-            {/* Avant */}
-            <div style={{ position: 'relative', borderRadius: 12, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.1)', height: CELL_H }}>
-              <span style={{ position: 'absolute', top: 8, left: 8, zIndex: 10, color: '#fff', fontSize: 10, fontWeight: 700, padding: '2px 8px', borderRadius: 999, backgroundColor: 'rgba(0,13,38,0.88)', border: '1px solid rgba(255,255,255,0.15)' }}>Avant</span>
-              <Image src={pair.avant} alt="Avant" width={400} height={300}
-                style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} unoptimized />
-            </div>
-            {/* Après */}
-            <div style={{ position: 'relative', borderRadius: 12, overflow: 'hidden', border: '1px solid rgba(5,221,225,0.35)', boxShadow: '0 0 14px rgba(5,221,225,0.1)', height: CELL_H }}>
-              <span style={{ position: 'absolute', top: 8, left: 8, zIndex: 10, color: '#002060', fontSize: 10, fontWeight: 700, padding: '2px 8px', borderRadius: 999, backgroundColor: '#05dde1' }}>Après</span>
-              <Image src={pair.apres} alt="Après" width={400} height={300}
-                style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} unoptimized />
-            </div>
-          </div>
-        ))}
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
+        <div style={{ ...cell, border: '1px solid rgba(255,255,255,0.1)' }}>
+          <span style={{ ...badge, color: '#fff', backgroundColor: 'rgba(0,13,38,0.88)', border: '1px solid rgba(255,255,255,0.15)' }}>Avant</span>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={pair.avant} alt="Avant" style={img} />
+        </div>
+        <div style={{ ...cell, border: '1px solid rgba(5,221,225,0.35)', boxShadow: '0 0 14px rgba(5,221,225,0.1)' }}>
+          <span style={{ ...badge, color: '#002060', backgroundColor: '#05dde1' }}>Après</span>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={pair.apres} alt="Après" style={img} />
+        </div>
       </div>
       <div className="flex justify-center gap-1.5 mt-3">
         {AVANT_APRES.map((_, i) => (
