@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, memo } from 'react'
 import {
   ArrowRight, Calendar, ChevronLeft, ChevronRight,
   Users, GraduationCap,
@@ -33,116 +33,71 @@ const CALENDLY_NOTIFS = [
   { nom: 'Julien B.', action: 'vient de prendre rendez-vous', ago: 'il y a 12 min' },
 ]
 
-/* ─── Slider avant / après — auto + manuel ───────────────────────────── */
-function BeforeAfterSlider() {
+/* ─── Slider avant / après — crossfade par couches (pas de clignotement) ─── */
+const BeforeAfterSlider = memo(function BeforeAfterSlider() {
   const [index, setIndex] = useState(0)
 
-  // Cycle automatique toutes les 3 secondes
   useEffect(() => {
-    const t = setInterval(() => {
-      setIndex((i) => (i + 1) % AVANT_APRES.length)
-    }, 3000)
+    const t = setInterval(() => setIndex((i) => (i + 1) % AVANT_APRES.length), 3500)
     return () => clearInterval(t)
   }, [])
 
-  const prev = () => setIndex((i) => (i - 1 + AVANT_APRES.length) % AVANT_APRES.length)
-  const next = () => setIndex((i) => (i + 1) % AVANT_APRES.length)
-  const pair = AVANT_APRES[index]
-
   return (
-    <AnimatePresence mode="wait">
+    <div>
       <div className="relative">
-        <motion.div
-          key={index}
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: -20 }}
-          transition={{ duration: 0.4 }}
-          className="grid md:grid-cols-2 gap-4"
-        >
-          {/* Avant */}
-          <div className="relative rounded-2xl overflow-hidden border border-white/10">
-            <div
-              className="absolute top-3 left-3 z-10 text-white text-xs font-bold px-3 py-1 rounded-full"
-              style={{ backgroundColor: 'rgba(0,13,38,0.88)', border: '1px solid rgba(255,255,255,0.15)' }}
-            >
-              Avant
-            </div>
-            <Image
-              src={pair.avant}
-              alt="Profil avant optimisation"
-              width={600}
-              height={400}
-              className="w-full h-auto"
-              unoptimized
-            />
-          </div>
-
-          {/* Après */}
+        {AVANT_APRES.map((pair, i) => (
           <div
-            className="relative rounded-2xl overflow-hidden border"
-            style={{ borderColor: 'rgba(5,221,225,0.3)', boxShadow: '0 0 20px rgba(5,221,225,0.08)' }}
+            key={i}
+            className={`grid grid-cols-2 gap-3 transition-opacity duration-700 ease-in-out ${i === index ? 'relative opacity-100' : 'absolute inset-0 opacity-0 pointer-events-none'}`}
           >
-            <div
-              className="absolute top-3 left-3 z-10 text-primary text-xs font-bold px-3 py-1 rounded-full"
-              style={{ backgroundColor: '#05dde1' }}
-            >
-              Après
+            {/* Avant */}
+            <div className="relative rounded-2xl overflow-hidden border border-white/10">
+              <div className="absolute top-3 left-3 z-10 text-white text-xs font-bold px-3 py-1 rounded-full"
+                style={{ backgroundColor: 'rgba(0,13,38,0.88)', border: '1px solid rgba(255,255,255,0.15)' }}>Avant</div>
+              <Image src={pair.avant} alt="Profil avant optimisation" width={600} height={400} className="w-full h-auto" unoptimized />
             </div>
-            <Image
-              src={pair.apres}
-              alt="Profil après optimisation"
-              width={600}
-              height={400}
-              className="w-full h-auto"
-              unoptimized
-            />
+            {/* Après */}
+            <div className="relative rounded-2xl overflow-hidden border"
+              style={{ borderColor: 'rgba(5,221,225,0.3)', boxShadow: '0 0 20px rgba(5,221,225,0.08)' }}>
+              <div className="absolute top-3 left-3 z-10 text-primary text-xs font-bold px-3 py-1 rounded-full" style={{ backgroundColor: '#05dde1' }}>Après</div>
+              <Image src={pair.apres} alt="Profil après optimisation" width={600} height={400} className="w-full h-auto" unoptimized />
+            </div>
           </div>
-        </motion.div>
-
-        {/* Nav */}
-        <div className="flex items-center justify-center gap-4 mt-5">
-          <button onClick={prev}
-            className="w-9 h-9 rounded-full flex items-center justify-center border border-white/20 hover:border-secondary/50 hover:bg-white/5 transition-all">
-            <ChevronLeft className="w-4 h-4 text-white/70" />
-          </button>
-          <div className="flex gap-1.5">
-            {AVANT_APRES.map((_, i) => (
-              <button key={i} onClick={() => setIndex(i)}
-                className="rounded-full transition-all duration-300"
-                style={{
-                  width: i === index ? 20 : 6,
-                  height: 6,
-                  backgroundColor: i === index ? '#05dde1' : 'rgba(255,255,255,0.2)',
-                }} />
-            ))}
-          </div>
-          <button onClick={next}
-            className="w-9 h-9 rounded-full flex items-center justify-center border border-white/20 hover:border-secondary/50 hover:bg-white/5 transition-all">
-            <ChevronRight className="w-4 h-4 text-white/70" />
-          </button>
-        </div>
+        ))}
       </div>
-    </AnimatePresence>
-  )
-}
 
-/* ─── Bannières scrolling (plus grandes) ──────────────────────────────── */
-function BanniereScroll() {
+      {/* Nav */}
+      <div className="flex items-center justify-center gap-4 mt-5">
+        <button onClick={() => setIndex((i) => (i - 1 + AVANT_APRES.length) % AVANT_APRES.length)}
+          className="w-9 h-9 rounded-full flex items-center justify-center border border-white/20 hover:border-secondary/50 hover:bg-white/5 transition-all">
+          <ChevronLeft className="w-4 h-4 text-white/70" />
+        </button>
+        <div className="flex gap-1.5">
+          {AVANT_APRES.map((_, i) => (
+            <button key={i} onClick={() => setIndex(i)}
+              className="rounded-full transition-all duration-300"
+              style={{ width: i === index ? 20 : 6, height: 6, backgroundColor: i === index ? '#05dde1' : 'rgba(255,255,255,0.2)' }} />
+          ))}
+        </div>
+        <button onClick={() => setIndex((i) => (i + 1) % AVANT_APRES.length)}
+          className="w-9 h-9 rounded-full flex items-center justify-center border border-white/20 hover:border-secondary/50 hover:bg-white/5 transition-all">
+          <ChevronRight className="w-4 h-4 text-white/70" />
+        </button>
+      </div>
+    </div>
+  )
+})
+
+/* ─── Bannières scrolling — 2 lignes sens opposés ─────────────────────── */
+function BanniereRow({ reverse = false }: { reverse?: boolean }) {
   const triple = [...BANNIERES, ...BANNIERES, ...BANNIERES]
   return (
-    <div className="overflow-hidden relative mt-8">
-      <div className="animate-marquee-bannieres" style={{ display: 'flex', width: 'max-content', gap: '12px' }}>
+    <div className="overflow-hidden relative">
+      <div className={reverse ? 'animate-marquee-bannieres-reverse' : 'animate-marquee-bannieres'}
+        style={{ display: 'flex', width: 'max-content', gap: '12px' }}>
         {triple.map((b, i) => (
-          <div key={`${b}-${i}`} className="flex-shrink-0 rounded-xl overflow-hidden border border-white/8 w-80 h-28">
-            <Image
-              src={`/bannieres/${b}.png`}
-              alt={`Bannière ${b}`}
-              width={320}
-              height={112}
-              className="w-full h-full object-cover"
-              unoptimized
-            />
+          <div key={`${b}-${i}`} className="flex-shrink-0 rounded-xl overflow-hidden border border-white/8 w-64 h-24 lg:w-80 lg:h-28">
+            <Image src={`/bannieres/${b}.png`} alt={`Bannière ${b}`} width={320} height={112} className="w-full h-full object-cover" unoptimized />
           </div>
         ))}
       </div>
@@ -150,12 +105,21 @@ function BanniereScroll() {
   )
 }
 
+function BanniereScroll() {
+  return (
+    <div className="mt-8 space-y-3">
+      <BanniereRow reverse={false} />
+      <BanniereRow reverse={true} />
+    </div>
+  )
+}
+
 /* ─── Grille publications (9 images, layout propre) ──────────────────── */
 function PublicationsGrid() {
-  // Hauteurs alternées pour l'effet désordre maîtrisé
-  const heights = ['h-52', 'h-64', 'h-48', 'h-60', 'h-56', 'h-44', 'h-64', 'h-52', 'h-48']
+  // Hauteurs alternées (desktop) — literals lg: pour que Tailwind les génère
+  const heights = ['lg:h-52', 'lg:h-64', 'lg:h-48', 'lg:h-60', 'lg:h-56', 'lg:h-44', 'lg:h-64', 'lg:h-52', 'lg:h-48']
   return (
-    <div className="columns-2 md:columns-3 gap-3">
+    <div className="grid grid-cols-3 gap-2 lg:block lg:columns-3 lg:gap-3">
       {PUBLICATIONS.map((p, i) => (
         <motion.div
           key={p}
@@ -163,21 +127,20 @@ function PublicationsGrid() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.4, delay: (i % 3) * 0.07 }}
-          className="break-inside-avoid mb-3"
+          className="break-inside-avoid lg:mb-3"
         >
           <motion.div
             animate={{ y: [0, -(2 + i % 4), 0] }}
             transition={{ duration: 2.5 + i * 0.25, repeat: Infinity, ease: 'easeInOut', delay: i * 0.18 }}
             whileHover={{ scale: 1.02 }}
-            className="rounded-2xl overflow-hidden border border-white/8 group"
-            style={{ backgroundColor: 'rgba(255,255,255,0.03)' }}
+            className="rounded-2xl overflow-hidden group lg:border lg:border-white/8 lg:bg-white/[0.03]"
           >
             <Image
               src={`/publications/${p}.png`}
               alt={`Publication LinkedIn ${p}`}
               width={400}
               height={500}
-              className={`w-full ${heights[i] || 'h-52'} object-cover object-top`}
+              className={`w-full max-lg:aspect-square max-lg:object-contain ${heights[i] || 'lg:h-52'} lg:object-cover lg:object-top`}
               unoptimized
             />
           </motion.div>
@@ -237,18 +200,18 @@ export default function ServiceMarketingContent() {
       <section className="relative min-h-[70vh] flex flex-col justify-center overflow-hidden pt-24 pb-16">
         <div className="absolute top-1/3 right-1/4 w-[400px] h-[400px] rounded-full blur-3xl pointer-events-none opacity-15"
           style={{ background: 'radial-gradient(circle, #002060, transparent)' }} />
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 max-lg:text-center">
           <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-5xl sm:text-6xl lg:text-7xl font-black text-white leading-[1.05] mb-6 max-w-3xl">
+            className="text-5xl sm:text-6xl lg:text-7xl font-black text-white leading-[1.05] mb-6 max-w-3xl max-lg:mx-auto">
             Marketing <span className="gradient-text">LinkedIn</span>
           </motion.h1>
           <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-xl text-white/65 leading-relaxed mb-10 max-w-2xl">
+            className="text-xl text-white/65 leading-relaxed mb-10 max-w-2xl max-lg:mx-auto">
             Je transforme votre présence LinkedIn en un outil de croissance business puissant.
             4 prestations, une seule expertise : <strong className="text-white font-bold">LinkedIn à 100%.</strong>
           </motion.p>
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.3 }}
-            className="flex flex-col sm:flex-row gap-4">
+            className="flex flex-col sm:flex-row gap-4 max-lg:items-center">
             <motion.a href="https://calendly.com/pro-visual/30-min-de-call-100-gratuit" target="_blank" rel="noopener noreferrer"
               whileHover={{ scale: 1.03, boxShadow: '0 0 40px rgba(5,221,225,0.45)' }} whileTap={{ scale: 0.97 }}
               className="inline-flex items-center justify-center gap-2 bg-secondary text-primary font-black px-8 py-4 rounded-2xl text-base shadow-glow hover:bg-tertiary transition-all duration-200">
@@ -267,14 +230,23 @@ export default function ServiceMarketingContent() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-16 items-start">
             {/* Texte */}
-            <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
+            <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="max-lg:text-center">
               <h2 className="text-4xl md:text-5xl font-black text-white mb-5 leading-tight">
                 Optimisation de <span className="gradient-text">profil</span>
               </h2>
               <p className="text-white/65 leading-relaxed mb-8 text-lg">
                 Un profil LinkedIn optimisé, c&apos;est votre première impression digitale. J&apos;optimise chaque section pour capter l&apos;attention et attirer naturellement les bonnes opportunités.
               </p>
-              <div className="grid sm:grid-cols-2 gap-4 mb-8">
+
+              {/* MOBILE : avant/après + bannières entre le paragraphe et les blocs */}
+              <div className="lg:hidden mb-10">
+                <p className="text-white/40 text-xs uppercase tracking-widest mb-3 text-center">Résultats réels de mes clients</p>
+                <BeforeAfterSlider />
+                <p className="text-white/40 text-xs uppercase tracking-widest mt-8 mb-3 text-center">Exemples de bannières réalisées</p>
+                <BanniereScroll />
+              </div>
+
+              <div className="grid sm:grid-cols-2 gap-4 mb-8 max-lg:text-left">
                 {[
                   { titre: 'Profil personnel', points: ['Photo & bannière pro', 'Titre et accroche percutants', 'Section À propos optimisée', 'Mots-clés SEO LinkedIn'] },
                   { titre: 'Page entreprise', points: ['Branding visuel cohérent', 'Description & slogan', 'Bannière de marque', "Call-to-action optimisé"] },
@@ -294,16 +266,16 @@ export default function ServiceMarketingContent() {
               </div>
             </motion.div>
 
-            {/* Avant/après */}
-            <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.15 }} className="mt-8">
+            {/* Avant/après — DESKTOP uniquement */}
+            <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.15 }} className="mt-8 max-lg:hidden">
               <p className="text-white/40 text-xs uppercase tracking-widest mb-3">Résultats réels de mes clients</p>
               <BeforeAfterSlider />
             </motion.div>
           </div>
 
         </div>
-        {/* Bannières — pleine largeur viewport */}
-        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.2 }} className="mt-16">
+        {/* Bannières — DESKTOP uniquement (pleine largeur) */}
+        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.2 }} className="mt-16 max-lg:hidden">
           <p className="text-white/40 text-xs uppercase tracking-widest mb-3 text-center">Exemples de bannières réalisées</p>
           <BanniereScroll />
         </motion.div>
@@ -323,14 +295,14 @@ export default function ServiceMarketingContent() {
 
             {/* Texte */}
             <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.15 }}
-              className="order-1 lg:order-2 flex flex-col justify-start pt-12 self-start">
+              className="order-1 lg:order-2 flex flex-col justify-start pt-12 self-start max-lg:text-center max-lg:w-full">
               <h2 className="text-4xl md:text-5xl font-black text-white mb-5 leading-tight">
                 Création de <span className="gradient-text">contenu</span>
               </h2>
               <p className="text-white/65 leading-relaxed mb-8 text-lg">
                 Délégation <strong className="text-white font-bold">100% de votre création de contenu</strong> LinkedIn. Publications, carrousels, articles — je m&apos;occupe de tout, à votre voix.
               </p>
-              <ul className="space-y-3 mb-8">
+              <ul className="space-y-3 mb-8 max-lg:inline-block max-lg:text-left">
                 {[
                   'Calendrier éditorial mensuel',
                   'Rédaction & publication de posts',
@@ -391,15 +363,15 @@ export default function ServiceMarketingContent() {
           <div className="grid lg:grid-cols-3 gap-6">
             {/* Manuelle */}
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}
-              className="rounded-3xl p-7 border border-white/10" style={{ backgroundColor: 'rgba(255,255,255,0.04)' }}>
-              <div className="flex items-center gap-2 mb-5">
+              className="rounded-3xl p-7 border border-white/10 max-lg:text-center" style={{ backgroundColor: 'rgba(255,255,255,0.04)' }}>
+              <div className="flex items-center gap-2 mb-5 max-lg:justify-center">
                 <span className="text-lg">🤝</span>
                 <h3 className="text-white font-black text-lg">Prospection manuelle</h3>
               </div>
               <p className="text-white/60 text-sm leading-relaxed mb-5">
                 J&apos;envoie moi-même les invitations et messages depuis votre compte LinkedIn. Chaque message est rédigé sur mesure — résultat : un taux de conversion exceptionnel.
               </p>
-              <ul className="space-y-2">
+              <ul className="space-y-2 max-lg:inline-block max-lg:text-left">
                 {['Fichier prospect dans vos relations', 'Messages 100% personnalisés', "Taux d'acceptation élevé", 'Suivi humain et réactif'].map((p) => (
                   <li key={p} className="flex items-center gap-2 text-xs text-white/65">
                     <span className="w-1.5 h-1.5 rounded-full bg-secondary flex-shrink-0" /> {p}
@@ -410,8 +382,8 @@ export default function ServiceMarketingContent() {
 
             {/* Automatisée */}
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.1 }}
-              className="rounded-3xl p-7 border border-white/10" style={{ backgroundColor: 'rgba(255,255,255,0.04)' }}>
-              <div className="flex items-center gap-2 mb-5">
+              className="rounded-3xl p-7 border border-white/10 max-lg:text-center" style={{ backgroundColor: 'rgba(255,255,255,0.04)' }}>
+              <div className="flex items-center gap-2 mb-5 max-lg:justify-center">
                 <Zap className="w-5 h-5 text-secondary" />
                 <h3 className="text-white font-black text-lg">Prospection automatisée</h3>
               </div>
@@ -430,7 +402,7 @@ export default function ServiceMarketingContent() {
                   </motion.div>
                 ))}
               </div>
-              <ul className="space-y-2">
+              <ul className="space-y-2 max-lg:inline-block max-lg:text-left">
                 {['Séquences multi-étapes', 'A/B testing de messages', 'Reporting détaillé'].map((p) => (
                   <li key={p} className="flex items-center gap-2 text-xs text-white/65">
                     <span className="w-1.5 h-1.5 rounded-full bg-secondary flex-shrink-0" /> {p}
@@ -441,10 +413,10 @@ export default function ServiceMarketingContent() {
 
             {/* Calendly */}
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.2 }}
-              className="rounded-3xl p-7 border border-secondary/20 flex flex-col justify-between"
+              className="rounded-3xl p-7 border border-secondary/20 flex flex-col justify-between max-lg:text-center"
               style={{ backgroundColor: 'rgba(5,221,225,0.04)' }}>
               <div>
-                <div className="flex items-center gap-2 mb-5">
+                <div className="flex items-center gap-2 mb-5 max-lg:justify-center">
                   <Calendar className="w-5 h-5 text-secondary" />
                   <h3 className="text-white font-black text-lg">Résultat : des rendez-vous</h3>
                 </div>
@@ -468,8 +440,8 @@ export default function ServiceMarketingContent() {
         style={{ backgroundColor: 'rgba(5,221,225,0.02)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
-            {/* Photo */}
-            <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="relative">
+            {/* Photo — DESKTOP uniquement */}
+            <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="relative max-lg:hidden">
               <div className="relative rounded-3xl overflow-hidden border border-secondary/20">
                 <Image src="/formation-physique/formation.jpg" alt="Formation LinkedIn en entreprise" width={800} height={600} className="w-full object-cover" unoptimized />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none" />
@@ -490,7 +462,7 @@ export default function ServiceMarketingContent() {
             </motion.div>
 
             {/* Texte */}
-            <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.15 }}>
+            <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.15 }} className="max-lg:text-center">
               <h2 className="text-4xl md:text-5xl font-black text-white mb-5 leading-tight">
                 Formation LinkedIn <span className="gradient-text">en entreprise</span>
               </h2>
@@ -501,8 +473,29 @@ export default function ServiceMarketingContent() {
                 ≠ Provisual Academy — ces formations sont indépendantes de nos e-learnings en ligne.
               </p>
 
+              {/* Photo — MOBILE uniquement (entre la phrase grise et la timeline) */}
+              <div className="lg:hidden relative mb-10 mx-auto max-w-[300px]">
+                <div className="relative rounded-3xl overflow-hidden border border-secondary/20">
+                  <Image src="/formation-physique/formation.jpg" alt="Formation LinkedIn en entreprise" width={800} height={600} className="w-full object-cover" unoptimized />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none" />
+                </div>
+                <motion.div animate={{ y: [0, -6, 0] }} transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+                  className="absolute -bottom-4 -right-2 rounded-2xl border border-secondary/30 p-3 shadow-xl text-left"
+                  style={{ backgroundColor: 'rgba(0,13,38,0.95)', backdropFilter: 'blur(12px)', maxWidth: '170px' }}>
+                  <div className="flex items-center gap-2 mb-1">
+                    <Lock className="w-3.5 h-3.5 text-secondary" />
+                    <span className="text-secondary text-xs font-bold">Bientôt</span>
+                  </div>
+                  <p className="text-white text-xs font-semibold leading-snug">Finançable OPCO & CPF</p>
+                  <div className="flex items-center gap-1 mt-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse" />
+                    <p className="text-white/50 text-[10px]">Certification Kaliopé en cours</p>
+                  </div>
+                </motion.div>
+              </div>
+
               {/* Timeline */}
-              <div className="space-y-5 mb-8">
+              <div className="space-y-5 mb-8 max-lg:inline-block max-lg:text-left">
                 {[
                   { icon: Search, titre: 'Audit des besoins', desc: 'Analyse de vos objectifs et du niveau de vos équipes' },
                   { icon: GraduationCap, titre: 'Atelier en présentiel', desc: 'Formation demi-journée dans vos locaux, 100% pratique' },

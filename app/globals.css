@@ -135,6 +135,14 @@
   animation: marquee-slow 22s linear infinite;
 }
 
+@keyframes marquee-slow-reverse {
+  from { transform: translateX(calc(-100% / 3)); }
+  to { transform: translateX(0); }
+}
+.animate-marquee-bannieres-reverse {
+  animation: marquee-slow-reverse 22s linear infinite;
+}
+
 @keyframes marquee-vertical {
   from { transform: translateY(0); }
   to { transform: translateY(calc(-100% / 3)); }
