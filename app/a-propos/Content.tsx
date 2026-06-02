@@ -32,13 +32,13 @@ export default function AProposContent() {
         <div className="absolute top-1/3 right-1/4 w-[400px] h-[400px] rounded-full blur-3xl pointer-events-none opacity-15"
           style={{ background: 'radial-gradient(circle, #002060, transparent)' }} />
 
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 max-lg:text-center">
 
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-5xl sm:text-6xl lg:text-7xl font-black text-white leading-[1.05] mb-6 max-w-3xl"
+            className="text-5xl sm:text-6xl lg:text-7xl font-black text-white leading-[1.05] mb-6 max-w-3xl max-lg:mx-auto"
           >
             À propos de{' '}
             <span className="gradient-text">Provisual</span>
@@ -48,7 +48,7 @@ export default function AProposContent() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-xl text-white/65 leading-relaxed max-w-2xl"
+            className="text-xl text-white/65 leading-relaxed max-w-2xl max-lg:mx-auto"
           >
             Provisual est une agence spécialisée en Marketing LinkedIn et Data Analytics,
             créée pour accompagner les TPE, PME et indépendants dans leur croissance digitale.
@@ -65,6 +65,7 @@ export default function AProposContent() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
+              className="max-lg:text-center"
             >
               <span className="inline-block border border-secondary/30 text-secondary text-xs font-semibold px-4 py-1.5 rounded-full mb-6 uppercase tracking-widest"
                 style={{ backgroundColor: 'rgba(5,221,225,0.08)' }}>
@@ -107,7 +108,7 @@ export default function AProposContent() {
               <motion.div
                 animate={{ y: [0, -10, 0] }}
                 transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-                className="relative z-10 w-full max-w-md"
+                className="relative z-10 w-full max-w-md max-lg:max-w-[240px]"
               >
                 <Image
                   src="/about/dylan.png"
@@ -179,6 +180,7 @@ export default function AProposContent() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
+              className="max-lg:text-center"
             >
               <span className="inline-block border border-secondary/30 text-secondary text-xs font-semibold px-4 py-1.5 rounded-full mb-6 uppercase tracking-widest"
                 style={{ backgroundColor: 'rgba(5,221,225,0.08)' }}>
@@ -193,7 +195,7 @@ export default function AProposContent() {
                 délivrée par les <strong className="text-white">LinkedIn Marketing Labs</strong>. Une reconnaissance directe
                 de la plateforme qui valide mon expertise en stratégie marketing sur LinkedIn.
               </p>
-              <ul className="space-y-3 mb-8">
+              <ul className="space-y-3 mb-8 max-lg:inline-block max-lg:text-left">
                 {[
                   'Certification délivrée directement par LinkedIn',
                   'Certified Professional — Marketing Strategy',
@@ -229,7 +231,7 @@ export default function AProposContent() {
               <motion.div
                 animate={{ y: [0, -8, 0] }}
                 transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-                className="relative rounded-2xl overflow-hidden border border-white/15"
+                className="relative rounded-2xl overflow-hidden border border-white/15 max-lg:max-w-[320px] max-lg:mx-auto"
                 style={{ boxShadow: '0 0 50px rgba(5,221,225,0.12), 0 20px 60px rgba(0,0,0,0.45)' }}
               >
                 <Image

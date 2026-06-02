@@ -283,7 +283,7 @@ export default function ServiceMarketingContent() {
       </section>
 
       {/* ══ 2. CRÉATION DE CONTENU ══ */}
-      <section id="creation-contenu" className="pt-12 pb-0 border-t border-white/8"
+      <section id="creation-contenu" className="pt-12 pb-12 lg:pb-0 border-t border-white/8"
         style={{ backgroundColor: 'rgba(5,221,225,0.02)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-16">
@@ -366,7 +366,7 @@ export default function ServiceMarketingContent() {
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}
               className="rounded-3xl p-7 border border-white/10 max-lg:text-center" style={{ backgroundColor: 'rgba(255,255,255,0.04)' }}>
               <div className="flex items-center gap-2 mb-5 max-lg:justify-center">
-                <span className="text-lg">🤝</span>
+                <span className="text-lg max-lg:hidden">🤝</span>
                 <h3 className="text-white font-black text-lg">Prospection manuelle</h3>
               </div>
               <p className="text-white/60 text-sm leading-relaxed mb-5">
@@ -385,7 +385,7 @@ export default function ServiceMarketingContent() {
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.1 }}
               className="rounded-3xl p-7 border border-white/10 max-lg:text-center" style={{ backgroundColor: 'rgba(255,255,255,0.04)' }}>
               <div className="flex items-center gap-2 mb-5 max-lg:justify-center">
-                <Zap className="w-5 h-5 text-secondary" />
+                <Zap className="w-5 h-5 text-secondary max-lg:hidden" />
                 <h3 className="text-white font-black text-lg">Prospection automatisée</h3>
               </div>
               <p className="text-white/60 text-sm leading-relaxed mb-5">
@@ -418,7 +418,7 @@ export default function ServiceMarketingContent() {
               style={{ backgroundColor: 'rgba(5,221,225,0.04)' }}>
               <div>
                 <div className="flex items-center gap-2 mb-5 max-lg:justify-center">
-                  <Calendar className="w-5 h-5 text-secondary" />
+                  <Calendar className="w-5 h-5 text-secondary max-lg:hidden" />
                   <h3 className="text-white font-black text-lg">Résultat : des rendez-vous</h3>
                 </div>
                 <p className="text-white/60 text-sm leading-relaxed mb-6">

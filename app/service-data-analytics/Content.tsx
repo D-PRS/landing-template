@@ -10,6 +10,16 @@ import {
 import LinkedInGlobe from '../components/home/LinkedInGlobe'
 import TemoignagesSection from '../components/landing/TemoignagesSection'
 
+const GLOBE_MESSAGES = [
+  '15 likes à 11H02',
+  'Visite de profil à 10H55',
+  '+8 abonnés aujourd\'hui',
+  '3 commentaires à 14H30',
+  'Pic d\'audience à 9H00',
+  '+124 impressions ce post',
+  'Nouveau record de vues',
+]
+
 /* ─── Features data ──────────────────────────────────────────────────── */
 const FEATURES = [
   {
@@ -120,15 +130,14 @@ export default function ServiceDataContent() {
       <section className="py-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.3 }}>
-            <LinkedInGlobe messages={[
-              '15 likes à 11H02',
-              'Visite de profil à 10H55',
-              '+8 abonnés aujourd\'hui',
-              '3 commentaires à 14H30',
-              'Pic d\'audience à 9H00',
-              '+124 impressions ce post',
-              'Nouveau record de vues',
-            ]} />
+            {/* Mobile : identique à la page d'accueil (plus petit, compact) */}
+            <div className="lg:hidden">
+              <LinkedInGlobe height={300} compact messages={GLOBE_MESSAGES} />
+            </div>
+            {/* Desktop : inchangé (defaults) */}
+            <div className="max-lg:hidden">
+              <LinkedInGlobe messages={GLOBE_MESSAGES} />
+            </div>
           </motion.div>
         </div>
       </section>
@@ -139,7 +148,7 @@ export default function ServiceDataContent() {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
 
             {/* Texte gauche */}
-            <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
+            <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="max-lg:text-center">
               <span className="inline-block border border-secondary/30 text-secondary text-xs font-semibold px-3 py-1 rounded-full mb-5 uppercase tracking-widest"
                 style={{ backgroundColor: 'rgba(5,221,225,0.08)' }}>
                 Accès anticipé
@@ -234,7 +243,7 @@ export default function ServiceDataContent() {
                         <motion.div
                           animate={{ y: [0, -6, 0] }}
                           transition={{ duration: feat.floatDuration, repeat: Infinity, ease: 'easeInOut' }}
-                          className="w-16 h-16 rounded-2xl flex items-center justify-center border flex-shrink-0"
+                          className="w-16 h-16 rounded-2xl flex items-center justify-center border flex-shrink-0 max-lg:absolute max-lg:top-6 max-lg:right-6"
                           style={{
                             backgroundColor: `rgba(${feat.accentRgb}, 0.1)`,
                             borderColor: `rgba(${feat.accentRgb}, 0.25)`,
@@ -245,9 +254,9 @@ export default function ServiceDataContent() {
                       </div>
 
                       {/* Texte */}
-                      <div>
+                      <div className="max-lg:text-center">
                         <h3 className="text-2xl font-black text-white mb-2">{feat.titre}</h3>
-                        <p className="text-white/55 leading-relaxed text-sm max-w-xl">{feat.description}</p>
+                        <p className="text-white/55 leading-relaxed text-sm max-w-xl max-lg:mx-auto">{feat.description}</p>
                       </div>
 
                       {/* Métriques flottantes */}

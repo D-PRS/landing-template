@@ -40,6 +40,34 @@ export default function HeroSection() {
               Chaque guide a été conçu pour vous faire passer à l&apos;action et obtenir des résultats concrets.
             </motion.p>
 
+            {/* Vidéo YouTube — mobile uniquement (la version desktop est dans la colonne de droite) */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.25 }}
+              className="lg:hidden mb-10"
+            >
+              <div
+                className="relative rounded-[2rem] overflow-hidden ring-2 mx-auto"
+                style={{
+                  width: '100%',
+                  maxWidth: 260,
+                  boxShadow: '0 0 0 2px rgba(5,221,225,0.4), 0 20px 50px rgba(0,0,0,0.5)',
+                  background: '#000',
+                }}
+              >
+                <div style={{ position: 'relative', paddingBottom: '177.78%' }}>
+                  <iframe
+                    src="https://www.youtube.com/embed/RTr9QRcWynw?rel=0&modestbranding=1"
+                    title="ProVisual Academy"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 0 }}
+                  />
+                </div>
+              </div>
+            </motion.div>
+
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}

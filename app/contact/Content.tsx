@@ -11,7 +11,7 @@ export default function ContactContent() {
         <div className="absolute top-1/3 right-1/4 w-[400px] h-[400px] rounded-full blur-3xl pointer-events-none opacity-15"
           style={{ background: 'radial-gradient(circle, #002060, transparent)' }} />
 
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 max-lg:text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -27,7 +27,7 @@ export default function ContactContent() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-5xl sm:text-6xl lg:text-7xl font-black text-white leading-[1.05] mb-6 max-w-2xl"
+            className="text-5xl sm:text-6xl lg:text-7xl font-black text-white leading-[1.05] mb-6 max-w-2xl max-lg:mx-auto"
           >
             Contactez{' '}
             <span className="gradient-text">Provisual</span>
@@ -37,7 +37,7 @@ export default function ContactContent() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-xl text-white/65 leading-relaxed max-w-xl"
+            className="text-xl text-white/65 leading-relaxed max-w-xl max-lg:mx-auto"
           >
             Une question, un projet, une idée ? On vous répond rapidement.
             Ou réservez directement un appel gratuit de 30 minutes.
@@ -56,7 +56,7 @@ export default function ContactContent() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
-              <div className="rounded-3xl p-4 sm:p-6 border border-white/10"
+              <div className="rounded-3xl p-4 sm:p-6 border border-white/10 max-lg:text-center"
                 style={{ backgroundColor: 'rgba(255,255,255,0.04)' }}>
                 <h2 className="text-2xl font-black text-white mb-2 px-2">Réservez un appel</h2>
                 <p className="text-white/55 text-sm mb-5 px-2">
@@ -85,8 +85,8 @@ export default function ContactContent() {
                 style={{ background: 'linear-gradient(135deg, rgba(0,32,96,0.4) 0%, rgba(5,221,225,0.12) 100%)' }}>
                 <div className="absolute top-0 right-0 w-48 h-48 rounded-full blur-3xl opacity-20 pointer-events-none"
                   style={{ background: 'radial-gradient(circle, #05dde1, transparent)' }} />
-                <div className="relative z-10">
-                  <Calendar className="w-10 h-10 text-secondary mb-5" />
+                <div className="relative z-10 max-lg:text-center">
+                  <Calendar className="w-10 h-10 text-secondary mb-5 max-lg:mx-auto" />
                   <h3 className="text-2xl font-black text-white mb-3">Appel gratuit 30 min</h3>
                   <p className="text-white/60 text-sm leading-relaxed mb-6">
                     Réservez directement un créneau dans notre agenda.
@@ -109,7 +109,7 @@ export default function ContactContent() {
               {/* Email */}
               <div className="rounded-3xl p-6 border border-white/10"
                 style={{ backgroundColor: 'rgba(255,255,255,0.04)' }}>
-                <div className="flex items-start gap-4">
+                <div className="flex items-start gap-4 max-lg:flex-col max-lg:items-center max-lg:text-center">
                   <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 border border-secondary/20"
                     style={{ backgroundColor: 'rgba(5,221,225,0.1)' }}>
                     <Mail className="w-5 h-5 text-secondary" />
@@ -126,9 +126,9 @@ export default function ContactContent() {
               </div>
 
               {/* Response time */}
-              <div className="rounded-2xl p-5 border border-white/8"
+              <div className="rounded-2xl p-5 border border-white/8 max-lg:text-center"
                 style={{ backgroundColor: 'rgba(5,221,225,0.05)' }}>
-                <div className="flex items-center gap-2 mb-2">
+                <div className="flex items-center gap-2 mb-2 max-lg:justify-center">
                   <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
                   <span className="text-emerald-400 text-xs font-semibold">Disponible</span>
                 </div>
