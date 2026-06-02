@@ -26,7 +26,7 @@ const AvantApresMini = memo(function AvantApresMini() {
 
   return (
     <div style={{ maxWidth: 460, margin: '0 auto' }}>
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1fr) minmax(0,1fr)', gap: 10 }}>
         <div style={{ ...cell, border: '1px solid rgba(255,255,255,0.1)' }}>
           <span style={{ ...badge, color: '#fff', backgroundColor: 'rgba(0,13,38,0.88)', border: '1px solid rgba(255,255,255,0.15)' }}>Avant</span>
           {/* eslint-disable-next-line @next/next/no-img-element */}

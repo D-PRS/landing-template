@@ -229,7 +229,7 @@ export default function ServiceMarketingContent() {
       {/* ══ 1. OPTIMISATION PROFIL ══ */}
       <section id="optimisation-profil" className="pt-24 pb-10 border-t border-white/8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-16 items-start">
+          <div className="lg:grid lg:grid-cols-2 lg:gap-16 items-start">
             {/* Texte */}
             <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6 }} className="max-lg:text-center">
               <h2 className="text-4xl md:text-5xl font-black text-white mb-5 leading-tight">
