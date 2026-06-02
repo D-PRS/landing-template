@@ -11,7 +11,7 @@ const AVANT_APRES = [
   { avant: '/avant-apres/27.png', apres: '/avant-apres/27bis.png' },
 ]
 
-/* Mini slider avant/après — identique à la page d'accueil (crossfade, sans clignotement) */
+/* Mini slider avant/après — dimensions en styles INLINE (taille garantie, indépendante de Tailwind) */
 const AvantApresMini = memo(function AvantApresMini() {
   const [index, setIndex] = useState(0)
 
@@ -21,21 +21,33 @@ const AvantApresMini = memo(function AvantApresMini() {
   }, [])
 
   return (
-    <div>
-      <div className="relative">
+    <div style={{ maxWidth: 460, margin: '0 auto' }}>
+      <div style={{ position: 'relative' }}>
         {AVANT_APRES.map((pair, i) => (
           <div
             key={i}
-            className={`grid grid-cols-2 gap-3 transition-opacity duration-700 ease-in-out ${i === index ? 'relative opacity-100' : 'absolute inset-0 opacity-0 pointer-events-none'}`}
+            style={{
+              display: 'grid',
+              gridTemplateColumns: '1fr 1fr',
+              gap: 10,
+              transition: 'opacity 0.7s ease-in-out',
+              opacity: i === index ? 1 : 0,
+              position: i === index ? 'relative' : 'absolute',
+              inset: i === index ? undefined : 0,
+              pointerEvents: i === index ? undefined : 'none',
+            }}
           >
-            <div className="relative rounded-xl overflow-hidden border border-white/10">
-              <div className="absolute top-2 left-2 z-10 text-white text-[10px] font-bold px-2 py-0.5 rounded-full"
-                style={{ backgroundColor: 'rgba(0,13,38,0.88)', border: '1px solid rgba(255,255,255,0.15)' }}>Avant</div>
-              <Image src={pair.avant} alt="Avant" width={400} height={260} className="w-full h-auto" unoptimized />
+            {/* Avant */}
+            <div style={{ position: 'relative', borderRadius: 12, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.1)' }}>
+              <span style={{ position: 'absolute', top: 8, left: 8, zIndex: 10, color: '#fff', fontSize: 10, fontWeight: 700, padding: '2px 8px', borderRadius: 999, backgroundColor: 'rgba(0,13,38,0.88)', border: '1px solid rgba(255,255,255,0.15)' }}>Avant</span>
+              <Image src={pair.avant} alt="Avant" width={400} height={260}
+                style={{ width: '100%', height: 130, objectFit: 'cover', display: 'block' }} unoptimized />
             </div>
-            <div className="relative rounded-xl overflow-hidden border" style={{ borderColor: 'rgba(5,221,225,0.35)', boxShadow: '0 0 14px rgba(5,221,225,0.1)' }}>
-              <div className="absolute top-2 left-2 z-10 text-primary text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ backgroundColor: '#05dde1' }}>Après</div>
-              <Image src={pair.apres} alt="Après" width={400} height={260} className="w-full h-auto" unoptimized />
+            {/* Après */}
+            <div style={{ position: 'relative', borderRadius: 12, overflow: 'hidden', border: '1px solid rgba(5,221,225,0.35)', boxShadow: '0 0 14px rgba(5,221,225,0.1)' }}>
+              <span style={{ position: 'absolute', top: 8, left: 8, zIndex: 10, color: '#002060', fontSize: 10, fontWeight: 700, padding: '2px 8px', borderRadius: 999, backgroundColor: '#05dde1' }}>Après</span>
+              <Image src={pair.apres} alt="Après" width={400} height={260}
+                style={{ width: '100%', height: 130, objectFit: 'cover', display: 'block' }} unoptimized />
             </div>
           </div>
         ))}
