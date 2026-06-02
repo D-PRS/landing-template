@@ -61,8 +61,9 @@ const BeforeAfterMini = memo(function BeforeAfterMini() {
   )
 })
 
-/* Anneau 3D de bannières — réutilisable (desktop / mobile à tailles différentes) */
-function BannerRing({ radius = 280, panelW = 200, panelH = 50, containerH = 300 }: { radius?: number; panelW?: number; panelH?: number; containerH?: number }) {
+/* Anneau 3D de bannières — réutilisable (desktop / mobile à tailles différentes)
+   bare = sans fond ni bordure (mobile) → pas de "cadres vides" sombres sur les panneaux arrière */
+function BannerRing({ radius = 280, panelW = 200, panelH = 50, containerH = 300, bare = false }: { radius?: number; panelW?: number; panelH?: number; containerH?: number; bare?: boolean }) {
   return (
     <div className="flex items-center justify-center" style={{ height: `${containerH}px`, perspective: '1000px' }}>
       <div className="animate-spin-ring relative" style={{ width: `${panelW}px`, height: `${panelH}px` }}>
@@ -71,11 +72,11 @@ function BannerRing({ radius = 280, panelW = 200, panelH = 50, containerH = 300 
           return (
             <div
               key={b}
-              className="absolute inset-0 rounded-lg overflow-hidden border border-white/25 shadow-2xl flex items-center justify-center p-[5px]"
+              className={`absolute inset-0 rounded-lg overflow-hidden flex items-center justify-center ${bare ? '' : 'border border-white/25 shadow-2xl p-[5px]'}`}
               style={{
                 transform: `rotateY(${angle}deg) translateZ(${radius}px)`,
                 backfaceVisibility: 'hidden',
-                backgroundColor: '#001340',
+                ...(bare ? {} : { backgroundColor: '#001340' }),
               }}
             >
               <Image src={`/bannieres/${b}.png`} alt="" width={400} height={100} className="w-full h-full object-cover rounded-sm" unoptimized />
@@ -146,7 +147,7 @@ function SectionMarketing() {
 
             {/* Anneau + avant/après — MOBILE uniquement (entre paragraphe et bullets) */}
             <div className="lg:hidden mt-4 mb-10">
-              <BannerRing radius={165} panelW={112} panelH={28} containerH={190} />
+              <BannerRing radius={165} panelW={112} panelH={28} containerH={190} bare />
               <div className="mt-2">
                 <p className="text-white/35 text-[10px] uppercase tracking-widest mb-2 text-center">Résultats réels — avant / après optimisation</p>
                 <BeforeAfterMini />
