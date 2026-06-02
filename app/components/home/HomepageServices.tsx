@@ -148,7 +148,7 @@ function SectionMarketing() {
             {/* Anneau + avant/après — MOBILE uniquement (entre paragraphe et bullets) */}
             <div className="lg:hidden mt-4 mb-10">
               <BannerRing radius={165} panelW={128} panelH={32} containerH={190} bare />
-              <div className="mt-2">
+              <div className="-mt-12">
                 <p className="text-white/35 text-[10px] uppercase tracking-widest mb-2 text-center">Résultats réels — avant / après optimisation</p>
                 <BeforeAfterMini />
               </div>
