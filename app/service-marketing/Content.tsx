@@ -11,6 +11,7 @@ import {
   Lock, CheckCircle2, Zap, Award,
 } from 'lucide-react'
 import TemoignagesSection from '../components/landing/TemoignagesSection'
+import AvantApresMini from '../components/shared/AvantApresMini'
 
 /* ─── Données ─────────────────────────────────────────────────────────── */
 const AVANT_APRES = [
@@ -238,10 +239,10 @@ export default function ServiceMarketingContent() {
                 Un profil LinkedIn optimisé, c&apos;est votre première impression digitale. J&apos;optimise chaque section pour capter l&apos;attention et attirer naturellement les bonnes opportunités.
               </p>
 
-              {/* MOBILE : avant/après + bannières entre le paragraphe et les blocs */}
+              {/* MOBILE : avant/après (identique page d'accueil) + bannières entre le paragraphe et les blocs */}
               <div className="lg:hidden mb-10">
                 <p className="text-white/40 text-xs uppercase tracking-widest mb-3 text-center">Résultats réels de mes clients</p>
-                <BeforeAfterSlider />
+                <AvantApresMini />
                 <p className="text-white/40 text-xs uppercase tracking-widest mt-8 mb-3 text-center">Exemples de bannières réalisées</p>
                 <BanniereScroll />
               </div>
