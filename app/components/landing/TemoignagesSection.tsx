@@ -147,7 +147,7 @@ export default function TemoignagesSection() {
                 alt={`${t.prenom} ${t.nom}`}
                 width={40}
                 height={40}
-                className="rounded-full w-10 h-10 object-cover"
+                className="rounded-full w-7 h-7 lg:w-10 lg:h-10 object-cover"
                 unoptimized
               />
             </motion.button>

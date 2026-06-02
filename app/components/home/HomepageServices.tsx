@@ -72,7 +72,7 @@ function BannerRing({ radius = 280, panelW = 200, panelH = 50, containerH = 300,
           return (
             <div
               key={b}
-              className={`absolute inset-0 rounded-lg overflow-hidden flex items-center justify-center ${bare ? '' : 'border border-white/25 shadow-2xl p-[5px]'}`}
+              className={`absolute inset-0 rounded-lg overflow-hidden flex items-center justify-center border border-white/25 ${bare ? '' : 'shadow-2xl p-[5px]'}`}
               style={{
                 transform: `rotateY(${angle}deg) translateZ(${radius}px)`,
                 backfaceVisibility: 'hidden',
@@ -147,7 +147,7 @@ function SectionMarketing() {
 
             {/* Anneau + avant/après — MOBILE uniquement (entre paragraphe et bullets) */}
             <div className="lg:hidden mt-4 mb-10">
-              <BannerRing radius={165} panelW={112} panelH={28} containerH={190} bare />
+              <BannerRing radius={165} panelW={128} panelH={32} containerH={190} bare />
               <div className="mt-2">
                 <p className="text-white/35 text-[10px] uppercase tracking-widest mb-2 text-center">Résultats réels — avant / après optimisation</p>
                 <BeforeAfterMini />
