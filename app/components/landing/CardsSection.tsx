@@ -88,13 +88,13 @@ export default function EbooksSection() {
                 </div>
 
                 {/* Content */}
-                <div className="p-6 flex flex-col flex-1">
+                <div className="p-6 flex flex-col flex-1 max-lg:text-center">
                   <h3 className="font-black text-white text-xl mb-2 leading-tight">{formation.titre}</h3>
                   <p className="text-white/60 text-sm leading-relaxed mb-4 flex-1">
                     {formation.description_courte}
                   </p>
 
-                  <div className="flex items-center gap-4 text-xs text-white/40 mb-5">
+                  <div className="flex items-center gap-4 text-xs text-white/40 mb-5 max-lg:justify-center">
                     <div className="flex items-center gap-1.5">
                       <BookOpen className="w-3.5 h-3.5" />
                       <span>{formation.nombre_chapitres} chap.</span>
@@ -112,7 +112,7 @@ export default function EbooksSection() {
                   <Link href={`/formations/${formation.slug}`}>
                     <motion.div
                       whileHover={{ x: 4 }}
-                      className="flex items-center gap-2 text-secondary font-semibold text-sm hover:text-white transition-colors cursor-pointer"
+                      className="flex items-center gap-2 text-secondary font-semibold text-sm hover:text-white transition-colors cursor-pointer max-lg:justify-center"
                     >
                       {formation.est_gratuite ? 'Voir la formation' : 'Découvrir la formation'}
                       <ChevronRight className="w-4 h-4" />
@@ -133,7 +133,7 @@ export default function EbooksSection() {
           className="rounded-3xl p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-6 border border-secondary/20"
           style={{ background: 'linear-gradient(135deg, rgba(0,32,96,0.35) 0%, rgba(5,221,225,0.1) 100%)' }}
         >
-          <div>
+          <div className="max-lg:text-center">
             <p className="text-secondary text-xs font-semibold uppercase tracking-widest mb-2">ProVisual Academy</p>
             <h3 className="text-2xl font-black text-white mb-1">
               Accédez aux 4 formations avec l&apos;Espace Classe

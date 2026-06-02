@@ -20,10 +20,10 @@ const INTERNAL_LINKS = {
   ],
 }
 
-const EXTERNAL_LINKS = {
+const LEGAL_LINKS = {
   'Légal': [
-    { label: 'Mentions légales', href: 'https://provisual.fr/mentions-legales' },
-    { label: "Conditions d'utilisation", href: 'https://provisual.fr/cgu' },
+    { label: 'Mentions légales', href: '/mentions-legales' },
+    { label: "Conditions d'utilisation", href: '/cgu' },
   ],
 }
 
@@ -38,8 +38,10 @@ export default function Footer() {
             <a href="https://provisual.fr" target="_blank" rel="noopener noreferrer" className="inline-flex mb-5">
               <Image src={LOGO_URL} alt="Provisual" width={120} height={40} className="object-contain" unoptimized />
             </a>
-            <p className="text-white/50 text-sm leading-relaxed mb-6 max-w-xs">
-              Agence spécialisée en marketing LinkedIn et Data Analytics pour les TPE, PME et indépendants.
+            <p className="text-white/50 text-sm leading-relaxed mb-6 max-w-sm">
+              Une expertise complète, un seul objectif : <strong className="text-white/80 font-semibold">votre réussite</strong>.
+              ProVisual accompagne dirigeants, commerciaux et chercheurs d&apos;emploi à transformer
+              leur présence LinkedIn en véritable levier d&apos;opportunités.
             </p>
             <div className="flex items-center gap-3">
               <a
@@ -85,21 +87,16 @@ export default function Footer() {
             </div>
           ))}
 
-          {/* External Links */}
-          {Object.entries(EXTERNAL_LINKS).map(([section, items]) => (
+          {/* Legal Links (internes) */}
+          {Object.entries(LEGAL_LINKS).map(([section, items]) => (
             <div key={section}>
               <h4 className="font-bold text-xs uppercase tracking-widest text-secondary mb-4">{section}</h4>
               <ul className="space-y-2.5">
                 {items.map(item => (
                   <li key={item.label}>
-                    <a
-                      href={item.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-white/50 hover:text-secondary text-sm transition-colors"
-                    >
+                    <Link href={item.href} className="text-white/50 hover:text-secondary text-sm transition-colors">
                       {item.label}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>

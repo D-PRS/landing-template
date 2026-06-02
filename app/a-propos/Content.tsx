@@ -75,6 +75,20 @@ export default function AProposContent() {
                 Dylan Parisi,<br />
                 <span className="gradient-text">fondateur de Provisual</span>
               </h2>
+
+              {/* Photo — mobile : entre le titre et le texte */}
+              <div className="lg:hidden flex justify-center mb-6">
+                <Image
+                  src="/about/dylan.png"
+                  alt="Dylan Parisi, fondateur de Provisual"
+                  width={500}
+                  height={500}
+                  className="w-full max-w-[240px] h-auto"
+                  priority
+                  unoptimized
+                />
+              </div>
+
               <div className="space-y-4 text-white/65 leading-relaxed">
                 <p>
                   Après plusieurs années à travailler dans le marketing digital et la data,
@@ -99,7 +113,7 @@ export default function AProposContent() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7, delay: 0.2 }}
-              className="relative flex items-center justify-center"
+              className="relative flex items-center justify-center max-lg:hidden"
             >
               {/* Halo derrière la photo */}
               <div className="absolute w-[420px] h-[420px] rounded-full blur-3xl pointer-events-none opacity-25"
@@ -195,6 +209,19 @@ export default function AProposContent() {
                 délivrée par les <strong className="text-white">LinkedIn Marketing Labs</strong>. Une reconnaissance directe
                 de la plateforme qui valide mon expertise en stratégie marketing sur LinkedIn.
               </p>
+
+              {/* Certificat — mobile : entre le texte et le listing */}
+              <div className="lg:hidden rounded-2xl overflow-hidden border border-white/15 max-w-[320px] mx-auto mb-8">
+                <Image
+                  src="/about/certificat.png"
+                  alt="Certification LinkedIn Marketing Strategy de Dylan Parisi"
+                  width={1188}
+                  height={918}
+                  className="w-full h-auto"
+                  unoptimized
+                />
+              </div>
+
               <ul className="space-y-3 mb-8 max-lg:inline-block max-lg:text-left">
                 {[
                   'Certification délivrée directement par LinkedIn',
@@ -224,7 +251,7 @@ export default function AProposContent() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7, delay: 0.15 }}
-              className="relative"
+              className="relative max-lg:hidden"
             >
               <div className="absolute -inset-4 rounded-3xl blur-2xl pointer-events-none opacity-25"
                 style={{ background: 'radial-gradient(circle, #05dde1, transparent 70%)' }} />

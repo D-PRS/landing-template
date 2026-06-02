@@ -16,7 +16,7 @@ export default function HeroSection() {
         <div className="grid lg:grid-cols-2 gap-16 items-center">
 
           {/* Left — Text */}
-          <div className="min-w-0">
+          <div className="min-w-0 max-lg:text-center">
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -34,7 +34,7 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-lg text-white/65 leading-relaxed mb-10 max-w-lg"
+              className="text-lg text-white/65 leading-relaxed mb-10 max-w-lg max-lg:mx-auto"
             >
               Trouver un emploi, vendre, devenir influent, maîtriser l&apos;algorithme…
               Chaque guide a été conçu pour vous faire passer à l&apos;action et obtenir des résultats concrets.
@@ -72,7 +72,7 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="flex flex-col sm:flex-row gap-4 mb-12"
+              className="flex flex-col sm:flex-row gap-4 mb-12 max-lg:items-center"
             >
               <motion.a
                 href="#ebooks"
