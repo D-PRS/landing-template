@@ -51,16 +51,16 @@ const BeforeAfterSlider = memo(function BeforeAfterSlider() {
             className={`grid grid-cols-2 gap-3 transition-opacity duration-700 ease-in-out ${i === index ? 'relative opacity-100' : 'absolute inset-0 opacity-0 pointer-events-none'}`}
           >
             {/* Avant */}
-            <div className="relative rounded-2xl overflow-hidden border border-white/10">
+            <div className="relative rounded-2xl overflow-hidden border border-white/10 max-lg:aspect-[4/3]">
               <div className="absolute top-3 left-3 z-10 text-white text-xs font-bold px-3 py-1 rounded-full"
                 style={{ backgroundColor: 'rgba(0,13,38,0.88)', border: '1px solid rgba(255,255,255,0.15)' }}>Avant</div>
-              <Image src={pair.avant} alt="Profil avant optimisation" width={600} height={400} className="w-full h-32 object-cover lg:h-auto lg:object-contain" unoptimized />
+              <Image src={pair.avant} alt="Profil avant optimisation" width={600} height={400} className="w-full max-lg:absolute max-lg:inset-0 max-lg:h-full max-lg:object-cover lg:h-auto lg:object-contain" unoptimized />
             </div>
             {/* Après */}
-            <div className="relative rounded-2xl overflow-hidden border"
+            <div className="relative rounded-2xl overflow-hidden border max-lg:aspect-[4/3]"
               style={{ borderColor: 'rgba(5,221,225,0.3)', boxShadow: '0 0 20px rgba(5,221,225,0.08)' }}>
               <div className="absolute top-3 left-3 z-10 text-primary text-xs font-bold px-3 py-1 rounded-full" style={{ backgroundColor: '#05dde1' }}>Après</div>
-              <Image src={pair.apres} alt="Profil après optimisation" width={600} height={400} className="w-full h-32 object-cover lg:h-auto lg:object-contain" unoptimized />
+              <Image src={pair.apres} alt="Profil après optimisation" width={600} height={400} className="w-full max-lg:absolute max-lg:inset-0 max-lg:h-full max-lg:object-cover lg:h-auto lg:object-contain" unoptimized />
             </div>
           </div>
         ))}
