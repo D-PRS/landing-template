@@ -3,9 +3,10 @@
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 
+// 54/55/56 retirés = doublons exacts de 1/2/3
 const LOGOS = [
   '1', '2', '3', '42', '43', '44', '45', '46', '47', '48',
-  '49', '50', '51', '52', '53', '54', '55', '56',
+  '49', '50', '51', '52', '53',
 ]
 
 export default function LogoSlider() {
@@ -49,7 +50,7 @@ export default function LogoSlider() {
               alt={`Client ${logo}`}
               width={130}
               height={48}
-              className="max-h-12 lg:max-h-10 w-auto object-contain opacity-85 hover:opacity-100 transition-opacity"
+              className="max-h-12 lg:max-h-10 w-auto object-contain opacity-85 hover:opacity-100 transition-opacity max-lg:[filter:brightness(0)_invert(1)] max-lg:opacity-90"
               unoptimized
             />
           </div>
