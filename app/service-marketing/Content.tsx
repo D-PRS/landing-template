@@ -354,7 +354,7 @@ export default function ServiceMarketingContent() {
                     className={`relative z-10 overflow-hidden border border-secondary/20 ${i === 3 ? 'w-28 h-28 rounded-full' : 'w-full max-w-[160px] rounded-2xl'}`}
                     style={{ backgroundColor: i === 3 ? 'white' : 'rgba(5,221,225,0.04)' }}
                   >
-                    <Image src={step.img} alt={step.label} width={160} height={i === 3 ? 160 : 120} className={i === 3 ? 'w-full h-full object-contain scale-125' : 'w-full h-auto'} unoptimized />
+                    <Image src={step.img} alt={step.label} width={160} height={i === 3 ? 160 : 120} className={i === 3 ? 'w-full h-full object-contain scale-125' : 'w-full h-auto'} unoptimized loading="eager" />
                   </motion.div>
                 </div>
                 <p className="text-white font-bold text-sm mb-1">{step.label}</p>

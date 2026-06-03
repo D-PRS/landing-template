@@ -114,7 +114,7 @@ export default function HomepageHeroVisual() {
               <div className="overflow-hidden rounded-[32px]"
                 style={{ width: SCREEN_W, height: SCREEN_H }}>
                 <Image
-                  src="/linkedin-profile.png"
+                  src="/linkedin-profile.jpg"
                   alt="Profil LinkedIn"
                   width={SCREEN_W}
                   height={SCREEN_H}

@@ -52,6 +52,7 @@ export default function LogoSlider() {
               height={48}
               className="max-h-12 lg:max-h-10 w-auto object-contain opacity-85 hover:opacity-100 transition-opacity"
               unoptimized
+              loading="eager"
             />
           </div>
         ))}
