@@ -110,7 +110,10 @@ function BanniereScroll() {
   return (
     <div className="mt-8 space-y-3">
       <BanniereRow reverse={false} />
-      <BanniereRow reverse={true} />
+      {/* 2e ligne : mobile uniquement (PC reste à 1 ligne) */}
+      <div className="lg:hidden">
+        <BanniereRow reverse={true} />
+      </div>
     </div>
   )
 }
