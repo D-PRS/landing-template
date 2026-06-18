@@ -49,7 +49,9 @@ export default function CtaFinalSection() {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
             <motion.a
-              href="#ebooks"
+              href="https://www.provisual-academy.com"
+              target="_blank"
+              rel="noopener noreferrer"
               whileHover={{ scale: 1.05, boxShadow: '0 0 40px rgba(5,221,225,0.5)' }}
               whileTap={{ scale: 0.97 }}
               className="inline-flex items-center justify-center gap-3 bg-secondary text-primary font-black text-lg px-10 py-5 rounded-2xl shadow-glow hover:bg-tertiary transition-all duration-200"

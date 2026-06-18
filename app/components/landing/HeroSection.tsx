@@ -75,7 +75,9 @@ export default function HeroSection() {
               className="flex flex-col sm:flex-row gap-4 mb-12 max-lg:items-center"
             >
               <motion.a
-                href="#ebooks"
+                href="https://www.provisual-academy.com"
+                target="_blank"
+                rel="noopener noreferrer"
                 whileHover={{ scale: 1.03, boxShadow: '0 0 40px rgba(5,221,225,0.45)' }}
                 whileTap={{ scale: 0.97 }}
                 className="inline-flex items-center justify-center gap-2 bg-secondary text-primary font-black px-8 py-4 rounded-2xl text-base shadow-glow hover:bg-tertiary transition-all duration-200"
@@ -84,7 +86,9 @@ export default function HeroSection() {
                 <ArrowRight className="w-5 h-5" />
               </motion.a>
               <motion.a
-                href="/formations/algorithme-linkedin-2026"
+                href="https://www.provisual-academy.com"
+                target="_blank"
+                rel="noopener noreferrer"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.97 }}
                 className="inline-flex items-center justify-center gap-2 border border-white/20 text-white font-bold px-8 py-4 rounded-2xl text-base hover:bg-white/8 transition-all duration-200"
