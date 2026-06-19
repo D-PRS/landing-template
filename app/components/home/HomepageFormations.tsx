@@ -154,7 +154,7 @@ export default function HomepageFormations() {
             <h3 className="text-2xl font-black text-white mb-1">Accédez aux 4 formations sur l&apos;Academy</h3>
             <p className="text-white/60 text-sm">Pour 9,99€/mois — communauté, mises à jour permanentes et certificats inclus.</p>
           </div>
-          <a href="https://www.provisual-academy.com" target="_blank" rel="noopener noreferrer"
+          <a href="https://calendly.com/pro-visual/30-min-de-call-100-gratuit" target="_blank" rel="noopener noreferrer"
             className="flex-shrink-0 inline-flex items-center gap-2 bg-secondary text-primary font-black px-7 py-3.5 rounded-xl text-sm shadow-glow hover:bg-tertiary transition-colors whitespace-nowrap">
             En savoir plus <ArrowRight className="w-4 h-4" />
           </a>

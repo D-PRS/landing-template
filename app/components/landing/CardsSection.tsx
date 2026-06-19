@@ -143,7 +143,7 @@ export default function EbooksSection() {
             </p>
           </div>
           <a
-            href="https://www.provisual-academy.com"
+            href="https://calendly.com/pro-visual/30-min-de-call-100-gratuit"
             target="_blank"
             rel="noopener noreferrer"
             className="flex-shrink-0 inline-flex items-center gap-2 bg-secondary text-primary font-black px-7 py-3.5 rounded-xl text-sm shadow-glow hover:bg-tertiary transition-colors whitespace-nowrap"

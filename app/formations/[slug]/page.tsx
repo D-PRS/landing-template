@@ -289,7 +289,7 @@ function CtaCard({ formation }: { formation: Formation }) {
 
         {/* CTA */}
         <a
-          href="https://www.provisual-academy.com"
+          href="https://calendly.com/pro-visual/30-min-de-call-100-gratuit"
           target="_blank"
           rel="noopener noreferrer"
           className="w-full flex items-center justify-center gap-2 bg-secondary text-primary font-black text-base px-6 py-4 rounded-2xl shadow-glow hover:bg-tertiary transition-colors mb-3"
