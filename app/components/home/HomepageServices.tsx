@@ -110,7 +110,7 @@ function SectionMarketing() {
             <BannerRing radius={280} panelW={200} panelH={50} containerH={300} />
             {/* Avant/après remonté, presque collé à l'anneau */}
             <div className="-mt-14">
-              <p className="text-white/35 text-[10px] uppercase tracking-widest mb-2 text-center">Résultats réels — avant / après optimisation</p>
+              <p className="text-white/35 text-[10px] uppercase tracking-widest mb-2 text-center">Résultats réels : avant / après optimisation</p>
               <BeforeAfterMini />
             </div>
           </motion.div>
@@ -149,7 +149,7 @@ function SectionMarketing() {
             <div className="lg:hidden mt-4 mb-10">
               <BannerRing radius={165} panelW={128} panelH={32} containerH={190} bare />
               <div className="-mt-12">
-                <p className="text-white/35 text-[10px] uppercase tracking-widest mb-2 text-center">Résultats réels — avant / après optimisation</p>
+                <p className="text-white/35 text-[10px] uppercase tracking-widest mb-2 text-center">Résultats réels : avant / après optimisation</p>
                 <BeforeAfterMini />
               </div>
             </div>
@@ -364,7 +364,7 @@ function SectionFormation() {
               J&apos;interviens directement dans vos locaux pour former vos équipes à LinkedIn. Des ateliers pratiques en demi-journée, sur mesure.
             </p>
             <p className="text-white/35 text-sm italic mb-7">
-              ≠ Provisual Academy — indépendant de nos e-learnings en ligne.
+              Indépendant de ProVisual Academy, notre plateforme d&apos;e-books en ligne.
             </p>
 
             {/* Photo + popup — MOBILE uniquement (entre la phrase grise et la timeline) */}

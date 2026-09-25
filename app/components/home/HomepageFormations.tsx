@@ -6,6 +6,7 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Clock, BookOpen, Users, ChevronRight, Lock, Unlock, ArrowLeft, ArrowRight } from 'lucide-react'
 import { FORMATIONS, getNiveauLabel, getNiveauColor, formatApprenants, formatHeures } from '../../data/formations'
+import { ACADEMY_TARIFS_URL, CLASSE_MENSUEL_TEXTE, ESPACE_CLASSE, TOTAL_UNITES, euros } from '../../data/academy'
 
 const CARD_COLORS = ['#002060', '#003580', '#05dde1', '#05fbe1']
 
@@ -37,13 +38,13 @@ export default function HomepageFormations() {
               className="inline-block border border-secondary/30 text-secondary text-xs font-semibold px-4 py-1.5 rounded-full mb-5 uppercase tracking-widest"
               style={{ backgroundColor: 'rgba(5,221,225,0.08)' }}
             >
-              4 e-books
+              {FORMATIONS.length} e-books
             </span>
             <h2 className="text-4xl md:text-5xl font-black text-white">
               Nos <span className="gradient-text">e-books</span> LinkedIn
             </h2>
             <p className="text-white/55 text-lg mt-4 max-w-lg max-md:mx-auto">
-              Maîtrisez LinkedIn de A à Z avec des guides pratiques conçus pour donner des résultats concrets.
+              Quatre e-books à lire en ligne sur ProVisual Academy, conçus pour donner des résultats concrets. Le premier est gratuit.
             </p>
           </motion.div>
 
@@ -88,7 +89,7 @@ export default function HomepageFormations() {
                     </span>
                   ) : (
                     <span className="inline-flex items-center gap-1 bg-secondary text-primary text-xs font-bold px-2.5 py-1 rounded-full">
-                      <Lock className="w-3 h-3" /> ProVisual Academy
+                      <Lock className="w-3 h-3" /> {euros(formation.prix)}
                     </span>
                   )}
                   <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${getNiveauColor(formation.niveau)}`}>
@@ -151,12 +152,20 @@ export default function HomepageFormations() {
         >
           <div className="max-md:text-center">
             <p className="text-secondary text-xs font-semibold uppercase tracking-widest mb-2">ProVisual Academy</p>
-            <h3 className="text-2xl font-black text-white mb-1">Accédez aux 4 formations sur l&apos;Academy</h3>
-            <p className="text-white/60 text-sm">Pour 9,99€/mois — communauté, mises à jour permanentes et certificats inclus.</p>
+            <h3 className="text-2xl font-black text-white mb-1">Accédez aux {FORMATIONS.length} e-books avec l&apos;Espace Classe</h3>
+            <p className="text-white/60 text-sm">
+              Les {FORMATIONS.length - 1} e-books payants valent {euros(TOTAL_UNITES)} à l&apos;unité.
+              L&apos;Espace Classe les ouvre tous, avec la communauté, les mises à jour permanentes
+              et les certificats, pour {CLASSE_MENSUEL_TEXTE}.
+            </p>
+            <p className="text-white/40 text-xs mt-2">
+              Prélèvement le {ESPACE_CLASSE.jourPrelevement}er du mois, premier mois au prorata.
+              Engagement de {ESPACE_CLASSE.engagementMensualites} mois, puis résiliable à tout moment.
+            </p>
           </div>
-          <a href="https://calendly.com/pro-visual/30-min-de-call-100-gratuit" target="_blank" rel="noopener noreferrer"
+          <a href={ACADEMY_TARIFS_URL} target="_blank" rel="noopener noreferrer"
             className="flex-shrink-0 inline-flex items-center gap-2 bg-secondary text-primary font-black px-7 py-3.5 rounded-xl text-sm shadow-glow hover:bg-tertiary transition-colors whitespace-nowrap">
-            En savoir plus <ArrowRight className="w-4 h-4" />
+            Voir les tarifs <ArrowRight className="w-4 h-4" />
           </a>
         </motion.div>
       </div>
