@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
+import { FORMATION_GRATUITE } from '../../data/formations'
 
 export default function HeroSection() {
   return (
@@ -36,8 +37,9 @@ export default function HeroSection() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="text-lg text-white/65 leading-relaxed mb-10 max-w-lg max-lg:mx-auto"
             >
-              Trouver un emploi, vendre, devenir influent, maîtriser l&apos;algorithme…
-              Chaque guide a été conçu pour vous faire passer à l&apos;action et obtenir des résultats concrets.
+              Les bases, la vente, la recherche d&apos;emploi, l&apos;influence : quatre e-books conçus
+              pour vous faire passer à l&apos;action et obtenir des résultats concrets sur LinkedIn.
+              Le premier est gratuit.
             </motion.p>
 
             {/* Vidéo YouTube — mobile uniquement (la version desktop est dans la colonne de droite) */}
@@ -84,12 +86,12 @@ export default function HeroSection() {
                 <ArrowRight className="w-5 h-5" />
               </motion.a>
               <motion.a
-                href="/formations/algorithme-linkedin-2026"
+                href={`/formations/${FORMATION_GRATUITE.slug}`}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.97 }}
                 className="inline-flex items-center justify-center gap-2 border border-white/20 text-white font-bold px-8 py-4 rounded-2xl text-base hover:bg-white/8 transition-all duration-200"
               >
-                Débloquer votre E-book gratuit
+                Lire l&apos;e-book gratuit
               </motion.a>
             </motion.div>
 

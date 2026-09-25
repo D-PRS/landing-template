@@ -18,7 +18,14 @@ function Stars({ n }: { n: number }) {
   )
 }
 
-export default function TemoignagesSection() {
+interface TemoignagesSectionProps {
+  /** Phrase sous le titre ; la page E-books y met les chiffres de ProVisual Academy. */
+  sousTitre?: string
+}
+
+export default function TemoignagesSection({
+  sousTitre = '95% de clients satisfaits. Voici ce qu\'ils disent.',
+}: TemoignagesSectionProps) {
   const [current, setCurrent] = useState(0)
   const [auto, setAuto] = useState(true)
   const timer = useRef<ReturnType<typeof setInterval> | undefined>(undefined)
@@ -58,7 +65,7 @@ export default function TemoignagesSection() {
             <span className="gradient-text">notre priorité</span>
           </h2>
           <p className="text-lg text-white/55 max-w-xl mx-auto">
-            95% de clients satisfaits. Voici ce qu&apos;ils disent.
+            {sousTitre}
           </p>
         </motion.div>
 

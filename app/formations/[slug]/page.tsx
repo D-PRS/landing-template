@@ -3,14 +3,18 @@ import Image from 'next/image'
 import Link from 'next/link'
 import type { Metadata } from 'next'
 import {
-  Clock, BookOpen, Users, Star, Check, ArrowRight,
-  Shield, Briefcase, Rocket, Target, Calendar,
+  Clock, BookOpen, Users, Star, Check, ArrowRight, ArrowLeft,
+  Shield, Briefcase, Rocket, Target, Compass,
 } from 'lucide-react'
 import {
-  FORMATIONS, CE_QUE_VOUS_APPRENDREZ, FORMATEUR,
-  getNiveauLabel, getNiveauColor, formatApprenants,
+  FORMATIONS, CE_QUE_VOUS_APPRENDREZ, FORMATEUR, FORMATION_GRATUITE,
+  getNiveauLabel, getNiveauColor, formatApprenants, formatHeures,
   type Formation,
 } from '../../data/formations'
+import {
+  ACADEMY_CLASSE_URL, CLASSE_MENSUEL_TEXTE, ESPACE_CLASSE, STATS_ACADEMY,
+  academyCheckoutUrl, academyFormationUrl, euros,
+} from '../../data/academy'
 import AccordionProgramme from './AccordionProgramme'
 
 interface Props {
@@ -26,17 +30,64 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const formation = FORMATIONS.find(f => f.slug === slug)
   if (!formation) return {}
   return {
-    title: `${formation.titre} — ProVisual`,
+    title: `${formation.titre} | Provisual`,
     description: formation.description,
+    alternates: { canonical: `/formations/${formation.slug}` },
   }
 }
+
+/** Logo LinkedIn : lucide-react ne fournit plus les icônes de marques. */
+function IconeLinkedin({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className={className}>
+      <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z" />
+    </svg>
+  )
+}
+
+const POUR_QUI_BASES = [
+  {
+    icon: <Compass className="w-7 h-7 text-secondary" />,
+    titre: 'Vous débutez sur LinkedIn',
+    desc: 'Profil vide ou inactif : vous partez des fondations, pas de la théorie',
+  },
+  {
+    icon: <Briefcase className="w-7 h-7 text-secondary" />,
+    titre: 'Étudiants et candidats',
+    desc: 'Pour être trouvé par les recruteurs et montrer ce que vous savez faire',
+  },
+  {
+    icon: <Rocket className="w-7 h-7 text-secondary" />,
+    titre: 'Indépendants et dirigeants',
+    desc: 'Pour attirer des clients ou construire une audience dans votre secteur',
+  },
+]
+
+const POUR_QUI_DEFAUT = [
+  {
+    icon: <Briefcase className="w-7 h-7 text-secondary" />,
+    titre: 'Professionnels en entreprise',
+    desc: 'Qui veulent booster leur personal brand et visibilité professionnelle',
+  },
+  {
+    icon: <Rocket className="w-7 h-7 text-secondary" />,
+    titre: 'Freelances & Consultants',
+    desc: 'Qui cherchent à générer des leads et clients via LinkedIn',
+  },
+  {
+    icon: <Target className="w-7 h-7 text-secondary" />,
+    titre: 'Dirigeants & Managers',
+    desc: 'Qui souhaitent renforcer leur leadership et influence dans leur secteur',
+  },
+]
 
 export default async function FormationPage({ params }: Props) {
   const { slug } = await params
   const formation = FORMATIONS.find(f => f.slug === slug)
   if (!formation) notFound()
 
-  const apprendres = CE_QUE_VOUS_APPRENDREZ[slug] ?? CE_QUE_VOUS_APPRENDREZ['algorithme-linkedin-2026']
+  const apprendres = CE_QUE_VOUS_APPRENDREZ[slug] ?? CE_QUE_VOUS_APPRENDREZ[FORMATION_GRATUITE.slug]
+  const pourQui = formation.est_gratuite ? POUR_QUI_BASES : POUR_QUI_DEFAUT
 
   return (
     <div className="min-h-screen overflow-x-hidden" style={{ backgroundColor: '#001340' }}>
@@ -56,10 +107,11 @@ export default async function FormationPage({ params }: Props) {
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Link
-            href="/"
+            href="/e-books"
             className="inline-flex items-center gap-2 text-white/50 text-sm hover:text-white transition-colors mb-8"
           >
-            ← Retour à l&apos;accueil
+            <ArrowLeft className="w-4 h-4" />
+            Retour aux e-books
           </Link>
 
           <div className="max-w-3xl">
@@ -72,7 +124,7 @@ export default async function FormationPage({ params }: Props) {
               ) : (
                 <span className="border border-secondary/30 text-secondary text-xs font-semibold px-2.5 py-1 rounded-full"
                   style={{ backgroundColor: 'rgba(5,221,225,0.08)' }}>
-                  ProVisual Academy
+                  Inclus Espace Classe
                 </span>
               )}
             </div>
@@ -87,7 +139,7 @@ export default async function FormationPage({ params }: Props) {
             <div className="flex flex-wrap items-center gap-4 text-sm text-white/60">
               <div className="flex items-center gap-1.5">
                 <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
-                <span className="text-white font-semibold">4.9</span>
+                <span className="text-white font-semibold">{STATS_ACADEMY.note_moyenne}/5</span>
                 <span>({formatApprenants(formation.nombre_apprenants)} avis)</span>
               </div>
               <div className="flex items-center gap-1.5">
@@ -96,7 +148,7 @@ export default async function FormationPage({ params }: Props) {
               </div>
               <div className="flex items-center gap-1.5">
                 <Clock className="w-4 h-4" />
-                <span>{formation.duree_estimee_heures}h de contenu</span>
+                <span>{formatHeures(formation.duree_estimee_heures)} de contenu</span>
               </div>
               <div className="flex items-center gap-1.5">
                 <BookOpen className="w-4 h-4" />
@@ -116,7 +168,7 @@ export default async function FormationPage({ params }: Props) {
 
             {/* Vidéo */}
             <div>
-              <h2 className="text-2xl font-black text-white mb-4">Présentation de la formation</h2>
+              <h2 className="text-2xl font-black text-white mb-4">Présentation de l&apos;e-book</h2>
               <div
                 className="rounded-2xl overflow-hidden border"
                 style={{ borderColor: 'rgba(255,255,255,0.08)' }}
@@ -158,31 +210,15 @@ export default async function FormationPage({ params }: Props) {
 
             {/* Programme */}
             <div>
-              <h2 className="text-2xl font-black text-white mb-6">Programme de la formation</h2>
+              <h2 className="text-2xl font-black text-white mb-6">Programme de l&apos;e-book</h2>
               <AccordionProgramme chapitres={formation.chapitres} />
             </div>
 
             {/* Pour qui */}
             <div>
-              <h2 className="text-2xl font-black text-white mb-6">Pour qui est cette formation ?</h2>
+              <h2 className="text-2xl font-black text-white mb-6">Pour qui est cet e-book ?</h2>
               <div className="grid sm:grid-cols-3 gap-4">
-                {[
-                  {
-                    icon: <Briefcase className="w-7 h-7 text-secondary" />,
-                    titre: 'Professionnels en entreprise',
-                    desc: 'Qui veulent booster leur personal brand et visibilité professionnelle',
-                  },
-                  {
-                    icon: <Rocket className="w-7 h-7 text-secondary" />,
-                    titre: 'Freelances & Consultants',
-                    desc: 'Qui cherchent à générer des leads et clients via LinkedIn',
-                  },
-                  {
-                    icon: <Target className="w-7 h-7 text-secondary" />,
-                    titre: 'Dirigeants & Managers',
-                    desc: 'Qui souhaitent renforcer leur leadership et influence dans leur secteur',
-                  },
-                ].map((p, i) => (
+                {pourQui.map((p, i) => (
                   <div
                     key={i}
                     className="rounded-2xl p-5 text-center border"
@@ -218,9 +254,21 @@ export default async function FormationPage({ params }: Props) {
                   unoptimized
                 />
                 <div className="min-w-0 flex-1">
-                  <h3 className="font-black text-white text-lg sm:text-xl">
-                    {FORMATEUR.prenom} {FORMATEUR.nom}
-                  </h3>
+                  <div className="flex items-center gap-2">
+                    <h3 className="font-black text-white text-lg sm:text-xl">
+                      {FORMATEUR.prenom} {FORMATEUR.nom}
+                    </h3>
+                    <a
+                      href={FORMATEUR.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`Profil LinkedIn de ${FORMATEUR.prenom} ${FORMATEUR.nom}`}
+                      className="w-7 h-7 rounded-lg border border-white/10 flex items-center justify-center text-white/70 hover:text-secondary hover:border-secondary/40 transition-colors"
+                      style={{ backgroundColor: 'rgba(255,255,255,0.06)' }}
+                    >
+                      <IconeLinkedin className="w-3.5 h-3.5" />
+                    </a>
+                  </div>
                   <p className="text-secondary text-sm mb-3">{FORMATEUR.titre}</p>
                   <div className="flex flex-wrap gap-3 text-sm text-white/45 mb-3">
                     <span className="flex items-center gap-1">
@@ -233,7 +281,7 @@ export default async function FormationPage({ params }: Props) {
                     </span>
                     <span className="flex items-center gap-1">
                       <BookOpen className="w-3.5 h-3.5" />
-                      {FORMATEUR.formations} formations
+                      {FORMATEUR.formations} e-books
                     </span>
                   </div>
                   <p className="text-white/55 text-sm leading-relaxed">{FORMATEUR.bio}</p>
@@ -254,7 +302,18 @@ export default async function FormationPage({ params }: Props) {
   )
 }
 
+const BOUTON_PRINCIPAL = 'w-full flex items-center justify-center gap-2 bg-secondary text-primary font-black text-base px-6 py-4 rounded-2xl shadow-glow hover:bg-tertiary transition-colors'
+const BOUTON_SECONDAIRE = 'w-full flex items-center justify-center gap-2 border border-white/20 text-white font-bold text-sm px-6 py-3 rounded-2xl hover:bg-white/8 transition-colors'
+
 function CtaCard({ formation }: { formation: Formation }) {
+  const inclus = [
+    { icon: <BookOpen className="w-4 h-4" />, text: `${formation.nombre_chapitres} chapitre${formation.nombre_chapitres > 1 ? 's' : ''} complet${formation.nombre_chapitres > 1 ? 's' : ''}` },
+    { icon: <Clock className="w-4 h-4" />, text: `${formatHeures(formation.duree_estimee_heures)} de contenu` },
+    { icon: <Users className="w-4 h-4" />, text: `${formatApprenants(formation.nombre_apprenants)} apprenants` },
+    { icon: <Check className="w-4 h-4" />, text: 'Quiz de validation inclus' },
+    { icon: <Check className="w-4 h-4" />, text: 'Certificat de complétion' },
+  ]
+
   return (
     <div
       className="rounded-3xl overflow-hidden border"
@@ -280,38 +339,57 @@ function CtaCard({ formation }: { formation: Formation }) {
         {/* Prix */}
         <div className="flex items-baseline gap-2 mb-4">
           <span className="text-4xl font-black text-white">
-            {formation.est_gratuite ? 'Gratuit' : `${formation.prix}€`}
+            {formation.est_gratuite ? 'Gratuit' : euros(formation.prix)}
           </span>
           {!formation.est_gratuite && (
-            <span className="text-white/35 text-sm line-through">81€</span>
+            <span className="text-white/35 text-sm">paiement unique · accès à vie</span>
           )}
         </div>
 
         {/* CTA */}
-        <a
-          href="https://calendly.com/pro-visual/30-min-de-call-100-gratuit"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="w-full flex items-center justify-center gap-2 bg-secondary text-primary font-black text-base px-6 py-4 rounded-2xl shadow-glow hover:bg-tertiary transition-colors mb-3"
-        >
-          <Calendar className="w-4 h-4" />
-          {formation.est_gratuite ? 'Commencer gratuitement' : 'Accéder à la formation'}
-        </a>
-        {!formation.est_gratuite && (
-          <p className="text-center text-xs text-white/35 mb-4">
-            Ou tout inclus avec l'Espace Classe à 9,99€/mois
-          </p>
+        {formation.est_gratuite ? (
+          <>
+            <a
+              href={academyFormationUrl(formation.slug)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`${BOUTON_PRINCIPAL} mb-3`}
+            >
+              Commencer gratuitement
+              <ArrowRight className="w-4 h-4" />
+            </a>
+            <p className="text-center text-xs text-white/35 mb-4">
+              Sans carte bancaire. Un compte gratuit sur ProVisual Academy suffit.
+            </p>
+          </>
+        ) : (
+          <div className="space-y-2 mb-4">
+            <a
+              href={ACADEMY_CLASSE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={BOUTON_PRINCIPAL}
+            >
+              Accéder avec l&apos;Espace Classe · {CLASSE_MENSUEL_TEXTE}
+            </a>
+            <a
+              href={academyCheckoutUrl(formation.slug)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={BOUTON_SECONDAIRE}
+            >
+              Acheter à l&apos;unité · {euros(formation.prix)}
+            </a>
+            <p className="text-center text-xs text-white/35 pt-1">
+              L&apos;Espace Classe ouvre les {FORMATIONS.length} e-books. Prélèvement le {ESPACE_CLASSE.jourPrelevement}er du mois,
+              engagement de {ESPACE_CLASSE.engagementMensualites} mois puis résiliable à tout moment.
+            </p>
+          </div>
         )}
 
         {/* Includes */}
         <div className="space-y-2 mb-5">
-          {[
-            { icon: <BookOpen className="w-4 h-4" />, text: `${formation.nombre_chapitres} chapitre${formation.nombre_chapitres > 1 ? 's' : ''} complet${formation.nombre_chapitres > 1 ? 's' : ''}` },
-            { icon: <Clock className="w-4 h-4" />, text: `${formation.duree_estimee_heures}h de contenu` },
-            { icon: <Users className="w-4 h-4" />, text: `${formatApprenants(formation.nombre_apprenants)} apprenants` },
-            { icon: <Check className="w-4 h-4" />, text: 'Quiz de validation inclus' },
-            { icon: <Check className="w-4 h-4" />, text: 'Certificat de complétion' },
-          ].map((item, i) => (
+          {inclus.map((item, i) => (
             <div key={i} className="flex items-center gap-2 text-sm text-white/55">
               <span className="text-secondary">{item.icon}</span>
               {item.text}
@@ -319,7 +397,7 @@ function CtaCard({ formation }: { formation: Formation }) {
           ))}
         </div>
 
-        {/* Garantie */}
+        {/* Réassurance */}
         <div
           className="p-4 rounded-2xl border flex items-start gap-3"
           style={{
@@ -329,9 +407,13 @@ function CtaCard({ formation }: { formation: Formation }) {
         >
           <Shield className="w-5 h-5 text-secondary flex-shrink-0 mt-0.5" />
           <div>
-            <p className="font-semibold text-white text-sm">Garantie 30 jours</p>
+            <p className="font-semibold text-white text-sm">
+              {formation.est_gratuite ? 'Accès immédiat' : 'Paiement sécurisé par Stripe'}
+            </p>
             <p className="text-white/45 text-xs mt-0.5">
-              Pas satisfait ? Remboursé intégralement, sans question.
+              {formation.est_gratuite
+                ? "L'e-book se lit en ligne sur ProVisual Academy, avec le quiz et le suivi de votre progression."
+                : "Contenu numérique fourni immédiatement après le paiement. L'e-book gratuit permet d'évaluer la méthode avant tout achat."}
             </p>
           </div>
         </div>

@@ -43,8 +43,8 @@ export default function CtaFinalSection() {
           </h2>
 
           <p className="text-xl text-white/60 mb-12 max-w-2xl mx-auto leading-relaxed">
-            Téléchargez nos e-books ou réservez un appel gratuit de 30 minutes
-            avec notre équipe pour définir votre stratégie LinkedIn.
+            Commencez par l&apos;e-book gratuit Les bases de LinkedIn, ou réservez un appel gratuit
+            de 30 minutes avec notre équipe pour définir votre stratégie LinkedIn.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">

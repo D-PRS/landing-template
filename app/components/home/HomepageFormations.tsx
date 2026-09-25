@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Clock, BookOpen, Users, ChevronRight, Lock, Unlock, ArrowLeft, ArrowRight } from 'lucide-react'
-import { FORMATIONS, getNiveauLabel, getNiveauColor, formatApprenants } from '../../data/formations'
+import { FORMATIONS, getNiveauLabel, getNiveauColor, formatApprenants, formatHeures } from '../../data/formations'
 
 const CARD_COLORS = ['#002060', '#003580', '#05dde1', '#05fbe1']
 
@@ -109,7 +109,7 @@ export default function HomepageFormations() {
                     </div>
                     <div className="flex items-center gap-2">
                       <Clock className="w-4 h-4 text-secondary" />
-                      <span>{formation.duree_estimee_heures}h de contenu</span>
+                      <span>{formatHeures(formation.duree_estimee_heures)} de contenu</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <Users className="w-4 h-4 text-secondary" />

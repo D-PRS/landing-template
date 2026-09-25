@@ -5,6 +5,13 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronDown, Clock, Play } from 'lucide-react'
 import type { ChapitreFormation } from '../../data/formations'
 
+function formatMinutes(total: number): string {
+  const h = Math.floor(total / 60)
+  const m = total % 60
+  if (h === 0) return `${m}min`
+  return m > 0 ? `${h}h${String(m).padStart(2, '0')}` : `${h}h`
+}
+
 export default function AccordionProgramme({ chapitres }: { chapitres: ChapitreFormation[] }) {
   const [open, setOpen] = useState<Set<string>>(new Set([chapitres[0]?.id]))
 
@@ -22,25 +29,22 @@ export default function AccordionProgramme({ chapitres }: { chapitres: ChapitreF
     (s, ch) => s + ch.modules.reduce((ms, m) => ms + m.duree_minutes, 0),
     0,
   )
-  const heures = Math.floor(totalMinutes / 60)
-  const minutes = totalMinutes % 60
+  // L'introduction n'est pas numérotée ; les chapitres suivants le sont dans l'ordre.
+  const numerotes = chapitres.filter(ch => !ch.est_introduction)
 
   return (
     <div>
       <div className="flex items-center gap-4 text-sm text-white/40 mb-4">
-        <span>{chapitres.length} chapitre{chapitres.length > 1 ? 's' : ''}</span>
+        <span>{totalModules} parties</span>
         <span>·</span>
-        <span>{totalModules} modules</span>
-        <span>·</span>
-        <span>{heures}h{minutes > 0 ? `${minutes}min` : ''} de contenu</span>
+        <span>{formatMinutes(totalMinutes)} de lecture</span>
       </div>
 
       <div className="space-y-2">
-        {chapitres.map((ch, idx) => {
+        {chapitres.map((ch) => {
           const isOpen = open.has(ch.id)
           const chapMinutes = ch.modules.reduce((s, m) => s + m.duree_minutes, 0)
-          const chH = Math.floor(chapMinutes / 60)
-          const chM = chapMinutes % 60
+          const numero = ch.est_introduction ? null : numerotes.indexOf(ch) + 1
 
           return (
             <div
@@ -58,12 +62,14 @@ export default function AccordionProgramme({ chapitres }: { chapitres: ChapitreF
                     className="w-6 h-6 rounded-full text-primary text-xs flex items-center justify-center font-bold flex-shrink-0 mt-0.5"
                     style={{ backgroundColor: '#05dde1' }}
                   >
-                    {idx + 1}
+                    {numero ?? '•'}
                   </span>
                   <div>
-                    <h4 className="font-bold text-white text-sm">{ch.titre}</h4>
+                    <h4 className="font-bold text-white text-sm">
+                      {numero ? `Chapitre ${numero} : ${ch.titre}` : ch.titre}
+                    </h4>
                     <p className="text-white/40 text-xs mt-0.5">
-                      {ch.modules.length} modules · {chH > 0 ? `${chH}h` : ''}{chM > 0 ? `${chM}min` : ''}
+                      {ch.modules.length} partie{ch.modules.length > 1 ? 's' : ''} · {formatMinutes(chapMinutes)}
                     </p>
                   </div>
                 </div>
