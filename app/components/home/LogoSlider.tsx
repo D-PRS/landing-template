@@ -47,11 +47,14 @@ export default function LogoSlider() {
               maskImage: 'linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent)',
             }}
           >
-            {/* La piste est doublée et remplie d'un écart final : un tour = exactement une liste, sans saut. */}
+            {/* La piste est doublée et remplie d'un écart final : un tour = exactement une liste, sans saut.
+                Pas de contre-rotation sur la piste : avec Tailwind v4 elle s'appliquerait vraiment et,
+                sur 6 400 px de large, ferait sortir les logos de la bande (sur l'academy, en Tailwind v3,
+                framer-motion l'écrasait). Les logos suivent donc l'inclinaison de la capsule, comme là-bas. */}
             <motion.div
               animate={{ x: ['0%', '-50%'] }}
               transition={{ duration: 34, repeat: Infinity, ease: 'linear' }}
-              className="flex gap-10 sm:gap-14 pr-10 sm:pr-14 items-center rotate-[1.5deg]"
+              className="flex gap-10 sm:gap-14 pr-10 sm:pr-14 items-center"
               style={{ width: 'max-content' }}
             >
               {[...CLIENT_LOGOS, ...CLIENT_LOGOS].map((logo, i) => (
