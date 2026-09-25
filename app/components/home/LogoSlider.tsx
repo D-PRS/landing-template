@@ -3,11 +3,17 @@
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 
-// 54/55/56 retirés = doublons exacts de 1/2/3
+// 54/55/56 retirés = doublons exacts de 1/2/3.
+// 3 retiré = ALL-IN sans fond, illisible sur fond sombre (51 est la version avec fond blanc).
 const LOGOS = [
-  '1', '2', '3', '42', '43', '44', '45', '46', '47', '48',
-  '49', '50', '51', '52', '53',
+  '1', '2', '42', '43', '44', '45', '46', '47', '48',
+  '49', '50', '51', '52', '53', 'infastor', 'swisssafecomply',
 ]
+
+const NOMS: Record<string, string> = {
+  infastor: 'Infastor',
+  swisssafecomply: 'SwissSafeComply',
+}
 
 export default function LogoSlider() {
   const triple = [...LOGOS, ...LOGOS, ...LOGOS]
@@ -47,7 +53,7 @@ export default function LogoSlider() {
           >
             <Image
               src={`/logos-clients/${logo}.png`}
-              alt={`Client ${logo}`}
+              alt={NOMS[logo] ?? `Client ${logo}`}
               width={130}
               height={48}
               className="max-h-12 lg:max-h-10 w-auto object-contain opacity-85 hover:opacity-100 transition-opacity"
