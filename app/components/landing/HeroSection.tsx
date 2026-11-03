@@ -1,7 +1,8 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { ArrowRight } from 'lucide-react'
+import { useRef, useState } from 'react'
+import { ArrowRight, Play } from 'lucide-react'
 import { FORMATION_GRATUITE } from '../../data/formations'
 
 export default function HeroSection() {
@@ -42,7 +43,7 @@ export default function HeroSection() {
               Le premier est gratuit.
             </motion.p>
 
-            {/* Vidéo YouTube — mobile uniquement (la version desktop est dans la colonne de droite) */}
+            {/* Vidéo de présentation, mobile uniquement (la version desktop est dans la colonne de droite) */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -58,15 +59,7 @@ export default function HeroSection() {
                   background: '#000',
                 }}
               >
-                <div style={{ position: 'relative', paddingBottom: '177.78%' }}>
-                  <iframe
-                    src="https://www.youtube.com/embed/RTr9QRcWynw?rel=0&modestbranding=1"
-                    title="ProVisual Academy"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 0 }}
-                  />
-                </div>
+                <VideoPresentation />
               </div>
             </motion.div>
 
@@ -120,20 +113,53 @@ export default function HeroSection() {
                   background: '#000',
                 }}
               >
-                <div style={{ position: 'relative', paddingBottom: '177.78%' }}>
-                  <iframe
-                    src="https://www.youtube.com/embed/RTr9QRcWynw?rel=0&modestbranding=1"
-                    title="ProVisual Academy"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 0 }}
-                  />
-                </div>
+                <VideoPresentation />
               </div>
             </div>
           </motion.div>
         </div>
       </div>
     </section>
+  )
+}
+
+/** Vidéo de présentation verticale (9:16) : miniature ProVisual Academy avec bouton de lecture, puis lecture avec le son. */
+function VideoPresentation() {
+  const ref = useRef<HTMLVideoElement>(null)
+  const [lancee, setLancee] = useState(false)
+
+  const lancer = () => {
+    const video = ref.current
+    if (!video) return
+    video.play().catch(() => {})
+    setLancee(true)
+  }
+
+  return (
+    <div style={{ position: 'relative', paddingBottom: '177.78%' }}>
+      <video
+        ref={ref}
+        src="/videos/video-presentation.mp4"
+        poster="/videos/video-presentation.jpg"
+        playsInline
+        controls={lancee}
+        preload="metadata"
+        onPlay={() => setLancee(true)}
+        aria-label="Vidéo de présentation de ProVisual Academy"
+        style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+      />
+      {!lancee && (
+        <button
+          type="button"
+          onClick={lancer}
+          aria-label="Lancer la vidéo de présentation"
+          className="absolute inset-0 group"
+        >
+          <span className="absolute left-1/2 top-[74%] -translate-x-1/2 -translate-y-1/2 w-16 h-16 rounded-full bg-secondary text-primary flex items-center justify-center shadow-glow-lg transition-transform duration-200 group-hover:scale-110">
+            <Play className="w-7 h-7 ml-1 fill-current" />
+          </span>
+        </button>
+      )}
+    </div>
   )
 }
